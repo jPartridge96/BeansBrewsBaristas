@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.VisualBasic.Devices;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace BeansBrewsBaristas
             _soundLibrary = new Dictionary<string, SoundEffect>()
             {
                 //{"Brewing", LoadSound("brewing") }
+                {"menuTheme", LoadSound("menuTheme") }
             };
         }
 
@@ -27,12 +29,13 @@ namespace BeansBrewsBaristas
 
         public SoundEffect LoadSound(string filePath)
         {
-            return Global.GameManager.Content.Load<SoundEffect>($"sounds/{filePath}");
+            return Global.GameManager.Content.Load<SoundEffect>($"Music/{filePath}");
         }
 
         public void PlaySound(string sound)
         {
             _soundLibrary.TryGetValue(sound, out SoundEffect soundEffect);
+            
             soundEffect.Play();
         }
 
