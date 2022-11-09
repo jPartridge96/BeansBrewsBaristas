@@ -17,10 +17,10 @@ namespace BeansBrewsBaristas
         public override void Update(GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
-            KeyboardState kbState = Keyboard.GetState();
+            KeyboardState newKbState = Keyboard.GetState();
 
             // Keyboard Input
-            foreach(Keys keyPressed in kbState.GetPressedKeys())
+            foreach(Keys keyPressed in newKbState.GetPressedKeys())
             {
                 switch (keyPressed)
                 {
@@ -35,7 +35,7 @@ namespace BeansBrewsBaristas
                 case ButtonState.Pressed:
                     break;
                 case ButtonState.Released:
-                    break;
+                    break; 
             }
 
             // Right click Input
@@ -54,5 +54,6 @@ namespace BeansBrewsBaristas
         {
 
         }
+        KeyboardState _prevKbState;
     }
 }

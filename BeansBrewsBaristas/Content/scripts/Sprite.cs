@@ -5,17 +5,12 @@ namespace BeansBrewsBaristas.Content.scripts
 {
     public class Sprite : DrawableGameComponent
     {
-        public SpriteBatch SpriteBatch { get; set; }
+        public SpriteBatch SpriteBatch { get => Global.SpriteBatch; }
         public Vector2 Position { get; set; }
         public Texture2D Texture { get; set; }
 
-        public Sprite(Game game,
-            SpriteBatch spriteBatch,
-            Vector2 position,
-            Texture2D texture = null) : 
-            base(game)
+        public Sprite(Vector2 position, Texture2D texture) : base(Global.GameManager)
         {
-            SpriteBatch = spriteBatch;
             Position = position;
             Texture = texture;
         }
@@ -26,9 +21,12 @@ namespace BeansBrewsBaristas.Content.scripts
         /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Begin();
-            SpriteBatch.Draw(Texture, Position, Color.White);
-            SpriteBatch.End();
+            if (Texture != null)
+            {
+                SpriteBatch.Begin();
+                SpriteBatch.Draw(Texture, Position, Color.White);
+                SpriteBatch.End();
+            }
 
             base.Draw(gameTime);
         }
