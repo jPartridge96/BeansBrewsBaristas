@@ -16,6 +16,7 @@ namespace BeansBrewsBaristas
     {
         // Managers
         public static GameManager GameManager { get; set; }
+        public static SceneManager SceneManager { get; set; }
         public static AudioManager AudioManager { get; set; }
 
         // GameManager Properties
