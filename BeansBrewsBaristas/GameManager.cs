@@ -26,13 +26,14 @@ namespace BeansBrewsBaristas
         SpriteBatch _spriteBatch;
 
         //setting up the first rectangle and ball texture to see if i can get it to spawn within bounds of rectangle
-        Rectangle customerSpawn;
+        public static Rectangle customerSpawn;
         Sprite ball;
         Texture2D ballTex;
         int randomX;
         int randomY;
         Vector2 spawnPos;
-        int customerCounter = 300;//5 seconds?
+
+        private Customer customer; 
 
 
 
@@ -67,14 +68,19 @@ namespace BeansBrewsBaristas
             Global.AudioManager.PlaySound("MenuTheme");
             Global.SceneManager.LoadScene("Level1");
 
-            #region Testing spawn stuff
+
+            #region Graphics device and customer spawn region
             //here temporarily just to draw the outline rectangle to practice ***TESTING***
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             //create the rectangle
             customerSpawn = new Rectangle(0, (int)Global.Stage.Y / 3, 100, 200);
+            #endregion
+            #region Ball texture (for testing), random range stuff for testing customer spawn
+            //just a random texture to represent a ball right now
             ballTex = this.Content.Load<Texture2D>("Images/ball (1)");
-            //generate random number for x
+            //random to use for generating random numbers for customer 
             Random rnd = new Random();
+            //generate random number for x
             for (int i = 0; i < 1; i++)
             {
                 randomX = rnd.Next(customerSpawn.Width);
@@ -84,13 +90,13 @@ namespace BeansBrewsBaristas
             {
                 randomY = rnd.Next(customerSpawn.Height);
             }
-            //create ball ***TESTING***
+            //spawn position for the customer (i want to move this to customer class)
             spawnPos = new Vector2(0, randomY);
-            ball = new Sprite(spawnPos, ballTex); 
+            customer = new Customer(new Vector2(0, randomY), ballTex, 300); 
             #endregion
 
             this.Components.Add(new InputManager(this));
-            this.Components.Add(ball);
+            this.Components.Add(customer);
             
         }
         #region Rectangle Drawing tool
@@ -108,15 +114,9 @@ namespace BeansBrewsBaristas
 
         protected override void Update(GameTime gameTime)
         {
+            
             #region Testing Customer walking
-            //timing down until customer can move
-            customerCounter--;
-            //check to see ball position if its less than the customer spawn box and its timer is less than 0 move to order screen
-            //in the future potentially if the line is full just move to line and add to list then start patience timer.
-            if (ball.Position.Y < customerSpawn.Bottom && customerCounter <= 0)
-            {
-                ball.Position += new Vector2(ball.Position.X, 2);
-            } 
+            customer.Update(gameTime);
             #endregion
             base.Update(gameTime);
         }
