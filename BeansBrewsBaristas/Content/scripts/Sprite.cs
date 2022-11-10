@@ -8,13 +8,15 @@ namespace BeansBrewsBaristas.Content.scripts
         public SpriteBatch SpriteBatch { get => Global.SpriteBatch; }
         public Vector2 Position { get; set; }
         public Texture2D Texture { get; set; }
-        public Color color { get; set; }
+        public Color? SpriteColor { get; set; }
 
-        public Sprite(Vector2 position, Texture2D texture, Color color) : base(Global.GameManager)
+        public Sprite(Vector2 position, 
+            Texture2D texture,
+            Color? color) : base(Global.GameManager)
         {
             Position = position;
             Texture = texture;
-            this.color = color;
+            SpriteColor = color;
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace BeansBrewsBaristas.Content.scripts
             if (Texture != null)
             {
                 SpriteBatch.Begin();
-                SpriteBatch.Draw(Texture, Position, color);
+                SpriteBatch.Draw(Texture, Position, SpriteColor ?? Color.White);
                 SpriteBatch.End();
             }
 

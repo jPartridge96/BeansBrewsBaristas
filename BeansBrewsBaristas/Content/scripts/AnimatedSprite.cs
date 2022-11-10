@@ -14,7 +14,9 @@ namespace BeansBrewsBaristas.Content.scripts
         public int SampleRate { get; set; } // How fast should frames be switching?
         public bool IsAnimating { get; set; } // Currently animating?
 
-        public AnimatedSprite(Vector2 position, Texture2D texture, Color color) : base(position, texture, color)
+        public AnimatedSprite(Vector2 position, 
+            Texture2D texture, 
+            Color? color = null) : base(position, texture, color)
         {
         }
 

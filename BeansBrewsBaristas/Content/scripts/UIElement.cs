@@ -27,14 +27,13 @@ namespace BeansBrewsBaristas.Content.scripts
         public Vertex Origin; // Relative to Local Pos
         public Vertex Anchor; // Relative to Screen Pos
 
-        public UIElement(Vector2 position,Color color,Texture2D texture = null) : base(position, texture, color)
-        {
-        }
-        public UIElement(Vertex origin,  Color color, Texture2D texture = null) : base(GetPosFromOrigin(origin), texture, color) { }
-        //public UIElement(Vector2 position, Texture2D texture = null) : base(position, texture) { }
+        public UIElement(Vector2 position, 
+            Color? color, 
+            Texture2D texture = null) : base(position, texture, color) { }
 
-        //public UIElement(Vertex origin, Texture2D texture = null) : base(GetPosFromOrigin(origin), texture) { }
-
+        public UIElement(Vertex origin,
+            Color? color,
+            Texture2D texture = null) : base(GetPosFromOrigin(origin), texture, color) { }
 
         public static Vector2 GetPosFromOrigin(Vertex origin)
         {

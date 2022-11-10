@@ -32,13 +32,13 @@ namespace BeansBrewsBaristas
             switch (this.patienceTimer)
             {
                 case > 500:
-                    this.color = Color.Green;
+                    SpriteColor = Color.Green;
                     break;
                 case > 250:
-                    this.color = Color.Yellow;
+                    SpriteColor = Color.Yellow;
                     break;
                 case < 100:
-                    this.color = Color.Red;
+                    SpriteColor = Color.Red;
                     break;
                 default:
                     break;

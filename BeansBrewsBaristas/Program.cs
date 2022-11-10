@@ -9,6 +9,7 @@
  *                       -             : Created ScoreCalculator
  *           Thomas Heal -             : Added music assets
  *                       -             : Fixed InputManager's detecting OnKey/MouseDown/Up
+ *                       - Nov 10, 2022: Added Customer and the option to color Sprite
  */
 
 using var game = new BeansBrewsBaristas.GameManager();

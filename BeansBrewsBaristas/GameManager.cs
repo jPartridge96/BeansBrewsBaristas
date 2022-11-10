@@ -13,9 +13,6 @@ using SharpDX.MediaFoundation;
 
 namespace BeansBrewsBaristas
 {
-
-
-
     public class GameManager : Game
     {
         private const string GAME_TITLE = "Brews, Beans, Baristas!";
@@ -34,8 +31,6 @@ namespace BeansBrewsBaristas
         Vector2 spawnPos;
 
         private Customer customer; 
-
-
 
         private GraphicsDeviceManager _graphics;
 
@@ -57,8 +52,6 @@ namespace BeansBrewsBaristas
 
         protected override void LoadContent()
         {
- 
-
             // Define globals
             Global.Stage = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             Global.SpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -114,10 +107,6 @@ namespace BeansBrewsBaristas
 
         protected override void Update(GameTime gameTime)
         {
-            
-            #region Testing Customer walking
-            customer.Update(gameTime);
-            #endregion
             base.Update(gameTime);
         }
 
