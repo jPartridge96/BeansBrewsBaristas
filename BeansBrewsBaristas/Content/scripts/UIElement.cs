@@ -30,6 +30,7 @@ namespace BeansBrewsBaristas.Content.scripts
 
         public UIElement(Vertex origin, Texture2D texture = null) : base(GetPosFromOrigin(origin), texture) { }
 
+
         public static Vector2 GetPosFromOrigin(Vertex origin)
         {
             switch (origin)

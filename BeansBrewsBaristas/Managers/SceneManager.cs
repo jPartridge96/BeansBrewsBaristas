@@ -12,7 +12,6 @@ namespace BeansBrewsBaristas.Managers
     {
         public List<DrawableGameComponent> ActiveScene { get; set; }
         private Dictionary<string, List<DrawableGameComponent>> Atlas;
-
         private SceneManager()
         {
             Atlas = new Dictionary<string, List<DrawableGameComponent>>()
@@ -23,6 +22,7 @@ namespace BeansBrewsBaristas.Managers
                     {
                         new TextElement("Scene 1", Color.LimeGreen, new Vector2 (25, Global.Stage.Y - 75)),
                         new TextElement("Loaded Successfully", Color.White, new Vector2(25, Global.Stage.Y - 50))
+                        
                     }
                 },
                 {
