@@ -92,7 +92,7 @@ namespace BeansBrewsBaristas
             }
             //spawn position for the customer (i want to move this to customer class)
             spawnPos = new Vector2(0, randomY);
-            customer = new Customer(new Vector2(0, randomY), ballTex, 300); 
+            customer = new Customer(new Vector2(0, randomY), ballTex, Color.Green, 750, 300); 
             #endregion
 
             this.Components.Add(new InputManager(this));

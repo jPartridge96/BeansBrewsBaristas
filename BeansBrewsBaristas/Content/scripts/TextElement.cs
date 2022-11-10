@@ -13,29 +13,42 @@ namespace BeansBrewsBaristas.Content.scripts
         SpriteFont textFont = Global.GameManager.Content.Load<SpriteFont>("fonts/DebugFont");
 
         public string Text { get; set; }
-        public Color Color { get; set; } 
+        public Color Color { get; set; } = Color.White;
 
-        public TextElement(
-            string text,
-            Color color,
-            Vector2 position,
-            Texture2D texture = null) : 
-            base(position, texture)
+        public TextElement(string text, Vector2 position, Color color, Texture2D texture = null) : base(position, color, texture)
         {
             Text = text;
             Color = color;
         }
 
-        public TextElement(
-            string text,
-            Color color,
-            Vertex origin,
-            Texture2D texture = null) :
-            base(GetPosFromOrigin(origin), texture)
+        public TextElement(string text, Color color, Vertex origin, Texture2D texture = null) : base(GetPosFromOrigin(origin), color, texture)
         {
             Text = text;
             Color = color;
         }
+        //public TextElement(
+        //    string text,
+        //    Color color,
+        //    Vector2 position,
+        //    Texture2D texture = null) : 
+        //    base(position, texture)
+        //{
+        //    Text = text;
+        //    Color = color;
+        //}
+
+        //public TextElement(
+        //    string text,
+        //    Color color,
+        //    Vertex origin,
+        //    Texture2D texture = null) :
+        //    base(GetPosFromOrigin(origin), texture)
+        //{
+        //    Text = text;
+        //    Color = color;
+        //}
+
+
 
         public override void Draw(GameTime gameTime)
         {

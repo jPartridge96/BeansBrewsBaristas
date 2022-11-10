@@ -20,8 +20,8 @@ namespace BeansBrewsBaristas.Managers
                     "Level1",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Scene 1", Color.LimeGreen, new Vector2 (25, Global.Stage.Y - 75)),
-                        new TextElement("Loaded Successfully", Color.White, new Vector2(25, Global.Stage.Y - 50))
+                        new TextElement("Scene 1",  new Vector2 (25, Global.Stage.Y - 75), Color.LimeGreen),
+                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y - 50), Color.White)
                         
                     }
                 },
@@ -29,16 +29,16 @@ namespace BeansBrewsBaristas.Managers
                     "Level2",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Scene 2", Color.LimeGreen, new Vector2(25, Global.Stage.Y / 2 - 15)),
-                        new TextElement("Loaded Successfully", Color.White, new Vector2(25, Global.Stage.Y / 2 + 10))
+                        new TextElement("Scene 2",new Vector2(25, Global.Stage.Y / 2 - 15), Color.LimeGreen),
+                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y / 2 + 10), Color.White)
                     }
                 },
                 {
                     "Level3",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Scene 3", Color.LimeGreen, new Vector2(25, 25)),
-                        new TextElement("Loaded Successfully", Color.White, new Vector2(25,50))
+                        new TextElement("Scene 3",new Vector2(25, 25), Color.LimeGreen),
+                        new TextElement("Loaded Successfully",new Vector2(25,50), Color.White)
                     }
                 },
                 
