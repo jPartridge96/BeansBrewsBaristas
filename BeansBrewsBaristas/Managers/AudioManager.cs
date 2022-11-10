@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.Managers
 {
     public sealed class AudioManager
     {
@@ -22,7 +22,7 @@ namespace BeansBrewsBaristas
         private static AudioManager _instance;
         public static AudioManager GetInstance()
         {
-            if(_instance == null)
+            if (_instance == null)
                 _instance = new AudioManager();
             return _instance;
         }
@@ -35,7 +35,7 @@ namespace BeansBrewsBaristas
         public void PlaySound(string sound)
         {
             _soundLibrary.TryGetValue(sound, out SoundEffect soundEffect);
-            
+
             soundEffect.Play();
         }
 
