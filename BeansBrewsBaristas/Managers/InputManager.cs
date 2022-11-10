@@ -26,6 +26,12 @@ namespace BeansBrewsBaristas.Managers
                 {
                     switch (keyPressed)
                     {
+                        // Game Controls //
+                        case Keys.Escape:
+                            Global.GameManager.Exit();
+                            break;
+
+                        // Scene Management //
                         case Keys.F1:
                             Global.SceneManager.LoadScene("Level1");
                             break;

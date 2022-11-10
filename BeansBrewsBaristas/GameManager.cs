@@ -29,8 +29,6 @@ namespace BeansBrewsBaristas
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -45,10 +43,7 @@ namespace BeansBrewsBaristas
             Global.SceneManager = SceneManager.GetInstance();
 
             
-            Global.AudioManager.PlaySound("menuTheme");
-
-            // TODO: use this.Content to load your game content here
-
+            Global.AudioManager.PlaySound("MenuTheme");
             Global.SceneManager.LoadScene("Level1");
 
             this.Components.Add(new InputManager(this));
@@ -56,19 +51,12 @@ namespace BeansBrewsBaristas
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

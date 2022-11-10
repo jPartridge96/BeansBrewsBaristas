@@ -15,7 +15,7 @@ namespace BeansBrewsBaristas.Managers
             _soundLibrary = new Dictionary<string, SoundEffect>()
             {
                 //{"Brewing", LoadSound("brewing") }
-                {"menuTheme", LoadSound("menuTheme") }
+                {"MenuTheme", LoadSound("menuTheme") }
             };
         }
 
@@ -34,7 +34,8 @@ namespace BeansBrewsBaristas.Managers
 
         public void PlaySound(string sound)
         {
-            _soundLibrary.TryGetValue(sound, out SoundEffect soundEffect);
+            if (!_soundLibrary.TryGetValue(sound, out SoundEffect soundEffect))
+                throw new Exception($"SoundEffect with name '{sound} not found.'");
 
             soundEffect.Play();
         }
