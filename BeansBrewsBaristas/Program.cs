@@ -10,6 +10,9 @@
  *           Thomas Heal -             : Added music assets
  *                       -             : Fixed InputManager's detecting OnKey/MouseDown/Up
  *                       - Nov 10, 2022: Added Customer and the option to color Sprite
+ *      Jordan Partridge -             : Added Debug class to assist in development
+ *                       -             : Created CustomerManager to create and destroy Customers
+ *                       -             : Removed Managers from Global; transitioned to singletons
  */
 
 using var game = new BeansBrewsBaristas.GameManager();

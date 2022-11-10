@@ -10,9 +10,7 @@ namespace BeansBrewsBaristas.Managers
 {
     public class InputManager : GameComponent
     {
-        public InputManager(Game game) : base(game)
-        {
-        }
+        public InputManager(Game game) : base(game) { }
 
         public override void Update(GameTime gameTime)
         {
@@ -33,13 +31,18 @@ namespace BeansBrewsBaristas.Managers
 
                         // Scene Management //
                         case Keys.F1:
-                            Global.SceneManager.LoadScene("Level1");
+                            SceneManager.LoadScene("Level1");
                             break;
                         case Keys.F2:
-                            Global.SceneManager.LoadScene("Level2");
+                            SceneManager.LoadScene("Level2");
                             break;
                         case Keys.F3:
-                            Global.SceneManager.LoadScene("Level3");
+                            SceneManager.LoadScene("Level3");
+                            break;
+
+                        // Debugging Controls //
+                        case Keys.Z:
+                            Debug.Output("This is a debug message.");
                             break;
                     }
                 }
@@ -71,9 +74,11 @@ namespace BeansBrewsBaristas.Managers
                     break;
             }
 
+            // Right click Input
             switch (OnRightMouseDown())
             {
                 case true:
+                    CustomerManager.CreateCustomer();
                     break;
                 case false:
                     break;

@@ -1,5 +1,6 @@
 ﻿using BeansBrewsBaristas.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,26 @@ namespace BeansBrewsBaristas
     {
         // Managers
         public static GameManager GameManager { get; set; }
-        public static SceneManager SceneManager { get; set; }
-        public static AudioManager AudioManager { get; set; }
 
         // GameManager Properties
         public static SpriteBatch SpriteBatch { get; set; }
 
+
         // Global Vars
         public static Vector2 Stage { get; set; }
+
+        public enum Vertex
+        {
+            NONE,
+            TOP,
+            TOP_RIGHT,
+            RIGHT,
+            BOTTOM_RIGHT,
+            BOTTOM,
+            BOTTOM_LEFT,
+            LEFT,
+            TOP_LEFT,
+            CENTER
+        }
     }
 }

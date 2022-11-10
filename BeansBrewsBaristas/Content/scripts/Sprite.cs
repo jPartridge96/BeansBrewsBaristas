@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
@@ -10,6 +11,7 @@ namespace BeansBrewsBaristas.Content.scripts
         public Texture2D Texture { get; set; }
         public Color? SpriteColor { get; set; }
 
+        #region CONSTRUCTORS
         public Sprite(Vector2 position, 
             Texture2D texture,
             Color? color) : base(Global.GameManager)
@@ -18,6 +20,7 @@ namespace BeansBrewsBaristas.Content.scripts
             Texture = texture;
             SpriteColor = color;
         }
+        #endregion
 
         /// <summary>
         /// Draws the Sprite to the Game Window
@@ -42,6 +45,34 @@ namespace BeansBrewsBaristas.Content.scripts
         public Rectangle GetBounds()
         {
             return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+        }
+
+        public static Vector2 GetPosFromVertex(Global.Vertex origin)
+        {
+            switch (origin)
+            {
+                case Global.Vertex.TOP:
+                    return new Vector2(0, Global.Stage.Y / 2);
+                case Global.Vertex.TOP_RIGHT:
+                    return new Vector2(Global.Stage.X, 0);
+                case Global.Vertex.RIGHT:
+                    return new Vector2(Global.Stage.X, Global.Stage.Y / 2);
+                case Global.Vertex.BOTTOM_RIGHT:
+                    return new Vector2(Global.Stage.X, Global.Stage.Y);
+                case Global.Vertex.BOTTOM:
+                    return new Vector2(Global.Stage.X / 2, Global.Stage.Y);
+                case Global.Vertex.BOTTOM_LEFT:
+                    return new Vector2(0, Global.Stage.Y);
+                case Global.Vertex.LEFT:
+                    return new Vector2(0, Global.Stage.Y / 2);
+                case Global.Vertex.TOP_LEFT:
+                    return Vector2.Zero;
+                case Global.Vertex.CENTER:
+                    return new Vector2(Global.Stage.X / 2, Global.Stage.Y / 2);
+                default:
+                case Global.Vertex.NONE:
+                    throw new Exception("No anchor selected. Use Vector2 or change anchor type.");
+            }
         }
     }
 }

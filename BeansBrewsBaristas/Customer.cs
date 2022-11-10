@@ -1,4 +1,5 @@
 ﻿using BeansBrewsBaristas.Content.scripts;
+using BeansBrewsBaristas.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,25 +12,29 @@ namespace BeansBrewsBaristas
 {
     public class Customer : Sprite
     {
+        public int PatienceTimer { get; set; }
+        public int WaitTimer { get; set; }
 
-
-        public int patienceTimer { get; set; }
-        public int waitTimer { get; set; }
-        public Customer(Vector2 position, Texture2D texture, Color color, int patienceTimer, int waitTimer) : base(position, texture, color)
+        #region CONSTRUCTORS
+        public Customer(Vector2 position,
+            Texture2D texture,
+            Color color,
+            int patienceTimer,
+            int waitTimer) :
+            base(position, texture, color)
         {
-            this.patienceTimer = patienceTimer;
-            this.waitTimer = waitTimer;
+            PatienceTimer = patienceTimer;
+            WaitTimer = waitTimer;
         }
+        #endregion
 
         public override void Update(GameTime gameTime)
         {
-            
-
-            if(this.Position.Y < GameManager.customerSpawn.Bottom && this.waitTimer <= 0)
+            if(Position.Y < CustomerManager.SpawnPoint.Bottom && WaitTimer <= 0)
             {
-                this.Position += new Vector2(this.Position.X, 2);
+                Position += new Vector2(Position.X, 2);
             }
-            switch (this.patienceTimer)
+            switch (PatienceTimer)
             {
                 case > 500:
                     SpriteColor = Color.Green;
@@ -43,16 +48,15 @@ namespace BeansBrewsBaristas
                 default:
                     break;
             }
-            this.waitTimer--;
-            this.patienceTimer--;
+            WaitTimer--;
+            PatienceTimer--;
 
             base.Update(gameTime);
         }
 
-        protected override void LoadContent()
+        public void TravelToPos(Vector2 pos)
         {
 
-            base.LoadContent();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace BeansBrewsBaristas.Content.scripts
 
         public string Text { get; set; }
 
+        #region CONSTRUCTORS
         public TextElement(
             string text,
             Vector2 position,
@@ -27,15 +29,15 @@ namespace BeansBrewsBaristas.Content.scripts
 
         public TextElement(
             string text,
-            Vertex origin,
+            Global.Vertex origin,
             Color? color = null,
             Texture2D texture = null) : 
-            base(GetPosFromOrigin(origin), color, texture)
+            base(GetPosFromVertex(origin), color, texture)
         {
             Text = text;
             SpriteColor = color;
         }
-
+        #endregion
 
         public override void Draw(GameTime gameTime)
         {
@@ -46,9 +48,14 @@ namespace BeansBrewsBaristas.Content.scripts
             base.Draw(gameTime);
         }
 
-        public static Vector2 GetPosFromOrigin()
+        /// <summary>
+        /// Gets the perimeter of the Text as a Rectangle
+        /// </summary>
+        /// <returns>A Rectangle of the Text boundary</returns>
+        public Rectangle GetTextBounds()
         {
-            return Vector2.Zero;
+            Vector2 textLen = textFont.MeasureString(Text);
+            return new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point((int)textLen.X, (int)textLen.Y));
         }
     }
 }

@@ -10,8 +10,9 @@ namespace BeansBrewsBaristas.Managers
 {
     public class SceneManager
     {
-        public List<DrawableGameComponent> ActiveScene { get; set; }
-        private Dictionary<string, List<DrawableGameComponent>> Atlas;
+        public static List<DrawableGameComponent> ActiveScene { get; set; }
+        private static Dictionary<string, List<DrawableGameComponent>> Atlas;
+
         private SceneManager()
         {
             Atlas = new Dictionary<string, List<DrawableGameComponent>>()
@@ -53,7 +54,7 @@ namespace BeansBrewsBaristas.Managers
             return _instance;
         }
 
-        public void LoadScene(string sceneName)
+        public static void LoadScene(string sceneName)
         {
             if (!Atlas.TryGetValue(sceneName, out var playableMap))
                 throw new Exception($"No scene found with name '{sceneName}'.");
@@ -81,7 +82,7 @@ namespace BeansBrewsBaristas.Managers
             }
         }
 
-        public void UnloadScene(object scene)
+        public static void UnloadScene(object scene)
         {  
             foreach (DrawableGameComponent comp in (List<DrawableGameComponent>)scene)
                 Global.GameManager.Components.Remove(comp);
