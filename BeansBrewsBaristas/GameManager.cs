@@ -20,6 +20,10 @@ namespace BeansBrewsBaristas
 
         private GraphicsDeviceManager _graphics;
 
+        //customer stuff
+        private AnimatedSprite customer;
+        private Texture2D custTex;
+
 
         public GameManager()
         {
@@ -41,7 +45,12 @@ namespace BeansBrewsBaristas
             Global.Stage = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             Global.SpriteBatch = new SpriteBatch(GraphicsDevice);
             Global.GameManager = this;
+            //customer skin
+            custTex = this.Content.Load<Texture2D>("SpriteSheets/georgeDown");
 
+
+            //testing animated customer
+            customer = new AnimatedSprite(new Vector2(150, 150), custTex, Color.White, 6);
             // Init Singletons
             AudioManager.GetInstance();
             SceneManager.GetInstance();
@@ -50,8 +59,12 @@ namespace BeansBrewsBaristas
             AudioManager.PlaySound("MenuTheme");
             SceneManager.LoadScene("Level1");
 
+
+
             this.Components.Add(new InputManager(this));
             this.Components.Add(new Debug(this));
+            this.Components.Add(customer);
+            customer.restart();
         }
 
         protected override void Update(GameTime gameTime)

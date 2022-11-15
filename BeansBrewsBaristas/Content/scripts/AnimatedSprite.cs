@@ -2,51 +2,81 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
     public class AnimatedSprite : Sprite
     {
-        public Texture2D[] Frames { get; set; } // Sprite atlas
-        public int SampleRate { get; set; } // How fast should frames be switching?
-        public bool IsAnimating { get; set; } // Currently animating?
+        public Vector2 dimension { get; set; }
+        public List<Rectangle> frames { get; set; }
+        public int frameIndex { get; set; } = -1;
+        public int delay { get; set; }
+        public int delayCounter { get; set; }
 
-        #region CONSTRUCTORS
-        public AnimatedSprite(Vector2 position, 
-            Texture2D texture, 
-            Color? color = null) : base(position, texture, color)
+        private const int ROWS = 1;
+        private const int COLS = 4;
+
+        public AnimatedSprite(Vector2 position,
+            Texture2D texture,
+            Color? color,
+            int delay) : base(position, texture, color)
         {
+            this.delay = delay;
+            dimension = new Vector2(Texture.Width / COLS, Texture.Height / ROWS);
+            createFrames();
         }
-        #endregion
+
+        private void createFrames()
+        {
+            frames = new List<Rectangle>();
+            for (int i = 0; i < ROWS; i++)
+            {
+                for (int j = 0; j < COLS; j++)
+                {
+                    int x = j * (int)dimension.X;
+                    int y = i * (int)dimension.Y;
+                    Rectangle r = new Rectangle(x, y,
+                        (int)dimension.X, (int)dimension.Y);
+                    frames.Add(r);
+                }
+            }
+        }
+
+        public void restart()
+        {
+            frameIndex = -1;
+            delayCounter = 0;
+        }
 
         public override void Update(GameTime gameTime)
         {
-            _sampleCounter++;
-            if(_sampleCounter > SampleRate)
+            delayCounter++;
+            if (delayCounter > delay)
             {
-                if (_frameCounter >= Frames.Length)
-                    _frameCounter = 0;
-                else
-                    _frameCounter++;
-
-                Texture = Frames[_frameCounter];
-                _sampleCounter = 0;
+                frameIndex++;
+                if (frameIndex > ROWS * COLS - 1)
+                {
+                    frameIndex = 0;
+                }
+                delayCounter = 0;
             }
-
             base.Update(gameTime);
         }
-
         public override void Draw(GameTime gameTime)
         {
-            if(IsAnimating)
-                base.Draw(gameTime);
+            SpriteBatch.Begin();
+            if(frameIndex >= 0)
+            {
+                //dropdown 4
+                SpriteBatch.Draw(Texture, Position, frames[frameIndex], Color.White);
+            }
+            SpriteBatch.End();
         }
-
-        public int _frameCounter = 0;
-        private int _sampleCounter = 0;
 
 
     }
