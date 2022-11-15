@@ -56,7 +56,14 @@ namespace BeansBrewsBaristas
 
         public void TravelToPos(Vector2 pos)
         {
-
+            // Aync? Hopefully code will execute while this processes
+            Task.Run(() =>
+            {
+                while (Position != pos)
+                {
+                    // Travels to Vector2 position passed into method.
+                }
+            });
         }
     }
 }
