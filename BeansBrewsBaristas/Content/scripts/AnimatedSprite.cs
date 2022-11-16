@@ -32,38 +32,7 @@ namespace BeansBrewsBaristas.Content.scripts
             Color? color,
             int delay) : base(position, texture, color)
         {
-            ///
-            ///These will be the coordinates for the animation dictionary
-            ///just need to set these to their kvp and they will be ready to rip.
-            ///
-
-            ////down coords
-            //sourceRectangles = new Rectangle[4];
-            //sourceRectangles[0] = new Rectangle(0, 0, 48, 48);
-            //sourceRectangles[1] = new Rectangle(0, 48, 48, 48);
-            //sourceRectangles[2] = new Rectangle(0, 96, 48, 48);
-            //sourceRectangles[3] = new Rectangle(0, 142, 48, 48);
-            #region Walking coordinates
-            //right coords
-            //sourceRectangles = new Rectangle[4];
-            //sourceRectangles[0] = new Rectangle(142, 0, 48, 48);
-            //sourceRectangles[1] = new Rectangle(142, 48, 48, 48);
-            //sourceRectangles[2] = new Rectangle(142, 96, 48, 48);
-            //sourceRectangles[3] = new Rectangle(142, 142, 48, 48); 
-            ////Left coords
-            //sourceRectangles = new Rectangle[4];
-            //sourceRectangles[0] = new Rectangle(48, 0, 48, 48);
-            //sourceRectangles[1] = new Rectangle(48, 48, 48, 48);
-            //sourceRectangles[2] = new Rectangle(48, 96, 48, 48);
-            //sourceRectangles[3] = new Rectangle(48, 142, 48, 48);
-            ////up coords
-            //sourceRectangles = new Rectangle[4];
-            //sourceRectangles[0] = new Rectangle(96, 0, 48, 48);
-            //sourceRectangles[1] = new Rectangle(96, 48, 48, 48);
-            //sourceRectangles[2] = new Rectangle(96, 96, 48, 48);
-            //sourceRectangles[3] = new Rectangle(96, 142, 48, 48);
-            #endregion
-
+            //rectangles set for the walking directions
             Animations["walk_right"] = new Rectangle[4] 
             {
                 new Rectangle(142, 0, 48, 48),
@@ -112,6 +81,7 @@ namespace BeansBrewsBaristas.Content.scripts
 
         public override void Update(GameTime gameTime)
         {
+            //this should not be done here.
             KeyboardState ks = Keyboard.GetState();
             walkDirection = "idle";
             if (ks.IsKeyDown(Keys.S))
@@ -130,9 +100,9 @@ namespace BeansBrewsBaristas.Content.scripts
             {
                 walkDirection = "walk_left";
             }
-            
 
-            
+
+
 
             delayCounter++;
             if(delayCounter > delay)
@@ -160,13 +130,15 @@ namespace BeansBrewsBaristas.Content.scripts
                 delayCounter += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
+
+
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();
             //dropdown 4
-            SpriteBatch.Draw(Texture, new Vector2(150, 150), Animations[walkDirection][currentAnimation], Color.White);
+            SpriteBatch.Draw(Texture, Position, Animations[walkDirection][currentAnimation], Color.White);
             SpriteBatch.End();
         }
 

@@ -14,7 +14,8 @@ namespace BeansBrewsBaristas.Managers
         {
             CustomerAssets = new List<Texture2D>()
             {
-                Global.GameManager.Content.Load<Texture2D>("Images/ball (1)"),
+                //Global.GameManager.Content.Load<Texture2D>("Images/ball (1)"),
+                Global.GameManager.Content.Load<Texture2D>("SpriteSheets/george"),
             };
         }
 
@@ -53,7 +54,7 @@ namespace BeansBrewsBaristas.Managers
                 Color.Green, 750, 300
             );
 
-            Global.GameManager.Components.Add(cust);
+            Global.GameManager.Components.Add(cust.animSprite);
             Customers.Add(cust);
             return cust; 
         }

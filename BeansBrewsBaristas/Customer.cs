@@ -15,6 +15,8 @@ namespace BeansBrewsBaristas
         public int PatienceTimer { get; set; }
         public int WaitTimer { get; set; }
 
+        public AnimatedSprite animSprite { get; set; }
+
         #region CONSTRUCTORS
         public Customer(Vector2 position,
             Texture2D texture,
@@ -25,6 +27,7 @@ namespace BeansBrewsBaristas
         {
             PatienceTimer = patienceTimer;
             WaitTimer = waitTimer;
+            animSprite = new AnimatedSprite(position, texture, color, 100);
         }
         #endregion
 
