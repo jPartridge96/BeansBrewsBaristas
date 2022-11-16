@@ -1,13 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BeansBrewsBaristas.Managers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct3D9;
-using System;
+using Microsoft.Xna.Framework.Input;
+using SharpDX.DXGI;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace BeansBrewsBaristas.Content.scripts
 {
@@ -20,14 +17,14 @@ namespace BeansBrewsBaristas.Content.scripts
         public int delay { get; set; }
         public float delayCounter { get; set; }
 
-        Rectangle[] sourceRectangles;
         byte previousAnimation;
         byte currentAnimation;
 
 
 
-        private int ROWS;
-        private int COLS;
+        Dictionary<string, Rectangle[]> Animations = new Dictionary<string, Rectangle[]>();
+
+        string walkDirection = "walk_up";
 
 
         public AnimatedSprite(Vector2 position,
@@ -39,34 +36,72 @@ namespace BeansBrewsBaristas.Content.scripts
             ///These will be the coordinates for the animation dictionary
             ///just need to set these to their kvp and they will be ready to rip.
             ///
-            
+
             ////down coords
             //sourceRectangles = new Rectangle[4];
             //sourceRectangles[0] = new Rectangle(0, 0, 48, 48);
             //sourceRectangles[1] = new Rectangle(0, 48, 48, 48);
             //sourceRectangles[2] = new Rectangle(0, 96, 48, 48);
             //sourceRectangles[3] = new Rectangle(0, 142, 48, 48);
-
+            #region Walking coordinates
+            //right coords
+            //sourceRectangles = new Rectangle[4];
+            //sourceRectangles[0] = new Rectangle(142, 0, 48, 48);
+            //sourceRectangles[1] = new Rectangle(142, 48, 48, 48);
+            //sourceRectangles[2] = new Rectangle(142, 96, 48, 48);
+            //sourceRectangles[3] = new Rectangle(142, 142, 48, 48); 
             ////Left coords
             //sourceRectangles = new Rectangle[4];
             //sourceRectangles[0] = new Rectangle(48, 0, 48, 48);
             //sourceRectangles[1] = new Rectangle(48, 48, 48, 48);
             //sourceRectangles[2] = new Rectangle(48, 96, 48, 48);
             //sourceRectangles[3] = new Rectangle(48, 142, 48, 48);
-
             ////up coords
             //sourceRectangles = new Rectangle[4];
             //sourceRectangles[0] = new Rectangle(96, 0, 48, 48);
             //sourceRectangles[1] = new Rectangle(96, 48, 48, 48);
             //sourceRectangles[2] = new Rectangle(96, 96, 48, 48);
             //sourceRectangles[3] = new Rectangle(96, 142, 48, 48);
+            #endregion
 
-            //right coords
-            sourceRectangles = new Rectangle[4];
-            sourceRectangles[0] = new Rectangle(142, 0, 48, 48);
-            sourceRectangles[1] = new Rectangle(142, 48, 48, 48);
-            sourceRectangles[2] = new Rectangle(142, 96, 48, 48);
-            sourceRectangles[3] = new Rectangle(142, 142, 48, 48);
+            Animations["walk_right"] = new Rectangle[4] 
+            {
+                new Rectangle(142, 0, 48, 48),
+                new Rectangle(142, 48, 48, 48),
+                new Rectangle(142, 96, 48, 48),
+                new Rectangle(142, 142, 48, 48) 
+            };
+
+            Animations["walk_left"] = new Rectangle[4]
+            {
+               new Rectangle(48, 0, 48, 48),
+               new Rectangle(48, 48, 48, 48),
+               new Rectangle(48, 96, 48, 48),
+               new Rectangle(48, 142, 48, 48)
+            };
+
+            Animations["walk_up"] = new Rectangle[4]
+            {
+                new Rectangle(96, 0, 48, 48),
+                new Rectangle(96, 48, 48, 48),
+                new Rectangle(96, 96, 48, 48),
+                new Rectangle(96, 142, 48, 48)
+            };
+
+            Animations["walk_down"] = new Rectangle[4]
+            {
+                new Rectangle(0, 0, 48, 48),
+                new Rectangle(0, 48, 48, 48),
+                new Rectangle(0, 96, 48, 48),
+                new Rectangle(0, 142, 48, 48)
+            };
+            Animations["idle"] = new Rectangle[4]
+            {
+                new Rectangle(0, 0, 48, 48),
+                new Rectangle(0, 0, 48, 48),
+                new Rectangle(0, 0, 48, 48),
+                new Rectangle(0, 0, 48, 48)
+            };
 
             this.delay = delay;
             previousAnimation = 2;
@@ -77,6 +112,28 @@ namespace BeansBrewsBaristas.Content.scripts
 
         public override void Update(GameTime gameTime)
         {
+            KeyboardState ks = Keyboard.GetState();
+            walkDirection = "idle";
+            if (ks.IsKeyDown(Keys.S))
+            {
+                walkDirection = "walk_down";
+            }
+            if (ks.IsKeyDown(Keys.W))
+            {
+                walkDirection = "walk_up";
+            }
+            if (ks.IsKeyDown(Keys.D))
+            {
+                walkDirection = "walk_right";
+            }
+            if (ks.IsKeyDown(Keys.A))
+            {
+                walkDirection = "walk_left";
+            }
+            
+
+            
+
             delayCounter++;
             if(delayCounter > delay)
             {
@@ -109,7 +166,7 @@ namespace BeansBrewsBaristas.Content.scripts
         {
             SpriteBatch.Begin();
             //dropdown 4
-            SpriteBatch.Draw(Texture, new Vector2(150, 150), sourceRectangles[currentAnimation], Color.White);
+            SpriteBatch.Draw(Texture, new Vector2(150, 150), Animations[walkDirection][currentAnimation], Color.White);
             SpriteBatch.End();
         }
 
