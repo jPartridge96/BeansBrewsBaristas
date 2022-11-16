@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,71 +11,105 @@ using System.Windows.Forms;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
+    
     public class AnimatedSprite : Sprite
     {
         public Vector2 dimension { get; set; }
         public List<Rectangle> frames { get; set; }
         public int frameIndex { get; set; } = -1;
         public int delay { get; set; }
-        public int delayCounter { get; set; }
+        public float delayCounter { get; set; }
 
-        private const int ROWS = 1;
-        private const int COLS = 4;
+        Rectangle[] sourceRectangles;
+        byte previousAnimation;
+        byte currentAnimation;
+
+
+
+        private int ROWS;
+        private int COLS;
+
 
         public AnimatedSprite(Vector2 position,
             Texture2D texture,
             Color? color,
             int delay) : base(position, texture, color)
         {
+            ///
+            ///These will be the coordinates for the animation dictionary
+            ///just need to set these to their kvp and they will be ready to rip.
+            ///
+            
+            ////down coords
+            //sourceRectangles = new Rectangle[4];
+            //sourceRectangles[0] = new Rectangle(0, 0, 48, 48);
+            //sourceRectangles[1] = new Rectangle(0, 48, 48, 48);
+            //sourceRectangles[2] = new Rectangle(0, 96, 48, 48);
+            //sourceRectangles[3] = new Rectangle(0, 142, 48, 48);
+
+            ////Left coords
+            //sourceRectangles = new Rectangle[4];
+            //sourceRectangles[0] = new Rectangle(48, 0, 48, 48);
+            //sourceRectangles[1] = new Rectangle(48, 48, 48, 48);
+            //sourceRectangles[2] = new Rectangle(48, 96, 48, 48);
+            //sourceRectangles[3] = new Rectangle(48, 142, 48, 48);
+
+            ////up coords
+            //sourceRectangles = new Rectangle[4];
+            //sourceRectangles[0] = new Rectangle(96, 0, 48, 48);
+            //sourceRectangles[1] = new Rectangle(96, 48, 48, 48);
+            //sourceRectangles[2] = new Rectangle(96, 96, 48, 48);
+            //sourceRectangles[3] = new Rectangle(96, 142, 48, 48);
+
+            //right coords
+            sourceRectangles = new Rectangle[4];
+            sourceRectangles[0] = new Rectangle(142, 0, 48, 48);
+            sourceRectangles[1] = new Rectangle(142, 48, 48, 48);
+            sourceRectangles[2] = new Rectangle(142, 96, 48, 48);
+            sourceRectangles[3] = new Rectangle(142, 142, 48, 48);
+
             this.delay = delay;
-            dimension = new Vector2(Texture.Width / COLS, Texture.Height / ROWS);
-            createFrames();
-        }
+            previousAnimation = 2;
+            currentAnimation = 1;
 
-        private void createFrames()
-        {
-            frames = new List<Rectangle>();
-            for (int i = 0; i < ROWS; i++)
-            {
-                for (int j = 0; j < COLS; j++)
-                {
-                    int x = j * (int)dimension.X;
-                    int y = i * (int)dimension.Y;
-                    Rectangle r = new Rectangle(x, y,
-                        (int)dimension.X, (int)dimension.Y);
-                    frames.Add(r);
-                }
-            }
-        }
 
-        public void restart()
-        {
-            frameIndex = -1;
-            delayCounter = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
             delayCounter++;
-            if (delayCounter > delay)
+            if(delayCounter > delay)
             {
-                frameIndex++;
-                if (frameIndex > ROWS * COLS - 1)
+                if(currentAnimation == 1)
                 {
-                    frameIndex = 0;
+                    if(previousAnimation == 0)
+                    {
+                        currentAnimation = 2;
+                    }
+                    else
+                    {
+                        currentAnimation = 0;
+                    }
+                    previousAnimation = currentAnimation;
+                }
+                else
+                {
+                    currentAnimation = 1;
                 }
                 delayCounter = 0;
             }
+            else
+            {
+                delayCounter += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();
-            if(frameIndex >= 0)
-            {
-                //dropdown 4
-                SpriteBatch.Draw(Texture, Position, frames[frameIndex], Color.White);
-            }
+            //dropdown 4
+            SpriteBatch.Draw(Texture, new Vector2(150, 150), sourceRectangles[currentAnimation], Color.White);
             SpriteBatch.End();
         }
 

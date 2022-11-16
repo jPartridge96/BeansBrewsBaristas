@@ -13,6 +13,7 @@ namespace BeansBrewsBaristas.Managers
         public static List<DrawableGameComponent> ActiveScene { get; set; }
         private static Dictionary<string, List<DrawableGameComponent>> Atlas;
 
+
         private SceneManager()
         {
             Atlas = new Dictionary<string, List<DrawableGameComponent>>()

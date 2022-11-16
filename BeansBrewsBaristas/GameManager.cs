@@ -46,11 +46,11 @@ namespace BeansBrewsBaristas
             Global.SpriteBatch = new SpriteBatch(GraphicsDevice);
             Global.GameManager = this;
             //customer skin
-            custTex = this.Content.Load<Texture2D>("SpriteSheets/georgeDown");
+            custTex = this.Content.Load<Texture2D>("SpriteSheets/george");
 
 
             //testing animated customer
-            customer = new AnimatedSprite(new Vector2(150, 150), custTex, Color.White, 6);
+            customer = new AnimatedSprite(new Vector2(150, 150), custTex, Color.White, 100);
             // Init Singletons
             AudioManager.GetInstance();
             SceneManager.GetInstance();
@@ -64,7 +64,6 @@ namespace BeansBrewsBaristas
             this.Components.Add(new InputManager(this));
             this.Components.Add(new Debug(this));
             this.Components.Add(customer);
-            customer.restart();
         }
 
         protected override void Update(GameTime gameTime)
