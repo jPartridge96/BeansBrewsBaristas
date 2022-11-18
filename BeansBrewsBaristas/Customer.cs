@@ -2,20 +2,20 @@
 using BeansBrewsBaristas.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BeansBrewsBaristas
 {
-    public class Customer : Sprite
+    public class Customer : AnimatedSprite
     {
         public int PatienceTimer { get; set; }
         public int WaitTimer { get; set; }
-
-        public AnimatedSprite animSprite { get; set; }
 
         #region CONSTRUCTORS
         public Customer(Vector2 position,
@@ -23,20 +23,24 @@ namespace BeansBrewsBaristas
             Color color,
             int patienceTimer,
             int waitTimer) :
-            base(position, texture, color)
+            base(position, texture, color, 2)
         {
             PatienceTimer = patienceTimer;
             WaitTimer = waitTimer;
-            animSprite = new AnimatedSprite(position, texture, color, 100);
         }
         #endregion
 
         public override void Update(GameTime gameTime)
         {
-            if(Position.Y < CustomerManager.SpawnPoint.Bottom && WaitTimer <= 0)
+            if (_frameIndex >= 0)
             {
-                Position += new Vector2(Position.X, 2);
+                if (Position.Y < Global.Stage.Y - _frames[_frameIndex].Height && WaitTimer <= 0)
+                    Position += new Vector2(Position.X, 2);
+                else if (Position.Y >= Global.Stage.Y - _frames[_frameIndex].Height)
+                    _isPaused = true;
             }
+            
+            // else _isPaused = true;
             switch (PatienceTimer)
             {
                 case > 500:
@@ -57,6 +61,18 @@ namespace BeansBrewsBaristas
             base.Update(gameTime);
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch.Begin();
+
+            if (_frameIndex >= 0) // v4
+                SpriteBatch.Draw(Texture, Position, _frames[_frameIndex], Color.White);
+
+            SpriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
         public void TravelToPos(Vector2 pos)
         {
             // Aync? Hopefully code will execute while this processes
@@ -64,6 +80,7 @@ namespace BeansBrewsBaristas
             {
                 while (Position != pos)
                 {
+                    // y than x
                     // Travels to Vector2 position passed into method.
                 }
             });

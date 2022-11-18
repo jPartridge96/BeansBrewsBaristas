@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.DXGI;
+using SharpDX.Direct2D1;
 using System.Collections.Generic;
 
 
@@ -11,137 +11,96 @@ namespace BeansBrewsBaristas.Content.scripts
     
     public class AnimatedSprite : Sprite
     {
-        public Vector2 dimension { get; set; }
-        public List<Rectangle> frames { get; set; }
-        public int frameIndex { get; set; } = -1;
-        public int delay { get; set; }
-        public float delayCounter { get; set; }
+        const int ROWS = 4;
+        const int COLS = 4;
 
-        byte previousAnimation;
-        byte currentAnimation;
-
-
-
-        Dictionary<string, Rectangle[]> Animations = new Dictionary<string, Rectangle[]>();
-
-        string walkDirection = "walk_up";
-
+        public Vector2 Dimension { get; set; } // 48*48
 
         public AnimatedSprite(Vector2 position,
             Texture2D texture,
             Color? color,
             int delay) : base(position, texture, color)
         {
-            //rectangles set for the walking directions
-            Animations["walk_right"] = new Rectangle[4] 
+            Dimension = new Vector2(texture.Width / COLS, texture.Height / ROWS);
+            Position = position;
+            _delay = delay;
+
+            // Hide();
+            CreateFrames();
+        }
+
+        private void Hide()
+        {
+            this.Enabled = false;
+            this.Visible = false;
+        }
+
+        private void Show()
+        {
+            this.Enabled = true;
+            this.Visible = true;
+        }
+
+        public void Restart()
+        {
+            _frameIndex = 0;
+            _delayCounter = 0;
+            Show();
+        }
+
+        private void CreateFrames()
+        {
+            _frames = new List<Rectangle>();
+            for (int i = 0; i < ROWS; i++)
             {
-                new Rectangle(142, 0, 48, 48),
-                new Rectangle(142, 48, 48, 48),
-                new Rectangle(142, 96, 48, 48),
-                new Rectangle(142, 142, 48, 48) 
-            };
+                for (int j = 0; j < COLS; j++)
+                {
+                    int x = j * (int)Dimension.X;
+                    int y = i * (int)Dimension.Y;
 
-            Animations["walk_left"] = new Rectangle[4]
-            {
-               new Rectangle(48, 0, 48, 48),
-               new Rectangle(48, 48, 48, 48),
-               new Rectangle(48, 96, 48, 48),
-               new Rectangle(48, 142, 48, 48)
-            };
-
-            Animations["walk_up"] = new Rectangle[4]
-            {
-                new Rectangle(96, 0, 48, 48),
-                new Rectangle(96, 48, 48, 48),
-                new Rectangle(96, 96, 48, 48),
-                new Rectangle(96, 142, 48, 48)
-            };
-
-            Animations["walk_down"] = new Rectangle[4]
-            {
-                new Rectangle(0, 0, 48, 48),
-                new Rectangle(0, 48, 48, 48),
-                new Rectangle(0, 96, 48, 48),
-                new Rectangle(0, 142, 48, 48)
-            };
-            Animations["idle"] = new Rectangle[4]
-            {
-                new Rectangle(0, 0, 48, 48),
-                new Rectangle(0, 0, 48, 48),
-                new Rectangle(0, 0, 48, 48),
-                new Rectangle(0, 0, 48, 48)
-            };
-
-            this.delay = delay;
-            previousAnimation = 2;
-            currentAnimation = 1;
-
-
+                    Rectangle r = new Rectangle(x, y, (int)Dimension.X, (int)Dimension.Y);
+                    _frames.Add(r);
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
-            //this should not be done here.
-            KeyboardState ks = Keyboard.GetState();
-            walkDirection = "idle";
-            if (ks.IsKeyDown(Keys.S))
+            _delayCounter++;
+            if (_isPaused == false)
             {
-                walkDirection = "walk_down";
-            }
-            if (ks.IsKeyDown(Keys.W))
-            {
-                walkDirection = "walk_up";
-            }
-            if (ks.IsKeyDown(Keys.D))
-            {
-                walkDirection = "walk_right";
-            }
-            if (ks.IsKeyDown(Keys.A))
-            {
-                walkDirection = "walk_left";
-            }
-
-
-
-
-            delayCounter++;
-            if(delayCounter > delay)
-            {
-                if(currentAnimation == 1)
+                if (_delayCounter > _delay)
                 {
-                    if(previousAnimation == 0)
+                    _frameIndex++;
+
+                    // Animation ended
+                    if (_frameIndex > ROWS * COLS - 1)
                     {
-                        currentAnimation = 2;
+                        // _frameIndex = -1;
+                        // Hide();
+                        Restart();
                     }
-                    else
-                    {
-                        currentAnimation = 0;
-                    }
-                    previousAnimation = currentAnimation;
+                    _delayCounter = 0;
                 }
-                else
-                {
-                    currentAnimation = 1;
-                }
-                delayCounter = 0;
             }
-            else
-            {
-                delayCounter += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            }
-
-
-
             base.Update(gameTime);
         }
+
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();
+
             //dropdown 4
-            SpriteBatch.Draw(Texture, Position, Animations[walkDirection][currentAnimation], Color.White);
+            if (_frameIndex >= 0)
+                SpriteBatch.Draw(Texture, Position, _frames[_frameIndex], Color.White);
+
             SpriteBatch.End();
         }
 
-
+        protected List<Rectangle> _frames;
+        protected int _frameIndex = -1;
+        protected bool _isPaused = false;
+        private int _delay { get; set; }
+        private float _delayCounter { get; set; }
     }
 }

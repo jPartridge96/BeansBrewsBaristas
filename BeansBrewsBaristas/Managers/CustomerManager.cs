@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -26,7 +27,6 @@ namespace BeansBrewsBaristas.Managers
                 _instance = new CustomerManager();
             return _instance;
         }
-
 
         /// <summary>
         /// Generates a random spawn position for the Customer
@@ -54,9 +54,10 @@ namespace BeansBrewsBaristas.Managers
                 Color.Green, 750, 300
             );
 
-            Global.GameManager.Components.Add(cust.animSprite);
+            Global.GameManager.Components.Add(cust);
             Customers.Add(cust);
-            return cust; 
+            Debug.Output($"Created customer #{Customers.Count}");
+            return cust;
         }
 
         /// <summary>

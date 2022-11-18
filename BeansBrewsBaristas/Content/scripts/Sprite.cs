@@ -71,7 +71,7 @@ namespace BeansBrewsBaristas.Content.scripts
                     return new Vector2(Global.Stage.X / 2, Global.Stage.Y / 2);
                 default:
                 case Global.Vertex.NONE:
-                    throw new Exception("No anchor selected. Use Vector2 or change anchor type.");
+                    throw new Exception("No vertex selected. Use Vector2 or change vertex type.");
             }
         }
     }

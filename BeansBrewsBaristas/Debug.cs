@@ -17,7 +17,8 @@ namespace BeansBrewsBaristas
             // Used by Debug.Output();
             Global.GameManager.Components.Add (
                 _debugMessage = new TextElement (
-                    "", Global.Vertex.TOP_LEFT
+                    "", Global.Vertex.TOP_LEFT,
+                    Color.Red
             ));
         }
 
@@ -25,7 +26,7 @@ namespace BeansBrewsBaristas
         {
             Global.SpriteBatch.Begin();
 
-            DrawRectangle(CustomerManager.SpawnPoint);
+            // DrawRectangle(CustomerManager.SpawnPoint);
 
             Global.SpriteBatch.End();
 
