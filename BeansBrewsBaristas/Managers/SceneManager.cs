@@ -4,7 +4,13 @@ using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using SharpDX.Direct3D11;
+using System.Runtime.CompilerServices;
+using System.Runtime.Loader;
+using Microsoft.VisualBasic.ApplicationServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -12,7 +18,9 @@ namespace BeansBrewsBaristas.Managers
     {
         public static List<DrawableGameComponent> ActiveScene { get; set; }
         private static Dictionary<string, List<DrawableGameComponent>> Atlas;
-
+        Texture2D backgroundCafe = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground1");
+        Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
+        
 
         private SceneManager()
         {
@@ -22,8 +30,12 @@ namespace BeansBrewsBaristas.Managers
                     "Level1",
                     new List<DrawableGameComponent>()
                     {
+
                         new TextElement("Scene 1",  new Vector2 (25, Global.Stage.Y - 75), Color.LimeGreen),
-                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y - 50), Color.White)
+                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y - 50), Color.White),
+                        new Sprite(Vector2.Zero, backgroundCafe, Color.White),
+                        new Sprite(Vector2.Zero, cafeBar, Color.White)
+                        
                         
                     }
                 },
@@ -69,6 +81,15 @@ namespace BeansBrewsBaristas.Managers
 
                         foreach (DrawableGameComponent comp in playableMap)
                             Global.GameManager.Components.Add(comp);
+                        ////just testing the audiomanager instance here
+                        //if (sceneName == "Level1")
+                        //{
+                        //    AudioManager.PlaySound("MenuTheme");
+                        //}
+                        //if(sceneName == "Level2")
+                        //{
+                        //    AudioManager.PlaySound("Theme2");
+                        //}
 
                         ActiveScene = playableMap;
                         break;

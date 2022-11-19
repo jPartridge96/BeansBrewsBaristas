@@ -46,7 +46,6 @@ namespace BeansBrewsBaristas
             SceneManager.GetInstance();
             CustomerManager.GetInstance();
 
-            AudioManager.PlaySound("MenuTheme");
             SceneManager.LoadScene("Level1");
 
             this.Components.Add(new InputManager(this));
