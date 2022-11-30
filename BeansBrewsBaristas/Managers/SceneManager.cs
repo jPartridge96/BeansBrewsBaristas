@@ -20,6 +20,8 @@ namespace BeansBrewsBaristas.Managers
         private static Dictionary<string, List<DrawableGameComponent>> Atlas;
         Texture2D backgroundCafe = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground1");
         Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
+        Texture2D backgroundCafe2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground2");
+        Texture2D cafeBar2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar2");
         
 
         private SceneManager()
@@ -44,7 +46,9 @@ namespace BeansBrewsBaristas.Managers
                     new List<DrawableGameComponent>()
                     {
                         new TextElement("Scene 2",new Vector2(25, Global.Stage.Y / 2 - 15), Color.LimeGreen),
-                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y / 2 + 10), Color.White)
+                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y / 2 + 10), Color.White),
+                        new Sprite(Vector2.Zero, backgroundCafe2, Color.White),
+                        new Sprite(Vector2.Zero, cafeBar2, Color.White)
                     }
                 },
                 {
@@ -81,16 +85,15 @@ namespace BeansBrewsBaristas.Managers
 
                         foreach (DrawableGameComponent comp in playableMap)
                             Global.GameManager.Components.Add(comp);
-                        ////just testing the audiomanager instance here
-                        //if (sceneName == "Level1")
-                        //{
-                        //    AudioManager.PlaySound("MenuTheme");
-                        //}
-                        //if(sceneName == "Level2")
-                        //{
-                        //    AudioManager.PlaySound("Theme2");
-                        //}
-
+                        //just testing the audiomanager instance here
+                        if (sceneName == "Level1")
+                        {
+                            AudioManager.PlaySong("Level1Song");
+                        }
+                        if (sceneName == "Level2")
+                        {
+                            AudioManager.PlaySong("Level2Song");
+                        }
                         ActiveScene = playableMap;
                         break;
                 }
@@ -101,6 +104,8 @@ namespace BeansBrewsBaristas.Managers
                     Global.GameManager.Components.Add(comp);
 
                 ActiveScene = playableMap;
+                //this is to play the main menu music.
+                AudioManager.PlaySong("MenuTheme");
             }
         }
 

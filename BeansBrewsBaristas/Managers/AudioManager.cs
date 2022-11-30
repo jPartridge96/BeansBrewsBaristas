@@ -12,13 +12,15 @@ namespace BeansBrewsBaristas.Managers
         {
             _soundLibrary = new Dictionary<string, SoundEffect>()
             {
+                //audio manager loads sound effects from content manager
                 {"MenuTheme", LoadSound("Theme1") },
-                {"Theme2", LoadSound("Theme2") }
             };
             _songLibrary = new Dictionary<string, Song>()
             {
-                {"MenuTheme", LoadSong("Theme1") },
-                {"Theme2", LoadSong("Theme2") }
+                //audio manager loads songs from content manager
+                {"MenuTheme", LoadSong("MenuTheme1") },
+                {"Level1Song", LoadSong("BackGroundTheme1") },
+                {"Level2Song", LoadSong("BackGroundTheme2") }
             }; // SongCollection, MediaLibrary exist - useful?
 
             MediaPlayer.IsRepeating = true;
@@ -61,7 +63,7 @@ namespace BeansBrewsBaristas.Managers
         {
             try
             {
-                return Global.GameManager.Content.Load<Song>($"Songs\\{filePath}");
+                return Global.GameManager.Content.Load<Song>($"Songs/{filePath}");
             }
             catch
             {

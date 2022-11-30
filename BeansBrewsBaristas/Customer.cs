@@ -39,24 +39,28 @@ namespace BeansBrewsBaristas
                 else if (Position.Y >= Global.Stage.Y - _frames[_frameIndex].Height)
                     _isPaused = true;
             }
-            
+            TravelToPos(new Vector2(450, 300));
+            #region Unused Code for right now.
             // else _isPaused = true;
-            switch (PatienceTimer)
-            {
-                case > 500:
-                    SpriteColor = Color.Green;
-                    break;
-                case > 250:
-                    SpriteColor = Color.Yellow;
-                    break;
-                case < 100:
-                    SpriteColor = Color.Red;
-                    break;
-                default:
-                    break;
-            }
-            WaitTimer--;
-            PatienceTimer--;
+
+            //this switch can be used to make patience indicator above customers head... however, it is not useful right now.
+            //switch (PatienceTimer)
+            //{
+            //    case > 500:
+            //        SpriteColor = Color.Green;
+            //        break;
+            //    case > 250:
+            //        SpriteColor = Color.Yellow;
+            //        break;
+            //    case < 100:
+            //        SpriteColor = Color.Red;
+            //        break;
+            //    default:
+            //        break;
+            //}
+            //WaitTimer--;
+            //PatienceTimer--; 
+            #endregion
 
             base.Update(gameTime);
         }
@@ -75,15 +79,26 @@ namespace BeansBrewsBaristas
 
         public void TravelToPos(Vector2 pos)
         {
-            // Aync? Hopefully code will execute while this processes
-            Task.Run(() =>
+            //if(Position != pos)
+            //{
+            //    Position = new Vector2(pos.X, pos.Y);
+            //}
+
+            while(Position.X != pos.X)
             {
-                while (Position != pos)
-                {
-                    // y than x
-                    // Travels to Vector2 position passed into method.
-                }
-            });
+                Position = new Vector2(Position.X + 1, Position.Y);
+                break;
+            }
+
+            //// Aync? Hopefully code will execute while this processes
+            //Task.Run(() =>
+            //{
+            //    while (Position != pos)
+            //    {
+            //        // y than x
+            //        // Travels to Vector2 position passed into method.
+            //    }
+            //});
         }
     }
 }

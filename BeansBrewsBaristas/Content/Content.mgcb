@@ -44,6 +44,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/CafeBackground1.png
 
+#begin Images/CafeBackground2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/CafeBackground2.png
+
 #begin Images/CafeBar1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -55,6 +67,36 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/CafeBar1.png
+
+#begin Images/CafeBar2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/CafeBar2.png
+
+#begin Songs/BackGroundTheme1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/BackGroundTheme1.mp3
+
+#begin Songs/BackGroundTheme2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/BackGroundTheme2.mp3
+
+#begin Songs/MenuTheme1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/MenuTheme1.mp3
 
 #begin Songs/Theme1.wav
 /importer:WavImporter
