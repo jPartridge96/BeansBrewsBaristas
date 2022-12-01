@@ -26,6 +26,7 @@
  *      Jordan Partridge -             : MenuComponent is now controlled from InputManager
  *                       -             : TravelToPos now correctly offsets Customer based on index of Queue
  *                       -             : Added skeleton for Credits and Help scenes
+ *                                     : Added placeholder Menu UI
  *
  */
 

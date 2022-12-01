@@ -12,6 +12,7 @@ namespace BeansBrewsBaristas.Content.scripts
     public class TextElement : UIElement
     {
         public string Text { get; set; }
+        SpriteFont Font = Global.GameManager.Content.Load<SpriteFont>("Fonts/Font");
 
         #region CONSTRUCTORS
         public TextElement(
@@ -40,7 +41,7 @@ namespace BeansBrewsBaristas.Content.scripts
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();
-            SpriteBatch.DrawString(Debug.Font, Text, Position, SpriteColor ?? Color.White);
+            SpriteBatch.DrawString(Font ?? Debug.Font, Text, Position, SpriteColor ?? Color.White);
             SpriteBatch.End();
 
             base.Draw(gameTime);

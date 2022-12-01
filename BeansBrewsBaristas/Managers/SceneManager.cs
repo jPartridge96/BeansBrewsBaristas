@@ -11,11 +11,12 @@ namespace BeansBrewsBaristas.Managers
         public static string ActiveScene { get; set; }
         public static List<DrawableGameComponent> SceneComponents { get; set; }
         private static Dictionary<string, List<DrawableGameComponent>> Atlas;
+
+        Texture2D menu = Global.GameManager.Content.Load <Texture2D>("Images/Menu");
         Texture2D backgroundCafe = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground1");
         Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
         Texture2D backgroundCafe2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground2");
         Texture2D cafeBar2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar2");
-        
 
         private SceneManager()
         {
@@ -25,26 +26,32 @@ namespace BeansBrewsBaristas.Managers
                     "Menu",
                     new List<DrawableGameComponent>()
                     {
+                        new Sprite(Vector2.Zero, menu, Color.White),
+                        new TextElement("Beans Brews Baristas", new Vector2(350, 125), Color.White),
                         new MenuComponent(Global.GameManager, new string[] {
                             "Play", "Help", "Credits", "Quit"
-                        }, new Vector2(150,150))
+                        }, new Vector2(350, 200))
                     }
                 },
                 {
                     "Help",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Help",  new Vector2 (25, 25), Color.LimeGreen),
-                        new TextElement("You are being helped!",new Vector2(25, 50), Color.White),
+                        new Sprite(Vector2.Zero, menu, Color.White),
+                        new TextElement("Help", new Vector2(350, 125), Color.Black),
+                        new TextElement("You are being helped!", new Vector2(350, 160), Color.White),
                     }
                 },
                 {
                     "Credits",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Credits",  new Vector2 (25, 25), Color.LimeGreen),
-                        new TextElement("Jordan Partridge",new Vector2(25, 50), Color.White),
-                        new TextElement("Thomas Heal",new Vector2(25, 75), Color.White)
+                        new Sprite(Vector2.Zero, menu, Color.White),
+                        new TextElement("Credits",  new Vector2 (350, 125), Color.Black),
+                        new TextElement("Jordan Partridge",new Vector2(350, 160), Color.White),
+                        new TextElement("Thomas Heal",new Vector2(350, 195), Color.White),
+                        new TextElement("Hannah Zhang",new Vector2(350, 230), Color.White),
+                        new TextElement("Brooke Brooke",new Vector2(350, 265), Color.White),
                     }
                 },
                 {

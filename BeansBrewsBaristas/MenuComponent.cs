@@ -16,7 +16,8 @@ namespace BeansBrewsBaristas
         private Vector2 position;
         private Color regularColor = Color.White;
         private Color highlightColor = Color.Red;
-        private SpriteFont regularFont, highlightFont;
+        private SpriteFont regularFont = Global.GameManager.Content.Load<SpriteFont>("fonts/Font");
+        private SpriteFont highlightFont;
         private static List<string> menuItems;
         
         public static int SelectedIndex {
@@ -53,12 +54,12 @@ namespace BeansBrewsBaristas
             {
                 if (SelectedIndex == i)
                 {
-                    Global.SpriteBatch.DrawString(Debug.Font, menuItems[i], tempPos, highlightColor); // hilight
+                    Global.SpriteBatch.DrawString(regularFont ?? Debug.Font, menuItems[i], tempPos, highlightColor); // hilight
                     tempPos.Y += Debug.Font.LineSpacing;
                 }
                 else
                 {
-                    Global.SpriteBatch.DrawString(Debug.Font, menuItems[i], tempPos, regularColor); // regular
+                    Global.SpriteBatch.DrawString(regularFont ?? Debug.Font, menuItems[i], tempPos, regularColor); // regular
                     tempPos.Y += Debug.Font.LineSpacing;
                 }
             }
