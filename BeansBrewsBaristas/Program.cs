@@ -18,7 +18,9 @@
  *      Jordan Partridge - Nov 18, 2022: Refactored Customer and AnimatedSprite; removed debug code from GameManager
  *                       -             : Customer will stop animating when they it has finished moving to target position
  *           Thomas Heal - Nov 19, 2022: Added cafe environment art to Scene 1
- *      Jordan Partridge - Nov 26, 2022: _
+ *      Jordan Partridge - Nov 26, 2022: Audio manager now supports songs and sound effects
+ *           Thomas Heal - Nov 30, 2022: Added cafe environment Scene 2, updated songs to .mp3 and updated customer travelToPos function
+ *
  */
 
 using var game = new BeansBrewsBaristas.GameManager();
