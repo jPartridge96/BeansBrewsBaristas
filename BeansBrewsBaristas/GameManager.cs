@@ -46,9 +46,9 @@ namespace BeansBrewsBaristas
             SceneManager.GetInstance();
             CustomerManager.GetInstance();
 
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene("Menu");
 
-            this.Components.Add(new InputManager(this));
+            this.Components.Add(Global.InputManager = new InputManager(this));
             this.Components.Add(new Debug(this));
         }
 
@@ -64,17 +64,17 @@ namespace BeansBrewsBaristas
 
             #region DEBUG RECTANGLES
 
-            Debug.DrawRectangle(
-                (int)(Global.Stage.X / 8) * 2, 0,
-                (int)(Global.Stage.X / 8),
-                (int)Global.Stage.Y
-            );
+            //Debug.DrawRectangle(
+            //    (int)(Global.Stage.X / 8) * 2, 0,
+            //    (int)(Global.Stage.X / 8),
+            //    (int)Global.Stage.Y
+            //);
 
-            Debug.DrawRectangle(
-                (int)(Global.Stage.X / 8) * 5, 0,
-                (int)(Global.Stage.X / 8),
-                (int)Global.Stage.Y
-            );
+            //Debug.DrawRectangle(
+            //    (int)(Global.Stage.X / 8) * 5, 0,
+            //    (int)(Global.Stage.X / 8),
+            //    (int)Global.Stage.Y
+            //);
 
             #endregion
 

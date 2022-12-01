@@ -2,13 +2,11 @@
 using BeansBrewsBaristas.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BeansBrewsBaristas
 {
@@ -35,26 +33,18 @@ namespace BeansBrewsBaristas
         #endregion
         public override void Initialize()
         {
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            
-
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             line1 = new Queue<Vector2>(linePositions);
-
-            //customer travels to this position (need to update to reflect a queue in an array)
-            TravelToPos(line1.Dequeue());
-
             base.Update(gameTime);
-
 
             //unused code region.
             #region Unused Code for right now.
@@ -99,30 +89,19 @@ namespace BeansBrewsBaristas
 
             base.Draw(gameTime);
         }
+
         /// <summary>
-        /// new position for customer to travel to specified in their update call
+        /// Customer travels async towards a specified coordinate
         /// </summary>
-        /// <param name="pos">position in the line will be assigned by their index in the queue</param>
-        public void TravelToPos(Vector2 pos)
+        /// <param name="orderPos">Position for Customer to travel towards</param>
+        /// <returns>Completed Async Task</returns>
+        public async Task TravelToPos(Vector2 orderPos)
         {
-            //we want the customer to go in a straight line across the screen queue will have to be horizontal
-            while(Position.X != pos.X)
+            while (Position.X <= orderPos.X)
             {
                 Position = new Vector2(Position.X + 1, Position.Y);
-                break;
+                await Task.Delay(1);
             }
-
-            //// Aync? Hopefully code will execute while this processes
-            //Task.Run(() =>
-            //{
-            //    while (Position != pos)
-            //    {
-            //        // y than x
-            //        // Travels to Vector2 position passed into method.
-            //    }
-            //});
         }
-
-
     }
 }

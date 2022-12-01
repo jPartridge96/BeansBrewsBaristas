@@ -19,6 +19,7 @@ namespace BeansBrewsBaristas
         // Managers
         public static GameManager GameManager { get; set; }
 
+        public static InputManager InputManager { get; set; }
         // GameManager Properties
         public static SpriteBatch SpriteBatch { get; set; }
 

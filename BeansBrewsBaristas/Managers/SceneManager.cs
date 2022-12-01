@@ -2,21 +2,14 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Runtime.Loader;
-using Microsoft.VisualBasic.ApplicationServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Audio;
 
 namespace BeansBrewsBaristas.Managers
 {
     public class SceneManager
     {
-        public static List<DrawableGameComponent> ActiveScene { get; set; }
+        public static string ActiveScene { get; set; }
+        public static List<DrawableGameComponent> SceneComponents { get; set; }
         private static Dictionary<string, List<DrawableGameComponent>> Atlas;
         Texture2D backgroundCafe = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground1");
         Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
@@ -29,24 +22,46 @@ namespace BeansBrewsBaristas.Managers
             Atlas = new Dictionary<string, List<DrawableGameComponent>>()
             {
                 {
+                    "Menu",
+                    new List<DrawableGameComponent>()
+                    {
+                        new MenuComponent(Global.GameManager, new string[] {
+                            "Play", "Help", "Credits", "Quit"
+                        }, new Vector2(150,150))
+                    }
+                },
+                {
+                    "Help",
+                    new List<DrawableGameComponent>()
+                    {
+                        new TextElement("Help",  new Vector2 (25, 25), Color.LimeGreen),
+                        new TextElement("You are being helped!",new Vector2(25, 50), Color.White),
+                    }
+                },
+                {
+                    "Credits",
+                    new List<DrawableGameComponent>()
+                    {
+                        new TextElement("Credits",  new Vector2 (25, 25), Color.LimeGreen),
+                        new TextElement("Jordan Partridge",new Vector2(25, 50), Color.White),
+                        new TextElement("Thomas Heal",new Vector2(25, 75), Color.White)
+                    }
+                },
+                {
                     "Level1",
                     new List<DrawableGameComponent>()
                     {
 
-                        new TextElement("Scene 1",  new Vector2 (25, Global.Stage.Y - 75), Color.LimeGreen),
-                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y - 50), Color.White),
                         new Sprite(Vector2.Zero, backgroundCafe, Color.White),
                         new Sprite(Vector2.Zero, cafeBar, Color.White)
-                        
-                        
+
+
                     }
                 },
                 {
                     "Level2",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Scene 2",new Vector2(25, Global.Stage.Y / 2 - 15), Color.LimeGreen),
-                        new TextElement("Loaded Successfully",new Vector2(25, Global.Stage.Y / 2 + 10), Color.White),
                         new Sprite(Vector2.Zero, backgroundCafe2, Color.White),
                         new Sprite(Vector2.Zero, cafeBar2, Color.White)
                     }
@@ -59,6 +74,7 @@ namespace BeansBrewsBaristas.Managers
                         new TextElement("Loaded Successfully",new Vector2(25,50), Color.White)
                     }
                 },
+
                 
             };
         }
@@ -81,7 +97,7 @@ namespace BeansBrewsBaristas.Managers
                 switch (ActiveScene.Equals(playableMap))
                 {
                     case false:
-                        UnloadScene(ActiveScene);
+                        UnloadScene(SceneComponents);
 
                         foreach (DrawableGameComponent comp in playableMap)
                             Global.GameManager.Components.Add(comp);
@@ -94,7 +110,12 @@ namespace BeansBrewsBaristas.Managers
                         {
                             AudioManager.PlaySong("Level2Song");
                         }
-                        ActiveScene = playableMap;
+                        if(sceneName == "Menu")
+                        {
+                            AudioManager.PlaySong("MenuTheme");
+                        }
+                        SceneComponents = playableMap;
+                        ActiveScene = sceneName;
                         break;
                 }
             }
@@ -103,7 +124,8 @@ namespace BeansBrewsBaristas.Managers
                 foreach (DrawableGameComponent comp in playableMap)
                     Global.GameManager.Components.Add(comp);
 
-                ActiveScene = playableMap;
+                SceneComponents = playableMap;
+                ActiveScene = sceneName;
                 //this is to play the main menu music.
                 AudioManager.PlaySong("MenuTheme");
             }

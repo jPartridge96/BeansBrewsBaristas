@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct3D9;
 
 namespace BeansBrewsBaristas.Managers
 {
     public class CustomerManager
     {
+        public const int ORDER_LIMIT = 5;
+        public const int PICKUP_LIMIT = 5;
+        public const int CUST_LIMIT = 10;
+
         public static Rectangle SpawnPoint { get; set; } = new Rectangle(0, (int)Global.Stage.Y / 3, 100, 200);
         public static List<Texture2D> CustomerAssets;
 
@@ -15,7 +18,7 @@ namespace BeansBrewsBaristas.Managers
         {
             CustomerAssets = new List<Texture2D>()
             {
-                //Global.GameManager.Content.Load<Texture2D>("Images/ball (1)"),
+                // Global.GameManager.Content.Load<Texture2D>("Images/ball (1)"),
                 Global.GameManager.Content.Load<Texture2D>("SpriteSheets/george"),
             };
         }
@@ -28,36 +31,36 @@ namespace BeansBrewsBaristas.Managers
             return _instance;
         }
 
-        /// <summary>
-        /// Generates a random spawn position for the Customer
-        /// </summary>
-        /// <returns>Vector2 position relative to the Rectangle</returns>
-        public static Vector2 GetSpawnPoint()
-        {
-            // Take coords of SpawnPoint rect
-            // Generate random vector2 within bounds of rect
-            // Return vector2
-            return Vector2.Zero;
-        }
-
         public static Texture2D GetRandomCustomerAsset()
         {
             Random rand = new Random();
             return CustomerAssets[rand.Next(CustomerAssets.Count)];
         }
 
-        public static Customer CreateCustomer()
+        public static void CreateCustomer()
         {
-            Customer cust = new Customer(
-                CustomerManager.GetSpawnPoint(),
-                GetRandomCustomerAsset(),
-                Color.Green, 750, 300
-            );
+            // If line of customers is below line limit
+            if(Customers.Count < CUST_LIMIT && OrderQueue.Count < ORDER_LIMIT)
+            {
+                // Calculate Order Queue pos
+                Vector2 orderQueuePos = new Vector2(
+                    (int)((Global.Stage.X / 8 * 3) - (OrderQueue.Count * 25)),
+                    Global.Stage.Y / 2
+                );
 
-            Global.GameManager.Components.Add(cust);
-            Customers.Add(cust);
-            Debug.Output($"Created customer #{Customers.Count}");
-            return cust;
+                Customer cust = new Customer(
+                    new Vector2(0, Global.Stage.Y / 2),
+                    GetRandomCustomerAsset(),
+                    Color.Green, 750, 300
+                );
+
+                Global.GameManager.Components.Add(cust);
+                Customers.Add(cust);
+
+                EnterQueue(cust, OrderQueue);
+
+                Debug.Output($"New customer travelling to '{orderQueuePos.X},{orderQueuePos.Y}'");
+            }
         }
 
         /// <summary>
@@ -79,6 +82,16 @@ namespace BeansBrewsBaristas.Managers
                 throw new Exception("Customer was not part of Customers list.");
             }
             throw new Exception("Customer was not part of Game Components.");
+        }
+
+        public static async void EnterQueue(Customer customer, Queue<Customer> queue)
+        {
+            Vector2 queuePos = new Vector2(
+                    (int)((Global.Stage.X / 8 * 3) - (queue.Count * 25)),
+                    Global.Stage.Y / 2
+                );
+            customer.TravelToPos(queuePos);
+            queue.Enqueue(customer);
         }
 
         private static List<Customer> Customers = new List<Customer>();

@@ -10,8 +10,11 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas
 {
+
     public class Debug : DrawableGameComponent
     {
+        public static SpriteFont Font = Global.GameManager.Content.Load<SpriteFont>("fonts/DebugFont");
+
         public Debug(Game game) : base(game)
         {
             // Used by Debug.Output();

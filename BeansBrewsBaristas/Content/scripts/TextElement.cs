@@ -11,8 +11,6 @@ namespace BeansBrewsBaristas.Content.scripts
 {
     public class TextElement : UIElement
     {
-        SpriteFont textFont = Global.GameManager.Content.Load<SpriteFont>("fonts/DebugFont");
-
         public string Text { get; set; }
 
         #region CONSTRUCTORS
@@ -42,7 +40,7 @@ namespace BeansBrewsBaristas.Content.scripts
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();
-            SpriteBatch.DrawString(textFont, Text, Position, SpriteColor ?? Color.White);
+            SpriteBatch.DrawString(Debug.Font, Text, Position, SpriteColor ?? Color.White);
             SpriteBatch.End();
 
             base.Draw(gameTime);
@@ -54,7 +52,7 @@ namespace BeansBrewsBaristas.Content.scripts
         /// <returns>A Rectangle of the Text boundary</returns>
         public Rectangle GetTextBounds()
         {
-            Vector2 textLen = textFont.MeasureString(Text);
+            Vector2 textLen = Debug.Font.MeasureString(Text);
             return new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point((int)textLen.X, (int)textLen.Y));
         }
     }

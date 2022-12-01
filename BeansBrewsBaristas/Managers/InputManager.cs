@@ -11,7 +11,10 @@ namespace BeansBrewsBaristas.Managers
 {
     public class InputManager : GameComponent
     {
+
         public InputManager(Game game) : base(game) { }
+
+        public string CurrentScene { get; set; } = "Menu";
 
         public override void Update(GameTime gameTime)
         {
@@ -23,36 +26,62 @@ namespace BeansBrewsBaristas.Managers
             {
                 if (OnKeyDown(keyPressed))
                 {
-                    switch (keyPressed)
+                    switch(SceneManager.ActiveScene)
                     {
-                        // Game Controls //
-                        case Keys.Escape:
-                            Global.GameManager.Exit();
+                        case "Menu":
+                            switch(keyPressed)
+                            {
+                                case Keys.Escape:
+                                    Global.GameManager.Exit();
+                                    break;
+
+                                case Keys.W:
+                                case Keys.Up:
+                                    MenuComponent.SelectedIndex--;
+                                    break;
+                                case Keys.S:
+                                case Keys.Down:
+                                    MenuComponent.SelectedIndex++;
+                                    break;
+
+                                case Keys.Enter:
+                                case Keys.Space:
+                                    MenuComponent.Select();
+                                    break;
+                            }
                             break;
 
-                        // Scene Management //
-                        case Keys.F1:
-                            SceneManager.LoadScene("Level1");
-                            break;
-                        case Keys.F2:
-                            SceneManager.LoadScene("Level2");
-                            break;
-                        case Keys.F3:
-                            SceneManager.LoadScene("Level3");
+                        case "Help":
+                        case "Credits":
+                            switch (keyPressed)
+                            {
+                                case Keys.Escape:
+                                    SceneManager.LoadScene("Menu");
+                                    break;
+                            }
                             break;
 
-                        // Debugging Controls //
-                        case Keys.Z:
-                            Debug.Output("This is a debug message.");
-                            break;
-                    }
-                }
+                        case "Level1":
+                        case "Level2":
+                        case "Level3":
+                            switch (keyPressed)
+                            {
+                                // Main Menu //
+                                case Keys.Escape:
+                                    SceneManager.LoadScene("Menu");
+                                    break;
 
-                if (OnKeyUp(keyPressed))
-                {
-                    switch (keyPressed)
-                    {
-                        case Keys.A:
+                                // Scene Management //
+                                case Keys.F1:
+                                    SceneManager.LoadScene("Level1");
+                                    break;
+                                case Keys.F2:
+                                    SceneManager.LoadScene("Level2");
+                                    break;
+                                case Keys.F3:
+                                    SceneManager.LoadScene("Level3");
+                                    break;
+                            }
                             break;
                     }
                 }
@@ -99,52 +128,52 @@ namespace BeansBrewsBaristas.Managers
             base.Update(gameTime);
         }
 
-        private bool OnKeyDown(Keys key)
+        public bool OnKeyDown(Keys key)
         {
             if (_kbState.IsKeyDown(key) && _prevKbState.IsKeyUp(key))
                 return true;
             else return false;
         }
 
-        private bool OnKeyUp(Keys key)
+        public static bool OnKeyUp(Keys key)
         {
             if (_kbState.IsKeyUp(key) && _prevKbState.IsKeyDown(key))
                 return true;
             else return false;
         }
 
-        private bool OnLeftMouseDown()
+        public static bool OnLeftMouseDown()
         {
             if (_msState.LeftButton == ButtonState.Pressed && _prevMsState.LeftButton == ButtonState.Released)
                 return true;
             else return false;
         }
 
-        private bool OnLeftMouseUp()
+        public static bool OnLeftMouseUp()
         {
             if (_msState.LeftButton == ButtonState.Released && _prevMsState.LeftButton == ButtonState.Pressed)
                 return true;
             else return false;
         }
 
-        private bool OnRightMouseDown()
+        public static bool OnRightMouseDown()
         {
             if (_msState.RightButton == ButtonState.Pressed && _prevMsState.RightButton == ButtonState.Released)
                 return true;
             else return false;
         }
 
-        private bool OnRightMouseUp()
+        private static bool OnRightMouseUp()
         {
             if (_msState.RightButton == ButtonState.Released && _prevMsState.RightButton == ButtonState.Pressed)
                 return true;
             else return false;
         }
 
-        MouseState _msState;
-        KeyboardState _kbState;
+        static MouseState _msState;
+        static KeyboardState _kbState;
 
-        MouseState _prevMsState;
-        KeyboardState _prevKbState;
+        static MouseState _prevMsState;
+        static KeyboardState _prevKbState;
     }
 }

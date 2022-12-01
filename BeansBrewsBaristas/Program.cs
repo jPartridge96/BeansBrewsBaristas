@@ -18,8 +18,14 @@
  *      Jordan Partridge - Nov 18, 2022: Refactored Customer and AnimatedSprite; removed debug code from GameManager
  *                       -             : Customer will stop animating when they it has finished moving to target position
  *           Thomas Heal - Nov 19, 2022: Added cafe environment art to Scene 1
- *      Jordan Partridge - Nov 26, 2022: Audio manager now supports songs and sound effects
- *           Thomas Heal - Nov 30, 2022: Added cafe environment Scene 2, updated songs to .mp3 and updated customer travelToPos function
+ *      Jordan Partridge - Nov 26, 2022: AudioManager now supports songs and sound effects
+ *           Thomas Heal - Nov 30, 2022: Added cafe environment Scene 2, updated songs to .mp3 and updated customer TravelToPos function
+ *                       - Dec 01, 2022: Added TravelToPos functionality, currently grabs from Vector2 Queue
+ *                       -             : Fixed TravelToPos; it works as an async task, outside of Update
+ *                       -             : Added MenuComponent and Main Menu functionality
+ *      Jordan Partridge -             : MenuComponent is now controlled from InputManager
+ *                       -             : TravelToPos now correctly offsets Customer based on index of Queue
+ *                       -             : Added skeleton for Credits and Help scenes
  *
  */
 
