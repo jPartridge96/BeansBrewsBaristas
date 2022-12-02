@@ -11,7 +11,7 @@ namespace BeansBrewsBaristas.Managers
 {
     public class InputManager : GameComponent
     {
-
+        
         public InputManager(Game game) : base(game) { }
 
         public string CurrentScene { get; set; } = "Menu";
@@ -53,13 +53,19 @@ namespace BeansBrewsBaristas.Managers
 
                         case "Help":
                         case "Credits":
+                        case "Options":
                             switch (keyPressed)
                             {
                                 case Keys.Escape:
                                     SceneManager.LoadScene("Menu");
                                     break;
                             }
+
                             break;
+                            //need to add a method here that checks for button click
+                            //i want to check to see if the texture is clicked...
+                            //alternatively also adding a hover method to check and see if mouse is inside of area and then change texture in background
+
 
                         case "Level1":
                         case "Level2":
@@ -170,7 +176,7 @@ namespace BeansBrewsBaristas.Managers
             else return false;
         }
 
-        static MouseState _msState;
+        public static MouseState _msState;
         static KeyboardState _kbState;
 
         static MouseState _prevMsState;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace BeansBrewsBaristas
         public static InputManager InputManager { get; set; }
         // GameManager Properties
         public static SpriteBatch SpriteBatch { get; set; }
+
 
 
         // Global Vars

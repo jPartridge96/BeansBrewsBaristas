@@ -82,7 +82,10 @@ namespace BeansBrewsBaristas
                 case 2: // Credits
                     SceneManager.LoadScene("Credits");
                     break;
-                case 3: // Quit
+                case 3:
+                    SceneManager.LoadScene("Options");
+                    break;
+                case 4: // Quit
                     Global.GameManager.Exit();
                     break;
             }

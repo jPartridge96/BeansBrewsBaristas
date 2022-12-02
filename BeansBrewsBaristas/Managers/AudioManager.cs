@@ -24,6 +24,7 @@ namespace BeansBrewsBaristas.Managers
             }; // SongCollection, MediaLibrary exist - useful?
 
             MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = .25f;
         }
         
 
