@@ -17,7 +17,7 @@ namespace BeansBrewsBaristas
     public class GameManager : Game
     {
         private const string GAME_TITLE = "Brews, Beans, Baristas!";
-        private const string GAME_VER = "0.01";
+        private const string GAME_VER = "0.02";
         public Point mousePosition;
         private GraphicsDeviceManager _graphics;
         public static string volume = "25%";
@@ -33,7 +33,6 @@ namespace BeansBrewsBaristas
 
         protected override void Initialize()
         {
-
             base.Initialize();
         }
 

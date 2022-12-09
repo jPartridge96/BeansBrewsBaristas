@@ -18,7 +18,6 @@ namespace BeansBrewsBaristas.Managers
             RIGHT
         }
 
-        // public static Rectangle SpawnPoint { get; set; } = new Rectangle(0, (int)Global.Stage.Y / 3, 100, 200);
         public static List<Texture2D> CustomerAssets;
 
         public static string[] CustomerNames = {
@@ -69,17 +68,12 @@ namespace BeansBrewsBaristas.Managers
             if(Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
             {
                 Customer cust = new Customer(
-                    new Vector2(0, Global.Stage.Y / 3),
+                    new Vector2(-50, Global.Stage.Y / 3),
                     GetRandomCustomerAsset(), Color.White,
                     750, 300
                 );
 
-                //Global.GameManager.Components.Add(cust);
                 Customers.Add(cust);
-
-                Debug.WriteLine($"\n\nName: {cust.Name}");
-                Debug.WriteLine($"Order: \n{cust.Order}");
-
                 EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 2, QueueDirection.LEFT);
             }
         }
@@ -89,22 +83,16 @@ namespace BeansBrewsBaristas.Managers
         /// </summary>
         /// <param name="cust">The customer to be destroyed</param>
         /// <returns>True if customer successfully destroyed</returns>
-        /// <exception cref="Exception">Thrown if Customers and Components lists are not in sync</exception>
+        /// <exception cref="Exception">Thrown if Customers was not added to List</exception>
         public static bool DestroyCustomer(Customer cust)
         {
-            if (Global.GameManager.Components.IndexOf(cust) != -1)
+            if (Customers.IndexOf(cust) != -1)
             {
-                if(Customers.IndexOf(cust) != -1)
-                {
-                    //Global.GameManager.Components.Remove(cust);
-                    Customers.Remove(cust);
-                    return true;
-                }
-                throw new Exception("Customer was not part of Customers list.");
+                Customers.Remove(cust);
+                return true;
             }
-            throw new Exception("Customer was not part of Game Components.");
+            throw new Exception("Customer was not part of Customers list.");
         }
-
         public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
             queue.Enqueue(cust);
@@ -113,7 +101,7 @@ namespace BeansBrewsBaristas.Managers
             switch (direction)
             {
                 case QueueDirection.LEFT:
-                    calcPos = (int)xPos - GetQueueIndex(cust, queue) * 50;
+                    calcPos = ((int)xPos - GetQueueIndex(cust, queue) * 50) - cust.Texture.Width;
                     break;
                 case QueueDirection.RIGHT:
                     calcPos = (int)xPos + GetQueueIndex(cust, queue) * 50;
@@ -147,6 +135,24 @@ namespace BeansBrewsBaristas.Managers
             return CustomerNames[rand.Next(0, CustomerNames.Length)];
         }
 
+        public static void TakeNextOrder()
+        {
+            if (OrderQueue.Count != 0)
+            {
+                
+                TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 5, QueueDirection.RIGHT);
+            }
+
+            // Update positon for all in OrderQueue
+            foreach (Customer cust in OrderQueue)
+            {
+                Vector2 newPos = new Vector2(
+                    (Global.Stage.X / 8 * 3) - GetQueueIndex(cust, OrderQueue) * 50 - cust.Texture.Width,
+                    Global.Stage.Y / 2);
+
+                cust.TravelToPos(newPos);
+            }
+        }
         // Use to determine what modifications are able to go on what drinks?
         //public static Order GetCustomerOrder()
         //{
@@ -154,6 +160,7 @@ namespace BeansBrewsBaristas.Managers
         //}
 
         public static List<Customer> Customers = new List<Customer>();
+        public static List<Order> Orders = new List<Order>();
 
         public static Queue<Customer> OrderQueue = new Queue<Customer>();
         public static Queue<Customer> PickupQueue = new Queue<Customer>();

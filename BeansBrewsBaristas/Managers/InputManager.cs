@@ -118,18 +118,7 @@ namespace BeansBrewsBaristas.Managers
             switch (OnRightMouseDown())
             {
                 case true:
-                    if (OrderQueue.Count != 0)
-                        TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 6, QueueDirection.RIGHT);
-
-                    // Update positon for all in OrderQueue
-                    foreach (Customer cust in OrderQueue)
-                    {
-                        Vector2 newPos = new Vector2( 
-                            (Global.Stage.X / 8 * 2) - GetQueueIndex(cust, OrderQueue) * 50,
-                            Global.Stage.Y / 2);
-
-                        cust.TravelToPos(newPos);
-                    }
+                    TakeNextOrder();
                     break;
                 case false:
                     break;

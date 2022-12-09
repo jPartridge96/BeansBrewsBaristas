@@ -81,9 +81,7 @@ namespace BeansBrewsBaristas.Managers
                     {
 
                         new Sprite(Vector2.Zero, backgroundCafe, Color.White),
-                        new Sprite(Vector2.Zero, cafeBar, Color.White),
-
-
+                        new Sprite(Vector2.Zero, cafeBar, Color.White)
                     }
                 },
                 {
