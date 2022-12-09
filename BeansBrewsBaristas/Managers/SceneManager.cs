@@ -161,7 +161,11 @@ namespace BeansBrewsBaristas.Managers
         }
 
         public static void UnloadScene(object scene)
-        {  
+        {
+            CustomerManager.Customers.Clear();
+            CustomerManager.OrderQueue.Clear();
+            CustomerManager.PickupQueue.Clear();
+
             foreach (DrawableGameComponent comp in (List<DrawableGameComponent>)scene)
                 Global.GameManager.Components.Remove(comp);
         }

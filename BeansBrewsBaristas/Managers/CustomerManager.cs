@@ -74,7 +74,7 @@ namespace BeansBrewsBaristas.Managers
                     750, 300
                 );
 
-                Global.GameManager.Components.Add(cust);
+                //Global.GameManager.Components.Add(cust);
                 Customers.Add(cust);
 
                 Debug.WriteLine($"\n\nName: {cust.Name}");
@@ -96,7 +96,7 @@ namespace BeansBrewsBaristas.Managers
             {
                 if(Customers.IndexOf(cust) != -1)
                 {
-                    Global.GameManager.Components.Remove(cust);
+                    //Global.GameManager.Components.Remove(cust);
                     Customers.Remove(cust);
                     return true;
                 }
