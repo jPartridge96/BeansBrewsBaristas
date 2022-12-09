@@ -126,20 +126,28 @@ namespace BeansBrewsBaristas
                 }
             }
 
-
-
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
+            base.Draw(gameTime);
+
             Global.SpriteBatch.Begin();
 
+            // Fixes layering for Customers if Customers are present
+            if (CustomerManager.Customers.Count > 0)
+            {
+                for (int i = CustomerManager.Customers.Count - 1; i >= 0; i--)
+                {
+                    Customer cust = CustomerManager.Customers[i];
+                    Global.SpriteBatch.Draw(cust.Texture, cust.Position, Color.White);
+                }
+            }
 
             Global.SpriteBatch.End();
-            base.Draw(gameTime);
         }
     }
 }

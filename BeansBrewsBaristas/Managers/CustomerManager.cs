@@ -153,7 +153,7 @@ namespace BeansBrewsBaristas.Managers
         //    return new Order();
         //}
 
-        private static List<Customer> Customers = new List<Customer>();
+        public static List<Customer> Customers = new List<Customer>();
 
         public static Queue<Customer> OrderQueue = new Queue<Customer>();
         public static Queue<Customer> PickupQueue = new Queue<Customer>();
