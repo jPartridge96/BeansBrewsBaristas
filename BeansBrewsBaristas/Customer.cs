@@ -10,14 +10,12 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas
 {
-    public class Customer : AnimatedSprite
+    public class Customer : Sprite
     {
+        public string Name { get; }
         public int PatienceTimer { get; set; }
         public int WaitTimer { get; set; }
-
-        public Queue<Vector2> linePosition;
-        public Vector2[] linePositions = new Vector2[] { new Vector2(450, 300), new Vector2(450, 350) };
-        Queue<Vector2> line1;
+        public Order Order { get; set; }
 
         #region CONSTRUCTORS
         public Customer(Vector2 position,
@@ -25,12 +23,20 @@ namespace BeansBrewsBaristas
             Color color,
             int patienceTimer,
             int waitTimer) :
-            base(position, texture, color, 2)
+            base(position, texture, color)
         {
             PatienceTimer = patienceTimer;
             WaitTimer = waitTimer;
+
+            Name = CustomerManager.GetCustomerName();
+            Order = new Order();
+
+            // Eventually use this so only specifictoppings pair with their related drink types
+            // Order = CustomerManager.GetCustomerOrder();
+
         }
         #endregion
+
         public override void Initialize()
         {
             base.Initialize();
@@ -43,7 +49,6 @@ namespace BeansBrewsBaristas
 
         public override void Update(GameTime gameTime)
         {
-            line1 = new Queue<Vector2>(linePositions);
             base.Update(gameTime);
 
             //unused code region.
@@ -82,8 +87,9 @@ namespace BeansBrewsBaristas
 
             SpriteBatch.Begin();
 
-            if (_frameIndex >= 0) // v4
-                SpriteBatch.Draw(Texture, Position, _frames[_frameIndex], Color.White);
+            //if (_frameIndex >= 0) // v4
+                //SpriteBatch.Draw(Texture, Position, _frames[_frameIndex], Color.White);
+            SpriteBatch.Draw(Texture, Position, Color.White);
 
             SpriteBatch.End();
 

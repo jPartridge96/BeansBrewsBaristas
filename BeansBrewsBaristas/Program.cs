@@ -26,7 +26,10 @@
  *      Jordan Partridge -             : MenuComponent is now controlled from InputManager
  *                       -             : TravelToPos now correctly offsets Customer based on index of Queue
  *                       -             : Added skeleton for Credits and Help scenes
- *                                     : Added placeholder Menu UI
+ *                       -             : Added placeholder Menu UI
+ *                       - Dec 08, 2022: Customers now have randomly generated names
+ *                       -             : Swapped Customer placeholder art with release candidates
+ *                       -             : Customers now hold randomly generated orders with modifications
  *
  */
 

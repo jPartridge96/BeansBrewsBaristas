@@ -11,15 +11,34 @@ namespace BeansBrewsBaristas.Managers
         public const int PICKUP_LIMIT = 5;
         public const int CUST_LIMIT = 10;
 
-        public static Rectangle SpawnPoint { get; set; } = new Rectangle(0, (int)Global.Stage.Y / 3, 100, 200);
+        // public static Rectangle SpawnPoint { get; set; } = new Rectangle(0, (int)Global.Stage.Y / 3, 100, 200);
         public static List<Texture2D> CustomerAssets;
+
+        public static string[] CustomerNames = {
+            "Eman", "Sabbir", "Morgan", "Malcom", "Ayush", "Gabriela",
+            "Khaleil", "Nathan", "David", "Ritik", "Blake H.", "Yusuf",
+            "Patrick", "Thomas", "Boa", "Ali", "Hyunjin", "Nancy",
+            "Coby", "Daniela", "Jordan", "Kandarp", "Blake P.", "Rishabh",
+            "Gloria", "Michael", "Jonathan", "Dev", "Bhupinderjeet", "Liam",
+            "Elliot", "Danial", "Ashley", "Sheng"
+        };
+
+        public enum DrinkType
+        {
+            COFFEE,
+            LATTE,
+            ESPRESSO,
+            TAKEOUT_COFFEE,
+            TAKEOUT_LATTE
+        }
 
         public CustomerManager()
         {
             CustomerAssets = new List<Texture2D>()
             {
-                // Global.GameManager.Content.Load<Texture2D>("Images/ball (1)"),
-                Global.GameManager.Content.Load<Texture2D>("SpriteSheets/george"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer1"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer2"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer3"),
             };
         }
 
@@ -45,17 +64,20 @@ namespace BeansBrewsBaristas.Managers
                 // Calculate Order Queue pos
                 Vector2 orderQueuePos = new Vector2(
                     (int)((Global.Stage.X / 8 * 3) - (OrderQueue.Count * 25)),
-                    Global.Stage.Y / 2
+                    Global.Stage.Y / 3 // CONTROL THIS
                 );
 
                 Customer cust = new Customer(
-                    new Vector2(0, Global.Stage.Y / 2),
-                    GetRandomCustomerAsset(),
-                    Color.Green, 750, 300
+                    new Vector2(0, Global.Stage.Y / 3),
+                    GetRandomCustomerAsset(), Color.White,
+                    750, 300
                 );
 
                 Global.GameManager.Components.Add(cust);
                 Customers.Add(cust);
+
+                Debug.WriteLine($"\n\nName: {cust.Name}");
+                Debug.WriteLine($"Order: \n{cust.Order}");
 
                 EnterQueue(cust, OrderQueue);
 
@@ -93,6 +115,17 @@ namespace BeansBrewsBaristas.Managers
             customer.TravelToPos(queuePos);
             queue.Enqueue(customer);
         }
+
+        public static string GetCustomerName()
+        {
+            Random rand = new Random();
+            return CustomerNames[rand.Next(0, CustomerNames.Length)];
+        }
+
+        //public static Order GetCustomerOrder()
+        //{
+        //    return new Order();
+        //}
 
         private static List<Customer> Customers = new List<Customer>();
 

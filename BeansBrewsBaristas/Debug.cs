@@ -18,8 +18,8 @@ namespace BeansBrewsBaristas
         public Debug(Game game) : base(game)
         {
             // Used by Debug.Output();
-            Global.GameManager.Components.Add (
-                _debugMessage = new TextElement (
+            Global.GameManager.Components.Add(
+                _debugMessage = new TextElement(
                     "", Global.Vertex.TOP_LEFT,
                     Color.Red
             ));
@@ -77,5 +77,10 @@ namespace BeansBrewsBaristas
             _debugMessage.Text = text;
         }
         static TextElement _debugMessage;
+
+        public static void WriteLine(string text)
+        {
+            System.Diagnostics.Debug.WriteLine(text);
+        }
     }
 }
