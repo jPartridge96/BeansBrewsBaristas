@@ -18,8 +18,10 @@ namespace BeansBrewsBaristas.Managers
         Texture2D backgroundCafe2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground2");
         Texture2D cafeBar2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar2");
         public static Texture2D VolumeTex = Global.GameManager.Content.Load<Texture2D>("Images/VolumeBar");
-        public static TextElement banana = new TextElement("Effects Volume", new Vector2(350, 250), Color.White);
-        public static Sprite testVolumeSprite = new Sprite(new Vector2(350, 300), VolumeTex, Color.White);
+        public static TextElement soundEffectTex = new TextElement($"Effects Volume: {GameManager.volume}", new Vector2(350, 250), Color.White);
+        public static TextElement musicVolumeTex = new TextElement($"Music Volume {GameManager.volume}", new Vector2(350, 175), Color.White);
+        public static Sprite soundEffectSprite = new Sprite(new Vector2(350, 300), VolumeTex, Color.White);
+        public static Sprite volumeSprite = new Sprite(new Vector2(350, 225), VolumeTex, Color.White);
 
 
 
@@ -59,7 +61,7 @@ namespace BeansBrewsBaristas.Managers
                         new TextElement("Brooke Brooke",new Vector2(350, 265), Color.White),
                     }
                 },
-                                {
+                {
                     "Options",
                     new List<DrawableGameComponent>()
                     {
@@ -67,10 +69,10 @@ namespace BeansBrewsBaristas.Managers
                         //the different volume levels 100% 75% 50% 25% 0%
                         new Sprite(Vector2.Zero, menu, Color.White),
                         new TextElement("Options", new Vector2(350, 125), Color.Black),
-                        new Sprite(new Vector2(350, 225), VolumeTex, Color.White),
-                        new TextElement("Music Volume", new Vector2(350, 175), Color.White),
-                        banana,
-                        testVolumeSprite
+                        musicVolumeTex,
+                        soundEffectTex,
+                        soundEffectSprite,
+                        volumeSprite
                     }
                 },
                 {

@@ -20,7 +20,7 @@ namespace BeansBrewsBaristas
         private const string GAME_VER = "0.01";
         public Point mousePosition;
         private GraphicsDeviceManager _graphics;
-        public static string volume = "Volume 25%";
+        public static string volume = "25%";
 
         public GameManager()
         {
@@ -58,43 +58,72 @@ namespace BeansBrewsBaristas
         protected override void Update(GameTime gameTime)
         {
             mousePosition = new Point(InputManager._msState.X, InputManager._msState.Y);
-            Rectangle rectangle = new Rectangle((int)SceneManager.testVolumeSprite.Position.X, (int)SceneManager.testVolumeSprite.Position.Y, SceneManager.VolumeTex.Width, SceneManager.VolumeTex.Height);
+            Rectangle soundFxRect = new Rectangle((int)SceneManager.soundEffectSprite.Position.X, (int)SceneManager.soundEffectSprite.Position.Y, SceneManager.VolumeTex.Width, SceneManager.VolumeTex.Height);
+            Rectangle musicVolumeRect = new Rectangle((int)SceneManager.volumeSprite.Position.X, (int)SceneManager.volumeSprite.Position.Y, SceneManager.VolumeTex.Width, SceneManager.VolumeTex.Height);
             //check to see if inside the rectangle for the volume slider then get the mouse position relative to screen (not sure how to get relative to the box ask Jordan)
             if (SceneManager.ActiveScene == "Options")
             {
-                if (rectangle.Contains(mousePosition))
+                if (soundFxRect.Contains(mousePosition))
                 {
                     //180 is the total difference 
-                    //need to change this into a switch (these are super magic numbers. oof.
-                    if (mousePosition.X < 395)
+                    switch (mousePosition.X)
                     {
-                        volume = "Volume 0%";
-                        SceneManager.banana.Text = "Volume 0%";
-                        MediaPlayer.Volume = 0f;
+                        case < 395:
+                            volume = "0%";
+                            MediaPlayer.Volume = 0f;
+                            break;
+                        case < 425:
+                            volume = "25%";
+                            MediaPlayer.Volume = .25f;
+                            break;
+                        case < 480:
+                            volume = "50%";
+                            MediaPlayer.Volume = .50f;
+                            break;
+                        case < 525:
+                            volume = "75%";
+                            MediaPlayer.Volume = .75f;
+                            break;
+                        case < 600:
+                            volume = "100%";
+                            MediaPlayer.Volume = 1;
+                            break;
+                        default:
+                            break;
                     }
-                    if (mousePosition.X < 440 && mousePosition.X > 395)
-                    {
-                        volume = "Volume 25%";
+                    SceneManager.soundEffectTex.Text = $"Effects Volume: {volume}";
 
-                        MediaPlayer.Volume = .25f;
-                    }
-                    if (mousePosition.X < 485 && mousePosition.X > 440)
-                    {
-                        volume = "Volume 50%";
-                        MediaPlayer.Volume = .50f;
-                    }
-                    if (mousePosition.X < 525 && mousePosition.X > 485)
-                    {
-                        volume = "Volume 75%";
-                        MediaPlayer.Volume = .75f;
-                    }
-                    else if (mousePosition.X > 525)
-                    {
-                        volume = "Volume 100%";
-                        MediaPlayer.Volume = 1;
-                    }
+
                 }
-                SceneManager.banana.Text = volume;
+                else if (musicVolumeRect.Contains(mousePosition))
+                {
+                    switch (mousePosition.X)
+                    {
+                        case < 395:
+                            volume = "0%";
+                            SoundEffect.MasterVolume = 0f;
+                            break;
+                        case < 425:
+                            volume = "25%";
+                            SoundEffect.MasterVolume = .25f;
+                            break;
+                        case < 480:
+                            volume = "50%";
+                            SoundEffect.MasterVolume = .50f;
+                            break;
+                        case < 525:
+                            volume = "75%";
+                            SoundEffect.MasterVolume = .75f;
+                            break;
+                        case < 600:
+                            volume = "100%";
+                            SoundEffect.MasterVolume = 1;
+                            break;
+                        default:
+                            break;
+                    }
+                    SceneManager.musicVolumeTex.Text = $"Music Volume: {volume}";
+                }
             }
 
 
