@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -106,14 +107,16 @@ namespace BeansBrewsBaristas.Managers
 
         public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
+            queue.Enqueue(cust);
+
             int calcPos = 0;
             switch (direction)
             {
                 case QueueDirection.LEFT:
-                    calcPos = (int)xPos - queue.Count * 50;
+                    calcPos = (int)xPos - GetQueueIndex(cust, queue) * 50;
                     break;
                 case QueueDirection.RIGHT:
-                    calcPos = (int)xPos + queue.Count * 50;
+                    calcPos = (int)xPos + GetQueueIndex(cust, queue) * 50;
                     break;
             }
 
@@ -123,7 +126,6 @@ namespace BeansBrewsBaristas.Managers
             );
 
             cust.TravelToPos(queuePos);
-            queue.Enqueue(cust);
         }
 
         public static void TransferQueue(Queue<Customer> oldQueue, Queue<Customer> newQueue, float xPos, QueueDirection direction)
@@ -134,12 +136,18 @@ namespace BeansBrewsBaristas.Managers
             EnterQueue(oldQueue.Dequeue(), newQueue, (int)xPos, direction);
         }
 
+        public static int GetQueueIndex(Customer cust, Queue<Customer> queue)
+        {
+            return queue.ToList().IndexOf(cust);
+        }
+
         public static string GetCustomerName()
         {
             Random rand = new Random();
             return CustomerNames[rand.Next(0, CustomerNames.Length)];
         }
 
+        // Use to determine what modifications are able to go on what drinks?
         //public static Order GetCustomerOrder()
         //{
         //    return new Order();

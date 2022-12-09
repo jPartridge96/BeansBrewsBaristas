@@ -124,10 +124,11 @@ namespace BeansBrewsBaristas.Managers
                     // Update positon for all in OrderQueue
                     foreach (Customer cust in OrderQueue)
                     {
-                        cust.TravelToPos(new Vector2( // Better method of inputting pos?
-                            Global.Stage.X / 8 * 2 - (OrderQueue.Count - 1) * 50,
-                            Global.Stage.Y / 2
-                        ));
+                        Vector2 newPos = new Vector2( 
+                            (Global.Stage.X / 8 * 2) - GetQueueIndex(cust, OrderQueue) * 50,
+                            Global.Stage.Y / 2);
+
+                        cust.TravelToPos(newPos);
                     }
                     break;
                 case false:
