@@ -22,6 +22,9 @@ namespace BeansBrewsBaristas
         private GraphicsDeviceManager _graphics;
         public static string volume = "25%";
 
+
+        SpriteFont Font;
+
         public GameManager()
         {
             Window.Title = $"{GAME_TITLE} | v{GAME_VER}";
@@ -38,6 +41,8 @@ namespace BeansBrewsBaristas
 
         protected override void LoadContent()
         {
+            Font = Content.Load<SpriteFont>("Fonts/Font");
+
             // Define globals
             Global.Stage = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             Global.SpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -146,6 +151,45 @@ namespace BeansBrewsBaristas
                 }
             }
 
+            if (CustomerManager.Orders.Count > 0)
+            {
+                Customer cust = CustomerManager.PickupQueue.ToList()[0];
+
+                // ORDER
+                Global.SpriteBatch.DrawString(
+                    Font, cust.ToString(),
+                    new Vector2(
+                        Global.Stage.X / 20, 
+                        Global.Stage.Y / 8
+                    ),
+                    Color.Black
+                );
+
+                // INSTRUCTIONS
+                string instructions = "Syrups:\n" +
+                    "C - Caramel\n" +
+                    "T - Toffee\n" +
+                    "H - Hazelnut\n" +
+                    "V - Vanilla\n\n";
+
+                // IF TAKEOUT
+                if(cust.Order.DrinkType == CustomerManager.DrinkType.TAKEOUT_COFFEE ||
+                    cust.Order.DrinkType == CustomerManager.DrinkType.TAKEOUT_LATTE)
+                {
+                    instructions += "L - Lid\n" +
+                        "S - Sleeve";
+                }
+
+                Global.SpriteBatch.DrawString(
+                    Font, instructions,
+                    new Vector2(
+                        Global.Stage.X / 20 * 14,
+                        Global.Stage.Y / 8
+                    ),
+                    Color.Black
+                );
+            }
+                
             Global.SpriteBatch.End();
         }
     }

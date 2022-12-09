@@ -96,5 +96,11 @@ namespace BeansBrewsBaristas
                 await Task.Delay(1);
             }
         }
+
+        public override string ToString()
+        {
+
+            return $"{Name} {Order}";
+        }
     }
 }

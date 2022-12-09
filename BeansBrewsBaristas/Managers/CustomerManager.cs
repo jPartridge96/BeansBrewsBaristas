@@ -139,8 +139,11 @@ namespace BeansBrewsBaristas.Managers
         {
             if (OrderQueue.Count != 0)
             {
-                
+                Customer cust = OrderQueue.ToList()[0];
+
                 TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 5, QueueDirection.RIGHT);
+
+                Orders.Add(cust.Order);
             }
 
             // Update positon for all in OrderQueue

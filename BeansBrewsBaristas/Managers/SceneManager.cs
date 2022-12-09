@@ -46,7 +46,12 @@ namespace BeansBrewsBaristas.Managers
                     {
                         new Sprite(Vector2.Zero, menu, Color.White),
                         new TextElement("Help", new Vector2(350, 125), Color.Black),
-                        new TextElement("You are being helped!", new Vector2(350, 160), Color.White),
+                        new TextElement(
+                            "Prepare guests' drinks by\n" +
+                            "pressing the prompted keys.\n\n" +
+                            "Be careful to not assemble\n" +
+                            "their order incorrectly!",
+                            new Vector2(350, 160), Color.White),
                     }
                 },
                 {
@@ -54,11 +59,12 @@ namespace BeansBrewsBaristas.Managers
                     new List<DrawableGameComponent>()
                     {
                         new Sprite(Vector2.Zero, menu, Color.White),
-                        new TextElement("Credits",  new Vector2 (350, 125), Color.Black),
+                        new TextElement("Developers",  new Vector2 (350, 125), Color.Black),
                         new TextElement("Jordan Partridge",new Vector2(350, 160), Color.White),
                         new TextElement("Thomas Heal",new Vector2(350, 195), Color.White),
-                        new TextElement("Hannah Zhang",new Vector2(350, 230), Color.White),
-                        new TextElement("Brooke Brooke",new Vector2(350, 265), Color.White),
+                        new TextElement("Illustrators",new Vector2(350, 265), Color.Black),
+                        new TextElement("Hannah Zhang",new Vector2(350, 300), Color.White),
+                        new TextElement("Brooke Hardie",new Vector2(350, 335), Color.White),
                     }
                 },
                 {
@@ -161,6 +167,7 @@ namespace BeansBrewsBaristas.Managers
         public static void UnloadScene(object scene)
         {
             CustomerManager.Customers.Clear();
+            CustomerManager.Orders.Clear();
             CustomerManager.OrderQueue.Clear();
             CustomerManager.PickupQueue.Clear();
 
