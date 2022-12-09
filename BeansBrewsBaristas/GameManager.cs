@@ -137,21 +137,6 @@ namespace BeansBrewsBaristas
             GraphicsDevice.Clear(Color.Black);
             Global.SpriteBatch.Begin();
 
-            #region DEBUG RECTANGLES
-
-            //Debug.DrawRectangle(
-            //    (int)(Global.Stage.X / 8) * 2, 0,
-            //    (int)(Global.Stage.X / 8),
-            //    (int)Global.Stage.Y
-            //);
-
-            //Debug.DrawRectangle(
-            //    (int)(Global.Stage.X / 8) * 5, 0,
-            //    (int)(Global.Stage.X / 8),
-            //    (int)Global.Stage.Y
-            //);
-
-            #endregion
 
             Global.SpriteBatch.End();
             base.Draw(gameTime);
