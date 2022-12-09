@@ -10,14 +10,15 @@ namespace BeansBrewsBaristas.Managers
     {
         private AudioManager()
         {
+            // AudioManager loads SoundEffects from GameManager
             _soundLibrary = new Dictionary<string, SoundEffect>()
             {
-                //audio manager loads sound effects from content manager
                 {"MenuTheme", LoadSound("Theme1") },
             };
+
+            // AudioManager loads Songs from GameManager
             _songLibrary = new Dictionary<string, Song>()
             {
-                //audio manager loads songs from content manager
                 {"MenuTheme", LoadSong("MenuTheme1") },
                 {"Level1Song", LoadSong("BackGroundTheme1") },
                 {"Level2Song", LoadSong("BackGroundTheme2") }

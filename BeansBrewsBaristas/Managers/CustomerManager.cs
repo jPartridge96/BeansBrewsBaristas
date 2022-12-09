@@ -11,6 +11,12 @@ namespace BeansBrewsBaristas.Managers
         public const int PICKUP_LIMIT = 5;
         public const int CUST_LIMIT = 10;
 
+        public enum QueueDirection
+        {
+            LEFT,
+            RIGHT
+        }
+
         // public static Rectangle SpawnPoint { get; set; } = new Rectangle(0, (int)Global.Stage.Y / 3, 100, 200);
         public static List<Texture2D> CustomerAssets;
 
@@ -61,12 +67,6 @@ namespace BeansBrewsBaristas.Managers
             // If line of customers is below line limit
             if(Customers.Count < CUST_LIMIT && OrderQueue.Count < ORDER_LIMIT)
             {
-                // Calculate Order Queue pos
-                Vector2 orderQueuePos = new Vector2(
-                    (int)((Global.Stage.X / 8 * 3) - (OrderQueue.Count * 25)),
-                    Global.Stage.Y / 3 // CONTROL THIS
-                );
-
                 Customer cust = new Customer(
                     new Vector2(0, Global.Stage.Y / 3),
                     GetRandomCustomerAsset(), Color.White,
@@ -79,9 +79,7 @@ namespace BeansBrewsBaristas.Managers
                 Debug.WriteLine($"\n\nName: {cust.Name}");
                 Debug.WriteLine($"Order: \n{cust.Order}");
 
-                EnterQueue(cust, OrderQueue);
-
-                Debug.Output($"New customer travelling to '{orderQueuePos.X},{orderQueuePos.Y}'");
+                EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.RIGHT);
             }
         }
 
@@ -106,14 +104,26 @@ namespace BeansBrewsBaristas.Managers
             throw new Exception("Customer was not part of Game Components.");
         }
 
-        public static async void EnterQueue(Customer customer, Queue<Customer> queue)
+        public static async void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
+            int calcPos = 0;
+            switch (direction)
+            {
+                case QueueDirection.LEFT:
+                    calcPos = (int)xPos - queue.Count * 25;
+                    break;
+                case QueueDirection.RIGHT:
+                    calcPos = (int)xPos + queue.Count * 25;
+                    break;
+            }
+
             Vector2 queuePos = new Vector2(
-                    (int)((Global.Stage.X / 8 * 3) - (queue.Count * 25)),
-                    Global.Stage.Y / 2
-                );
-            customer.TravelToPos(queuePos);
-            queue.Enqueue(customer);
+                calcPos,
+                Global.Stage.Y / 2
+            );
+
+            cust.TravelToPos(queuePos);
+            queue.Enqueue(cust);
         }
 
         public static string GetCustomerName()

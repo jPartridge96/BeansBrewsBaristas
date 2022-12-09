@@ -11,8 +11,10 @@ namespace BeansBrewsBaristas
     {
         public enum ModificationControls
         {
-            CARAMAL = Keys.C,
+            VANILLA = Keys.V,
+            CARAMEL = Keys.C,
             TOFFEE = Keys.T,
+            HAZELNUT = Keys.H
         }
     }
 }

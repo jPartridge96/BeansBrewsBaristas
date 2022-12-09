@@ -37,16 +37,6 @@ namespace BeansBrewsBaristas
         }
         #endregion
 
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -84,11 +74,8 @@ namespace BeansBrewsBaristas
 
         public override void Draw(GameTime gameTime)
         {
-
             SpriteBatch.Begin();
 
-            //if (_frameIndex >= 0) // v4
-                //SpriteBatch.Draw(Texture, Position, _frames[_frameIndex], Color.White);
             SpriteBatch.Draw(Texture, Position, Color.White);
 
             SpriteBatch.End();

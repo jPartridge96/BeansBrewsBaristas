@@ -32,7 +32,11 @@ namespace BeansBrewsBaristas
             // Sets Control as random value
             DrinkType = (CustomerManager.DrinkType)values.GetValue(enumIndex);
 
-            GenerateModifications();
+
+            // Unable to add modifications to espressos
+            if(DrinkType != CustomerManager.DrinkType.ESPRESSO)
+                GenerateModifications();
+            // TODO: ADD OPTIONAL DUSTING FOR COFFEE OR LATTE
         }
 
         private void GenerateModifications()
