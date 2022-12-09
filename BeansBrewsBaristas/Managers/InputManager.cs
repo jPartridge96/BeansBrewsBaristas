@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D11;
+using SharpDX.Direct3D9;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BeansBrewsBaristas.Managers.CustomerManager;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -97,6 +100,7 @@ namespace BeansBrewsBaristas.Managers
             switch(OnLeftMouseDown())
             {
                 case true:
+                    CreateCustomer();
                     break;
                 case false:
                     break;
@@ -114,7 +118,17 @@ namespace BeansBrewsBaristas.Managers
             switch (OnRightMouseDown())
             {
                 case true:
-                    CustomerManager.CreateCustomer();
+                    if (OrderQueue.Count != 0)
+                        TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 6, QueueDirection.RIGHT);
+
+                    // Update positon for all in OrderQueue
+                    foreach (Customer cust in OrderQueue)
+                    {
+                        cust.TravelToPos(new Vector2( // Better method of inputting pos?
+                            Global.Stage.X / 8 * 2 - (OrderQueue.Count - 1) * 50,
+                            Global.Stage.Y / 2
+                        ));
+                    }
                     break;
                 case false:
                     break;

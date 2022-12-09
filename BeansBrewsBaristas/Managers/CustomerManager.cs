@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,8 +8,7 @@ namespace BeansBrewsBaristas.Managers
 {
     public class CustomerManager
     {
-        public const int ORDER_LIMIT = 5;
-        public const int PICKUP_LIMIT = 5;
+        public const int QUEUE_LIMIT = 5;
         public const int CUST_LIMIT = 10;
 
         public enum QueueDirection
@@ -65,7 +65,7 @@ namespace BeansBrewsBaristas.Managers
         public static void CreateCustomer()
         {
             // If line of customers is below line limit
-            if(Customers.Count < CUST_LIMIT && OrderQueue.Count < ORDER_LIMIT)
+            if(Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
             {
                 Customer cust = new Customer(
                     new Vector2(0, Global.Stage.Y / 3),
@@ -79,7 +79,7 @@ namespace BeansBrewsBaristas.Managers
                 Debug.WriteLine($"\n\nName: {cust.Name}");
                 Debug.WriteLine($"Order: \n{cust.Order}");
 
-                EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.RIGHT);
+                EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 2, QueueDirection.LEFT);
             }
         }
 
@@ -104,16 +104,16 @@ namespace BeansBrewsBaristas.Managers
             throw new Exception("Customer was not part of Game Components.");
         }
 
-        public static async void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
+        public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
             int calcPos = 0;
             switch (direction)
             {
                 case QueueDirection.LEFT:
-                    calcPos = (int)xPos - queue.Count * 25;
+                    calcPos = (int)xPos - queue.Count * 50;
                     break;
                 case QueueDirection.RIGHT:
-                    calcPos = (int)xPos + queue.Count * 25;
+                    calcPos = (int)xPos + queue.Count * 50;
                     break;
             }
 
@@ -124,6 +124,14 @@ namespace BeansBrewsBaristas.Managers
 
             cust.TravelToPos(queuePos);
             queue.Enqueue(cust);
+        }
+
+        public static void TransferQueue(Queue<Customer> oldQueue, Queue<Customer> newQueue, float xPos, QueueDirection direction)
+        {
+            if (newQueue.Count >= QUEUE_LIMIT)
+                return;
+
+            EnterQueue(oldQueue.Dequeue(), newQueue, (int)xPos, direction);
         }
 
         public static string GetCustomerName()
@@ -139,7 +147,7 @@ namespace BeansBrewsBaristas.Managers
 
         private static List<Customer> Customers = new List<Customer>();
 
-        private static Queue<Customer> OrderQueue = new Queue<Customer>();
-        private static Queue<Customer> PickupQueue = new Queue<Customer>();
+        public static Queue<Customer> OrderQueue = new Queue<Customer>();
+        public static Queue<Customer> PickupQueue = new Queue<Customer>();
     }
 }
