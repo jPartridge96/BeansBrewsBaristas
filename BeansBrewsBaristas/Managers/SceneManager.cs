@@ -17,6 +17,7 @@ namespace BeansBrewsBaristas.Managers
         Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
         Texture2D backgroundCafe2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground2");
         Texture2D cafeBar2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar2");
+
         public static Texture2D VolumeTex = Global.GameManager.Content.Load<Texture2D>("Images/VolumeBar");
         public static TextElement soundEffectTex = new TextElement($"Effects Volume: {GameManager.volume}", new Vector2(350, 250), Color.White);
         public static TextElement musicVolumeTex = new TextElement($"Music Volume {GameManager.volume}", new Vector2(350, 175), Color.White);

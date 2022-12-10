@@ -41,7 +41,7 @@ namespace BeansBrewsBaristas
 
         protected override void LoadContent()
         {
-            Font = Content.Load<SpriteFont>("Fonts/Font");
+            Font = Content.Load<SpriteFont>("fonts/TextFont");
 
             // Define globals
             Global.Stage = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
@@ -159,31 +159,35 @@ namespace BeansBrewsBaristas
                 Global.SpriteBatch.DrawString(
                     Font, cust.ToString(),
                     new Vector2(
-                        Global.Stage.X / 20, 
+                        Global.Stage.X / 40, 
                         Global.Stage.Y / 8
                     ),
                     Color.Black
                 );
 
                 // INSTRUCTIONS
-                string instructions = "Syrups:\n" +
+                string instructions = "Syrup Controls:\n" +
                     "C - Caramel\n" +
                     "T - Toffee\n" +
                     "H - Hazelnut\n" +
                     "V - Vanilla\n\n";
 
                 // IF TAKEOUT
+                instructions += "Cup Controls:\n" +
+                    "G - Cup\n";
+
                 if(cust.Order.DrinkType == CustomerManager.DrinkType.TAKEOUT_COFFEE ||
                     cust.Order.DrinkType == CustomerManager.DrinkType.TAKEOUT_LATTE)
                 {
                     instructions += "L - Lid\n" +
                         "S - Sleeve";
                 }
+                instructions += "\n\n\nSPACE - Serve";
 
                 Global.SpriteBatch.DrawString(
                     Font, instructions,
                     new Vector2(
-                        Global.Stage.X / 20 * 14,
+                        Global.Stage.X / 20 * 16,
                         Global.Stage.Y / 8
                     ),
                     Color.Black
