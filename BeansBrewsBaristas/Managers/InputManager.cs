@@ -43,22 +43,22 @@ namespace BeansBrewsBaristas.Managers
 
                     if (GameManager.modificationKeys.Contains(keyPressed))
                     {
-                        keysPressed.Add(keyPressed);
-
-
-                        if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
+                        if(activeOrder != null)
                         {
-                            keysPressed.Remove(keyPressed);
-                            Debug.WriteLine("-------Active Keys list--------");
+                            keysPressed.Add(keyPressed);
 
-                            activeOrderKeys.Remove(keyPressed);
-                            foreach (var item in activeOrderKeys)
+                            if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
                             {
-                                Debug.WriteLine(item.ToString());
+                                keysPressed.Remove(keyPressed);
+                                Debug.WriteLine("-------Active Keys list--------");
+
+                                activeOrderKeys.Remove(keyPressed);
+                                foreach (var item in activeOrderKeys)
+                                {
+                                    Debug.WriteLine(item.ToString());
+                                }
                             }
-
                         }
-
                     }
                     //keys pressed that are in the modificaitons key tab
                     if(keyPressed == Keys.K)
