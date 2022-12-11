@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework.Input;
 using BeansBrewsBaristas.BaseClassScripts;
 using BeansBrewsBaristas.ComponentScripts;
 using Microsoft.Xna.Framework;
@@ -13,7 +14,8 @@ namespace BeansBrewsBaristas.Managers
     {
         public const int QUEUE_LIMIT = 5;
         public const int CUST_LIMIT = 10;
-
+        public static Order activeOrder;
+        public static List<Keys> activeOrderKeys;
         public enum QueueDirection
         {
             LEFT,
@@ -136,7 +138,19 @@ namespace BeansBrewsBaristas.Managers
             Random rand = new Random();
             return CustomerNames[rand.Next(0, CustomerNames.Length)];
         }
+        //sets the current customer order in the order queue as the active order.
+        //ui reflects the matching stuff
+        public static Order setActiveOrder(Order nextOrder)
+        {
+            activeOrder = nextOrder;
+            activeOrderKeys = new List<Keys>();
+            foreach (var key in activeOrder.Modifications)
+            {
+                activeOrderKeys.Add((Keys)key.Control);
+            }
 
+            return activeOrder;
+        }
         public static void TakeNextOrder()
         {
             if (OrderQueue.Count != 0)
@@ -144,8 +158,9 @@ namespace BeansBrewsBaristas.Managers
                 Customer cust = OrderQueue.ToList()[0];
 
                 TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 5, QueueDirection.RIGHT);
-
+                
                 Orders.Add(cust.Order);
+                setActiveOrder(cust.Order);
             }
 
             // Update positon for all in OrderQueue
@@ -158,6 +173,7 @@ namespace BeansBrewsBaristas.Managers
                 cust.TravelToPos(newPos);
             }
         }
+
         // Use to determine what modifications are able to go on what drinks?
         //public static Order GetCustomerOrder()
         //{

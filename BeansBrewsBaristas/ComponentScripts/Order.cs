@@ -88,5 +88,6 @@ namespace BeansBrewsBaristas.ComponentScripts
 
             return str;
         }
+
     }
 }

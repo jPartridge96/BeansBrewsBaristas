@@ -1,5 +1,6 @@
 ﻿using BeansBrewsBaristas.BaseClassScripts;
 using BeansBrewsBaristas.ComponentScripts;
+using Microsoft.Win32;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D11;
@@ -7,6 +8,7 @@ using SharpDX.Direct3D9;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,20 +20,84 @@ namespace BeansBrewsBaristas.Managers
     {
         
         public InputManager(Game game) : base(game) { }
+        List<Keys> keysPressed = new List<Keys>();
+        int score = 0;
 
         public string CurrentScene { get; set; } = "Menu";
 
+
         public override void Update(GameTime gameTime)
         {
+
             _msState = Mouse.GetState();
             _kbState = Keyboard.GetState();
 
             // Keyboard Input
             foreach (Keys keyPressed in _kbState.GetPressedKeys())
             {
+
                 if (OnKeyDown(keyPressed))
                 {
-                    switch(SceneManager.ActiveScene)
+
+                    if (GameManager.modificationKeys.Contains(keyPressed))
+                    {
+                        keysPressed.Add(keyPressed);
+
+
+                        if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
+                        {
+                            keysPressed.Remove(keyPressed);
+                            Debug.WriteLine("-------Active Keys list--------");
+
+                            activeOrderKeys.Remove(keyPressed);
+                            foreach (var item in activeOrderKeys)
+                            {
+                                Debug.WriteLine(item.ToString());
+                            }
+
+                        }
+
+                    }
+                    //keys pressed that are in the modificaitons key tab
+                    if(keyPressed == Keys.K)
+                    {
+                        Debug.WriteLine("-------Incorrect Keys Pressed List--------");
+
+                        foreach (var item in keysPressed)
+                        {
+                            Debug.WriteLine(item.ToString());
+                        }
+                    }
+                    //list of the modifications in the active order
+                    if (keyPressed == Keys.L)
+                    {
+                        if (activeOrder != null)
+                        {
+                            Debug.WriteLine("-------List of modifcations in the activeOrder--------");
+
+                            foreach (var item in activeOrder.Modifications)
+                            {
+
+                                Debug.WriteLine(((Keys)item.Control).ToString());
+                                
+                            }
+
+                        }
+
+                    }
+
+                    if(keyPressed == Keys.Space)
+                    {
+                        if(activeOrder != null && keysPressed.Count >= 0)
+                        {
+                            score = activeOrder.Modifications.Count - keysPressed.Count - activeOrderKeys.Count;
+                            
+                            Debug.WriteLine($"Your score is {score}, Incorrect keys pressed {keysPressed.Count}, active order keys left {activeOrderKeys.Count}");
+                        }
+
+                    }
+
+                    switch (SceneManager.ActiveScene)
                     {
                         case "Menu":
                             switch(keyPressed)
@@ -102,8 +168,10 @@ namespace BeansBrewsBaristas.Managers
             switch(OnLeftMouseDown())
             {
                 case true:
-                    CreateCustomer();
+                     CreateCustomer();
+
                     break;
+
                 case false:
                     break;
             }

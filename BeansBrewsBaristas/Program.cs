@@ -35,6 +35,9 @@
  *                       - Dec 10, 2022: Incomplete: Adding in-game font and controls
  *                       -             : Controls are displayed - Order is user friendly
  *           Thomas Heal - Dec 10, 2022: Updated Hierarchy to new folder structure
+ *                       -             : Cafe3 Background and bar added
+ *           
+ *           
  *           
  *
  */

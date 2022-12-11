@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using BeansBrewsBaristas.Managers;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,5 +40,6 @@ namespace BeansBrewsBaristas.ComponentScripts
         }
         private string name;
         public ModificationControls Control { get; }
+
     }
 }
