@@ -19,6 +19,7 @@ namespace BeansBrewsBaristas.Managers
         //Menu components textures
         Texture2D menu = Global.GameManager.Content.Load<Texture2D>("Images/Menu");
 
+        
         //Level components textures (bar and background are separate for layering purposes
         Texture2D backgroundCafe = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground1");
         Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
@@ -35,10 +36,9 @@ namespace BeansBrewsBaristas.Managers
         public static Sprite volumeSprite = new Sprite(new Vector2(350, 225), VolumeTex, Color.White);
 
         //score stuff
-
-        public static TextElement sceneScore = new TextElement($"Score {Global.score}", new Vector2(350, 125), Color.Black);
-
-
+        static Texture2D scoreBackgroundTex = Global.GameManager.Content.Load<Texture2D>("Images/scoreBackground");
+        static Sprite scoreBackground = new Sprite(new Vector2(Global.Stage.X - scoreBackgroundTex.Width, 0), scoreBackgroundTex, Color.White);
+        public static TextElement sceneScore = new TextElement($"", new Vector2(scoreBackground.Position.X + 3, scoreBackground.Position.Y), Color.Black);
 
         private SceneManager()
         {
@@ -103,7 +103,8 @@ namespace BeansBrewsBaristas.Managers
 
                         new Sprite(Vector2.Zero, backgroundCafe, Color.White),
                         new Sprite(Vector2.Zero, cafeBar, Color.White),
-                        sceneScore
+                        scoreBackground,
+                        sceneScore,
                     }
                 },
                 {
@@ -111,7 +112,9 @@ namespace BeansBrewsBaristas.Managers
                     new List<DrawableGameComponent>()
                     {
                         new Sprite(Vector2.Zero, backgroundCafe2, Color.White),
-                        new Sprite(Vector2.Zero, cafeBar2, Color.White)
+                        new Sprite(Vector2.Zero, cafeBar2, Color.White),
+                        scoreBackground,
+                        sceneScore,
                     }
                 },
                 {
@@ -119,7 +122,9 @@ namespace BeansBrewsBaristas.Managers
                     new List<DrawableGameComponent>()
                     {
                         new Sprite(Vector2.Zero, backgroundCafe3, Color.White),
-                        new Sprite(Vector2.Zero, cafeBar3, Color.White)
+                        new Sprite(Vector2.Zero, cafeBar3, Color.White),
+                        scoreBackground,
+                        sceneScore,
                     }
                 },
 
@@ -138,6 +143,7 @@ namespace BeansBrewsBaristas.Managers
         {
             //reset the score on loadscene
             Global.score = 0;
+            //set the message for the scoreboard
             SceneManager.sceneScore.Text = $"Score: {Global.score}";
             if (!Atlas.TryGetValue(sceneName, out var playableMap))
                 throw new Exception($"No scene found with name '{sceneName}'.");

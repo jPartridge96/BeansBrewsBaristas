@@ -9,18 +9,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using static BeansBrewsBaristas.Managers.CustomerManager;
 
 namespace BeansBrewsBaristas.Managers
 {
     public class InputManager : GameComponent
     {
-        int currentScore = 0;
+        public int currentScore = 0;
         public InputManager(Game game) : base(game) { }
         List<Keys> keysPressed = new List<Keys>();
+        
 
         public string CurrentScene { get; set; } = "Menu";
 
@@ -87,9 +90,18 @@ namespace BeansBrewsBaristas.Managers
 
                     if(keyPressed == Keys.Space)
                     {
-                        if(activeOrder != null && keysPressed.Count >= 0)
+
+
+                        
+
+                        if (activeOrder != null)
                         {
-                            Global.score = activeOrder.Modifications.Count - keysPressed.Count - activeOrderKeys.Count;
+                            currentScore = activeOrder.Modifications.Count;
+                            currentScore = currentScore - keysPressed.Count;
+                            currentScore -= activeOrderKeys.Count;
+                            Debug.WriteLine(currentScore.ToString());
+                            Global.score += currentScore;
+                            currentScore = 0;
                             SceneManager.sceneScore.Text = $"Score: {Global.score}";
 
                             if (keysPressed.Count > 0)
