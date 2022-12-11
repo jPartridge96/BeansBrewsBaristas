@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using static BeansBrewsBaristas.Managers.ModificationManager;
 using static BeansBrewsBaristas.Managers.CustomerManager;
 using Microsoft.Xna.Framework.Graphics;
+using BeansBrewsBaristas.BaseClassScripts;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
@@ -48,7 +49,7 @@ namespace BeansBrewsBaristas.ComponentScripts
         private void GenerateDrinkType()
         {
             // Grabs all values of type AddinControls
-            var values = Enum.GetValues(typeof(CustomerManager.DrinkType));
+            var values = Enum.GetValues(typeof(DrinkType));
 
             // Creates random number between 0 and length of all enum values
             Random rand = new Random();
@@ -60,17 +61,18 @@ namespace BeansBrewsBaristas.ComponentScripts
 
             // Unable to add modifications to espressos
             if (DrinkType != DrinkType.ESPRESSO)
-                GenerateModifications();
-            else
             {
-                // Randomly generate if drink has creamer and/or cinn. powder
-                if(Enum.GetName(DrinkType).Contains("COFFEE"))
-                    bool.TryParse(rand.Next(0, 1).ToString(), out HasCreamer);
-                bool.TryParse(rand.Next(0, 1).ToString(), out HasPowder);
-                    // does it have creamer?
-                // does it have cinn. powder?
-            }
+                GenerateModifications();
 
+                Debug.WriteLine("A");
+                // Randomly generate if drink has creamer and/or cinn. powder
+                if (DrinkName.Contains("COFFEE"))
+                    HasCreamer = RandTrueFalse();
+                HasPowder = RandTrueFalse();
+
+                Debug.WriteLine(HasCreamer.ToString());
+                Debug.WriteLine(HasPowder.ToString());
+            }
         }
 
         private void GenerateModifications()
@@ -120,15 +122,27 @@ namespace BeansBrewsBaristas.ComponentScripts
                         PreModKeys.Add((Keys)BaseControls.ESPRESSO);
                         break;
                 }
-            
-            // base
-
-                //takeout?
         }
 
         private void GetDrinkAssets()
         {
 
+        }
+
+        /// <summary>
+        /// Generates a value of True or False based on Random
+        /// </summary>
+        /// <returns>Random True or False value</returns>
+        private bool RandTrueFalse()
+        {
+            Random rand = new Random();
+            switch(rand.Next(2))
+            {
+                case 1:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public override string ToString()
@@ -146,6 +160,11 @@ namespace BeansBrewsBaristas.ComponentScripts
                     str += $"{kvp.Value} pumps {kvp.Key}\n";
                 else
                     str += $"{kvp.Value} pump {kvp.Key}\n";
+
+            if (HasCreamer)
+                str += $"Creamer\n";
+            if (HasPowder)
+                str += "Cinn. Powder\n";
 
             str += $"\n{DateTime.Now.ToString("d-MMM-yyyy  h:mm tt")}\n";
             if (DrinkType.ToString().Contains("TAKEOUT"))
