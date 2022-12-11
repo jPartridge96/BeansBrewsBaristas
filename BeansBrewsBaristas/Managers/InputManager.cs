@@ -18,10 +18,9 @@ namespace BeansBrewsBaristas.Managers
 {
     public class InputManager : GameComponent
     {
-        
+        int currentScore = 0;
         public InputManager(Game game) : base(game) { }
         List<Keys> keysPressed = new List<Keys>();
-        int score = 0;
 
         public string CurrentScene { get; set; } = "Menu";
 
@@ -90,9 +89,22 @@ namespace BeansBrewsBaristas.Managers
                     {
                         if(activeOrder != null && keysPressed.Count >= 0)
                         {
-                            score = activeOrder.Modifications.Count - keysPressed.Count - activeOrderKeys.Count;
+                            Global.score = activeOrder.Modifications.Count - keysPressed.Count - activeOrderKeys.Count;
+                            SceneManager.sceneScore.Text = $"Score: {Global.score}";
+
+                            if (keysPressed.Count > 0)
+                            {
+                                keysPressed.Clear();
+                            }
+                            if (activeOrderKeys.Count > 0)
+                            {
+                                activeOrderKeys.Clear();
+                            }
                             
-                            Debug.WriteLine($"Your score is {score}, Incorrect keys pressed {keysPressed.Count}, active order keys left {activeOrderKeys.Count}");
+
+
+                            CustomerManager.dequeueCustomer();
+                            Debug.WriteLine($"Your score is {Global.score}, Incorrect keys pressed {keysPressed.Count}, active order keys left {activeOrderKeys.Count}");
                         }
 
                     }

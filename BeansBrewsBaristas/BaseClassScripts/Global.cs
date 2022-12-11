@@ -24,6 +24,9 @@ namespace BeansBrewsBaristas.BaseClassScripts
         // GameManager Properties
         public static SpriteBatch SpriteBatch { get; set; }
 
+        public static int score = 0;
+
+
 
 
         // Global Vars

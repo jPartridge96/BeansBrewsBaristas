@@ -77,6 +77,7 @@ namespace BeansBrewsBaristas.Managers
 
         protected override void Update(GameTime gameTime)
         {
+            
             //right now this is where audio is being updated for the options menu (preferably put this in the update call in the audiomanager)
             mousePosition = new Point(InputManager._msState.X, InputManager._msState.Y);
             Rectangle soundFxRect = new Rectangle((int)SceneManager.soundEffectSprite.Position.X, (int)SceneManager.soundEffectSprite.Position.Y, SceneManager.VolumeTex.Width, SceneManager.VolumeTex.Height);
@@ -170,18 +171,22 @@ namespace BeansBrewsBaristas.Managers
 
             if (CustomerManager.Orders.Count > 0)
             {
-                Customer cust = CustomerManager.PickupQueue.ToList()[0];
+                if(CustomerManager.PickupQueue.Count > 0)
+                {
+                    Customer cust = CustomerManager.PickupQueue.ToList()[0];
 
-                // Order
-                Global.SpriteBatch.Draw(ReceiptBackground, new Vector2(-10, Global.Stage.Y / 2), Color.White);
-                Global.SpriteBatch.DrawString(
-                    Font, cust.ToString(),
-                    new Vector2(
-                        10,
-                        Global.Stage.Y / 2 + 15
-                    ),
-                    Color.Black
-                );
+                    // Order
+                    Global.SpriteBatch.Draw(ReceiptBackground, new Vector2(-10, Global.Stage.Y / 2), Color.White);
+                    Global.SpriteBatch.DrawString(
+                        Font, cust.ToString(),
+                        new Vector2(
+                            10,
+                            Global.Stage.Y / 2 + 15
+                        ),
+                        Color.Black
+                    );
+                }
+
 
                 
 

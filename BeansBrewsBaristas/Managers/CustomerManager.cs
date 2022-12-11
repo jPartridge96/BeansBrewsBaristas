@@ -82,6 +82,17 @@ namespace BeansBrewsBaristas.Managers
             }
         }
 
+        public static void dequeueCustomer()
+        {
+            if(PickupQueue.Count > 0)
+            {
+                Customer customer = customer = PickupQueue.Dequeue();
+                DestroyCustomer(customer);
+
+            }
+
+        }
+
         /// <summary>
         /// Removes Customer from Game Components and from Customers list
         /// </summary>
@@ -151,6 +162,7 @@ namespace BeansBrewsBaristas.Managers
 
             return activeOrder;
         }
+
         public static void TakeNextOrder()
         {
             if (OrderQueue.Count != 0)

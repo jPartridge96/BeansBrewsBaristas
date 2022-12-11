@@ -34,6 +34,10 @@ namespace BeansBrewsBaristas.Managers
         public static Sprite soundEffectSprite = new Sprite(new Vector2(350, 300), VolumeTex, Color.White);
         public static Sprite volumeSprite = new Sprite(new Vector2(350, 225), VolumeTex, Color.White);
 
+        //score stuff
+
+        public static TextElement sceneScore = new TextElement($"Score {Global.score}", new Vector2(350, 125), Color.Black);
+
 
 
         private SceneManager()
@@ -98,7 +102,8 @@ namespace BeansBrewsBaristas.Managers
                     {
 
                         new Sprite(Vector2.Zero, backgroundCafe, Color.White),
-                        new Sprite(Vector2.Zero, cafeBar, Color.White)
+                        new Sprite(Vector2.Zero, cafeBar, Color.White),
+                        sceneScore
                     }
                 },
                 {
@@ -131,6 +136,9 @@ namespace BeansBrewsBaristas.Managers
 
         public static void LoadScene(string sceneName)
         {
+            //reset the score on loadscene
+            Global.score = 0;
+            SceneManager.sceneScore.Text = $"Score: {Global.score}";
             if (!Atlas.TryGetValue(sceneName, out var playableMap))
                 throw new Exception($"No scene found with name '{sceneName}'.");
 
