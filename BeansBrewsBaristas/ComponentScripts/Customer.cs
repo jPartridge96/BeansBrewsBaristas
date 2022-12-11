@@ -90,20 +90,37 @@ namespace BeansBrewsBaristas.ComponentScripts
         /// <returns>Completed Async Task</returns>
         public async Task TravelToPos(Vector2 orderPos)
         {
+            Vector2 tmpPos = Position;
+
+            // Repeat until reached position
             while (Position.X <= orderPos.X)
             {
                 Position = new Vector2(Position.X + 1, Position.Y);
                 await Task.Delay(1);
             }
+
+            // Once reached position
+            if(Position.X >= orderPos.X)
+                CheckForAction();
+        }
+
+        public async void CheckForAction()
+        {
+            // If Customer is next in line to order, wait 5 seconds and take the order
+            if(CustomerManager.GetQueueIndex(this, CustomerManager.OrderQueue) == 0)
+            {
+                Random rand = new Random();
+                await Task.Delay(rand.Next(3000, 5000));
+                CustomerManager.TakeNextOrder();
+            }
         }
 
         public override string ToString()
         {
-
             return $"Item 1 of 1\n" +
                 $"Items in order: 1\n" +
                 $"*{Name}*\n" +
-                $"{CustomerManager.activeOrder}";
+                $"{Order}";
         }
     }
 }

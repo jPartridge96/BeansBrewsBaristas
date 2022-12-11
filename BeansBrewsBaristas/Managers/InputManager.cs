@@ -180,7 +180,6 @@ namespace BeansBrewsBaristas.Managers
             {
                 case true:
                      CreateCustomer();
-
                     break;
 
                 case false:
@@ -199,7 +198,7 @@ namespace BeansBrewsBaristas.Managers
             switch (OnRightMouseDown())
             {
                 case true:
-                    //TakeNextOrder();
+                    TakeNextOrder();
                     break;
                 case false:
                     break;

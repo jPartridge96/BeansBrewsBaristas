@@ -73,13 +73,13 @@ namespace BeansBrewsBaristas.Managers
             if (Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
             {
                 Customer cust = new Customer(
-                    new Vector2(-50, Global.Stage.Y / 3),
+                    new Vector2(-125, Global.Stage.Y / 3),
                     GetRandomCustomerAsset(), Color.White,
                     750, 300
                 );
 
                 Customers.Add(cust);
-                EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 2, QueueDirection.LEFT);
+                EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.LEFT);
             }
         }
 
@@ -87,9 +87,11 @@ namespace BeansBrewsBaristas.Managers
         {
             if(PickupQueue.Count > 0)
             {
-                Customer customer = customer = PickupQueue.Dequeue();
+                Customer customer = PickupQueue.Dequeue();
+                Orders.Remove(customer.Order);
                 DestroyCustomer(customer);
 
+                setActiveOrder(Orders[0]);
             }
 
         }
@@ -109,15 +111,16 @@ namespace BeansBrewsBaristas.Managers
             }
             throw new Exception("Customer was not part of Customers list.");
         }
+
         public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
-            if(OrderQueue.Count < 1)
-            {
-                CreateCustomer();
-                TakeNextOrder();
+            //if(OrderQueue.Count < 1)
+            //{
+            //    CreateCustomer();
+            //    TakeNextOrder();
 
 
-            }
+            //}
             //if (OrderQueue.Count > 0 && PickupQueue.Count == 0)
             //{
             //}
@@ -160,6 +163,7 @@ namespace BeansBrewsBaristas.Managers
             Random rand = new Random();
             return CustomerNames[rand.Next(0, CustomerNames.Length)];
         }
+
         //sets the current customer order in the order queue as the active order.
         //ui reflects the matching stuff
         public static Order setActiveOrder(Order nextOrder)
@@ -181,12 +185,10 @@ namespace BeansBrewsBaristas.Managers
                 Customer cust = OrderQueue.ToList()[0];
 
                 TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 5, QueueDirection.RIGHT);
-                
-                
-                setActiveOrder(cust.Order);
+
+
                 Orders.Add(cust.Order);
-
-
+                setActiveOrder(cust.Order);
             }
 
             // Update positon for all in OrderQueue

@@ -182,15 +182,11 @@ namespace BeansBrewsBaristas.Managers
                         new Vector2(
                             10,
                             Global.Stage.Y / 2 + 15
-                        ),
-                        Color.Black
+                        ), Color.Black
                     );
                 }
 
-
-                
-
-
+                #region CONTROLS_UI
                 string cupControls = "" +
                     "Cup:\n" +
                     "1 - Coffee\n" +
@@ -261,8 +257,7 @@ namespace BeansBrewsBaristas.Managers
                     ),
                     Color.Black
                 );
-
-                
+                #endregion
             }
 
             Global.SpriteBatch.End();
