@@ -94,7 +94,10 @@ namespace BeansBrewsBaristas.Managers
 
                 if(Orders.Count > 0)
                     setActiveOrder(Orders[0]);
-
+                else
+                {
+                    activeOrder = null;
+                }
                 // Update positon for all in PickupQueue
                 foreach (Customer cust in PickupQueue)
                 {
@@ -183,6 +186,7 @@ namespace BeansBrewsBaristas.Managers
 
         public static void TakeNextOrder()
         {
+
             if (OrderQueue.Count != 0)
             {
                 Customer cust = OrderQueue.ToList()[0];
@@ -191,9 +195,9 @@ namespace BeansBrewsBaristas.Managers
 
 
                 Orders.Add(cust.Order);
-                setActiveOrder(cust.Order);
-            }
+                setActiveOrder(PickupQueue.ToList()[0].Order);
 
+            }
             // Update positon for all in OrderQueue
             foreach (Customer cust in OrderQueue)
             {

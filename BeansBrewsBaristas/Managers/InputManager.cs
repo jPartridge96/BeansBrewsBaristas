@@ -97,7 +97,7 @@ namespace BeansBrewsBaristas.Managers
                         if (activeOrder != null)
                         {
                             currentScore = Global.score;
-                            currentScore += activeOrder.Modifications.Count;
+                            currentScore = activeOrder.Modifications.Count;
                             currentScore = currentScore - keysPressed.Count;
                             currentScore -= activeOrderKeys.Count * 2;
                             Debug.WriteLine(currentScore.ToString());
