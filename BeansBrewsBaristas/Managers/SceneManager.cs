@@ -9,16 +9,25 @@ namespace BeansBrewsBaristas.Managers
 {
     public class SceneManager
     {
+        //currently active scene
         public static string ActiveScene { get; set; }
+        //list of scene components to be added at run time.
         public static List<DrawableGameComponent> SceneComponents { get; set; }
+        //dictionary to determine the current level loaded
         private static Dictionary<string, List<DrawableGameComponent>> Atlas;
 
-        Texture2D menu = Global.GameManager.Content.Load <Texture2D>("Images/Menu");
+        //Menu components textures
+        Texture2D menu = Global.GameManager.Content.Load<Texture2D>("Images/Menu");
+
+        //Level components textures (bar and background are separate for layering purposes
         Texture2D backgroundCafe = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground1");
         Texture2D cafeBar = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar1");
         Texture2D backgroundCafe2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground2");
         Texture2D cafeBar2 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar2");
+        Texture2D backgroundCafe3 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBackground3");
+        Texture2D cafeBar3 = Global.GameManager.Content.Load<Texture2D>("Images/CafeBar3");
 
+        //Options menu components textures
         public static Texture2D VolumeTex = Global.GameManager.Content.Load<Texture2D>("Images/VolumeBar");
         public static TextElement soundEffectTex = new TextElement($"Effects Volume: {GameManager.volume}", new Vector2(350, 250), Color.White);
         public static TextElement musicVolumeTex = new TextElement($"Music Volume {GameManager.volume}", new Vector2(350, 175), Color.White);
@@ -104,8 +113,8 @@ namespace BeansBrewsBaristas.Managers
                     "Level3",
                     new List<DrawableGameComponent>()
                     {
-                        new TextElement("Scene 3",new Vector2(25, 25), Color.LimeGreen),
-                        new TextElement("Loaded Successfully",new Vector2(25,50), Color.White)
+                        new Sprite(Vector2.Zero, backgroundCafe3, Color.White),
+                        new Sprite(Vector2.Zero, cafeBar3, Color.White)
                     }
                 },
 
@@ -113,7 +122,6 @@ namespace BeansBrewsBaristas.Managers
             };
         }
 
-        private static SceneManager _instance;
         public static SceneManager GetInstance()
         {
             if (_instance == null)
@@ -176,5 +184,8 @@ namespace BeansBrewsBaristas.Managers
             foreach (DrawableGameComponent comp in (List<DrawableGameComponent>)scene)
                 Global.GameManager.Components.Remove(comp);
         }
+
+        private static SceneManager _instance;
+
     }
 }

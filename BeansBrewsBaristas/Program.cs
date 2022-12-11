@@ -30,6 +30,12 @@
  *                       - Dec 08, 2022: Customers now have randomly generated names
  *                       -             : Swapped Customer placeholder art with release candidates
  *                       -             : Customers now hold randomly generated orders with modifications
+ *                       - Dec 09, 2022: Customer queues not offset in scene
+ *                       -             : Order information now displays on screen
+ *                       - Dec 10, 2022: Incomplete: Adding in-game font and controls
+ *                       -             : Controls are displayed - Order is user friendly
+ *           Thomas Heal - Dec 10, 2022: Updated Hierarchy to new folder structure
+ *           
  *
  */
 

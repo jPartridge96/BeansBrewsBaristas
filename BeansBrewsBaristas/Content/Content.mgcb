@@ -70,6 +70,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/CafeBackground2.png
 
+#begin Images/CafeBackground3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/CafeBackground3.png
+
 #begin Images/CafeBar1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -93,6 +105,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/CafeBar2.png
+
+#begin Images/CafeBar3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/CafeBar3.png
 
 #begin Images/Controls.png
 /importer:TextureImporter

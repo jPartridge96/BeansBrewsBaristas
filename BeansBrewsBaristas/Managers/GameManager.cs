@@ -64,6 +64,7 @@ namespace BeansBrewsBaristas.Managers
 
         protected override void Update(GameTime gameTime)
         {
+            //right now this is where audio is being updated for the options menu (preferably put this in the update call in the audiomanager)
             mousePosition = new Point(InputManager._msState.X, InputManager._msState.Y);
             Rectangle soundFxRect = new Rectangle((int)SceneManager.soundEffectSprite.Position.X, (int)SceneManager.soundEffectSprite.Position.Y, SceneManager.VolumeTex.Width, SceneManager.VolumeTex.Height);
             Rectangle musicVolumeRect = new Rectangle((int)SceneManager.volumeSprite.Position.X, (int)SceneManager.volumeSprite.Position.Y, SceneManager.VolumeTex.Width, SceneManager.VolumeTex.Height);
