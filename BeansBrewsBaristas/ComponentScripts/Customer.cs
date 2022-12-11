@@ -18,6 +18,8 @@ namespace BeansBrewsBaristas.ComponentScripts
         public int WaitTimer { get; set; }
         public Order Order { get; set; }
 
+        private Vector2 PosToTravelTo;
+
         #region CONSTRUCTORS
         public Customer(Vector2 position,
             Texture2D texture,
@@ -89,13 +91,14 @@ namespace BeansBrewsBaristas.ComponentScripts
         /// </summary>
         /// <param name="orderPos">Position for Customer to travel towards</param>
         /// <returns>Completed Async Task</returns>
-        public async Task TravelToPos(Vector2 orderPos)
+        public async Task TravelToPos(Vector2 travelPos)
         {
+            PosToTravelTo = travelPos;
             // Move left or right?
-            if (Position.X > orderPos.X)
+            if (Position.X > PosToTravelTo.X)
             {
                 // Repeat until reached position
-                while (Position.X >= orderPos.X)
+                while (Position.X >= PosToTravelTo.X)
                 {
                     Position = new Vector2(Position.X - 1, Position.Y);
                     await Task.Delay(1);
@@ -104,7 +107,7 @@ namespace BeansBrewsBaristas.ComponentScripts
             else
             {
                 // Repeat until reached position
-                while (Position.X <= orderPos.X)
+                while (Position.X <= PosToTravelTo.X)
                 {
                     Position = new Vector2(Position.X + 1, Position.Y);
                     await Task.Delay(1);
@@ -112,7 +115,7 @@ namespace BeansBrewsBaristas.ComponentScripts
             }
             
             // Once reached position, check for action
-            if (Position.X >= orderPos.X)
+            if (Position.X >= PosToTravelTo.X)
                 CheckForAction();
         }
 
