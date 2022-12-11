@@ -244,6 +244,18 @@
 /processorParam:Quality=Best
 /build:Songs/Theme2.wav
 
+#begin SoundEffects/menuSelect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/menuSelect.wav
+
+#begin SoundEffects/scrollSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/scrollSound.wav
+
 #begin SoundEffects/Theme1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

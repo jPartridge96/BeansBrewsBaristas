@@ -92,6 +92,40 @@ namespace BeansBrewsBaristas.Managers
                     {
                         case < 395:
                             volume = "0%";
+                            SoundEffect.MasterVolume = 0f;
+                            break;
+                        case < 425:
+                            volume = "25%";
+                            SoundEffect.MasterVolume = .25f;
+
+                            break;
+                        case < 480:
+                            volume = "50%";
+                            SoundEffect.MasterVolume = .50f;
+                            break;
+                        case < 525:
+                            volume = "75%";
+                            SoundEffect.MasterVolume = .75f;
+
+                            break;
+                        case < 600:
+                            volume = "100%";
+                            SoundEffect.MasterVolume = 1;
+
+                            break;
+                        default:
+                            break;
+                    }
+                    SceneManager.soundEffectTex.Text = $"Effects Volume: {volume}";
+
+
+                }
+                else if (musicVolumeRect.Contains(mousePosition))
+                {
+                    switch (mousePosition.X)
+                    {
+                        case < 395:
+                            volume = "0%";
                             MediaPlayer.Volume = 0f;
                             break;
                         case < 425:
@@ -109,37 +143,6 @@ namespace BeansBrewsBaristas.Managers
                         case < 600:
                             volume = "100%";
                             MediaPlayer.Volume = 1;
-                            break;
-                        default:
-                            break;
-                    }
-                    SceneManager.soundEffectTex.Text = $"Effects Volume: {volume}";
-
-
-                }
-                else if (musicVolumeRect.Contains(mousePosition))
-                {
-                    switch (mousePosition.X)
-                    {
-                        case < 395:
-                            volume = "0%";
-                            SoundEffect.MasterVolume = 0f;
-                            break;
-                        case < 425:
-                            volume = "25%";
-                            SoundEffect.MasterVolume = .25f;
-                            break;
-                        case < 480:
-                            volume = "50%";
-                            SoundEffect.MasterVolume = .50f;
-                            break;
-                        case < 525:
-                            volume = "75%";
-                            SoundEffect.MasterVolume = .75f;
-                            break;
-                        case < 600:
-                            volume = "100%";
-                            SoundEffect.MasterVolume = 1;
                             break;
                         default:
                             break;

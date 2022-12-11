@@ -14,7 +14,8 @@ namespace BeansBrewsBaristas.Managers
             // AudioManager loads SoundEffects from GameManager
             _soundLibrary = new Dictionary<string, SoundEffect>()
             {
-                {"MenuTheme", LoadSound("Theme1") },
+                {"MenuScrollSound", LoadSound("scrollSound") },
+                {"MenuSelectSound", LoadSound("menuSelect") }
             };
 
             // AudioManager loads Songs from GameManager
@@ -27,6 +28,7 @@ namespace BeansBrewsBaristas.Managers
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = .25f;
+            SoundEffect.MasterVolume = .25f;
         }
         
 

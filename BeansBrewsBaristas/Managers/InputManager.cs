@@ -101,7 +101,7 @@ namespace BeansBrewsBaristas.Managers
                             currentScore = currentScore - keysPressed.Count;
                             currentScore -= activeOrderKeys.Count * 2;
                             Debug.WriteLine(currentScore.ToString());
-                            Global.score = currentScore;
+                            Global.score += currentScore;
                             currentScore = 0;
                             SceneManager.sceneScore.Text = $"Score: {Global.score}";
 
@@ -133,15 +133,18 @@ namespace BeansBrewsBaristas.Managers
                                 case Keys.W:
                                 case Keys.Up:
                                     MenuComponent.SelectedIndex--;
+                                    AudioManager.PlaySound("MenuScrollSound");
                                     break;
                                 case Keys.S:
                                 case Keys.Down:
                                     MenuComponent.SelectedIndex++;
+                                    AudioManager.PlaySound("MenuScrollSound");
                                     break;
 
                                 case Keys.Enter:
                                 case Keys.Space:
                                     MenuComponent.Select();
+                                    AudioManager.PlaySound("MenuSelectSound");
                                     break;
                             }
                             break;
