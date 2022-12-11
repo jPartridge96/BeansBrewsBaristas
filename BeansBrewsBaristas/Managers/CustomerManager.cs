@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BeansBrewsBaristas.BaseClassScripts;
+using BeansBrewsBaristas.ComponentScripts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BeansBrewsBaristas.ModificationManager;
+using static BeansBrewsBaristas.Managers.ModificationManager;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.ComponentScripts
 {
     public class Order
     {
@@ -74,8 +74,8 @@ namespace BeansBrewsBaristas
                 else modifications.Add(mod.Name, 1);
 
             string str = $"\n{DrinkName}\n";
-            foreach(KeyValuePair<string,int> kvp in modifications)
-                if(kvp.Value > 1)
+            foreach (KeyValuePair<string, int> kvp in modifications)
+                if (kvp.Value > 1)
                     str += $"{kvp.Value} pumps {kvp.Key}\n";
                 else
                     str += $"{kvp.Value} pump {kvp.Key}\n";

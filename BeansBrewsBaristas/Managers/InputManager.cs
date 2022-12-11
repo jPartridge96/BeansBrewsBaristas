@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BeansBrewsBaristas.BaseClassScripts;
+using BeansBrewsBaristas.ComponentScripts;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D11;
 using SharpDX.Direct3D9;

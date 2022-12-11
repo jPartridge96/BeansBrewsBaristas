@@ -5,9 +5,9 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using static BeansBrewsBaristas.ModificationManager;
+using static BeansBrewsBaristas.Managers.ModificationManager;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.ComponentScripts
 {
     public class Modification
     {

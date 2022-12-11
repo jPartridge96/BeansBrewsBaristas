@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.ComponentScripts
 {
     public class Customer : Sprite
     {

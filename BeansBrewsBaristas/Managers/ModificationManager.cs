@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.Managers
 {
     public static class ModificationManager
     {

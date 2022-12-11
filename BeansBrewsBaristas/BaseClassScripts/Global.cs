@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.BaseClassScripts
 {
     /// <summary>
     /// Used for storing information passed from a class for other classes

@@ -33,5 +33,5 @@
  *
  */
 
-using var game = new BeansBrewsBaristas.GameManager();
+using var game = new BeansBrewsBaristas.Managers.GameManager();
 game.Run();

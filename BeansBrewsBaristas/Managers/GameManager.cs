@@ -6,13 +6,14 @@ using Microsoft.Xna.Framework.Audio;
 using SharpDX.DXGI;
 using BeansBrewsBaristas.Content.scripts;
 using System.Linq;
-using BeansBrewsBaristas.Managers;
 using System.Linq.Expressions;
 using System;
 using SharpDX.MediaFoundation;
 using Microsoft.Xna.Framework.Media;
+using BeansBrewsBaristas.ComponentScripts;
+using BeansBrewsBaristas.BaseClassScripts;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.Managers
 {
     public class GameManager : Game
     {
@@ -57,8 +58,8 @@ namespace BeansBrewsBaristas
 
             SceneManager.LoadScene("Menu");
 
-            this.Components.Add(Global.InputManager = new InputManager(this));
-            this.Components.Add(new Debug(this));
+            Components.Add(Global.InputManager = new InputManager(this));
+            Components.Add(new Debug(this));
         }
 
         protected override void Update(GameTime gameTime)
@@ -161,7 +162,7 @@ namespace BeansBrewsBaristas
                 Global.SpriteBatch.DrawString(
                     Font, cust.ToString(),
                     new Vector2(
-                        Global.Stage.X / 40, 
+                        Global.Stage.X / 40,
                         Global.Stage.Y / 8
                     ),
                     Color.Black
@@ -170,7 +171,7 @@ namespace BeansBrewsBaristas
                 // Controls
                 Global.SpriteBatch.Draw(Instructions, Vector2.Zero, Color.White);
             }
-                
+
             Global.SpriteBatch.End();
         }
     }

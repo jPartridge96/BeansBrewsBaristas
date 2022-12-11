@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.BaseClassScripts
 {
     public class ScoreCalculator
     {

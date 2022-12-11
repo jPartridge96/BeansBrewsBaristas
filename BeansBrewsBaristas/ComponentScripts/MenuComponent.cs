@@ -1,4 +1,5 @@
-﻿using BeansBrewsBaristas.Content.scripts;
+﻿using BeansBrewsBaristas.BaseClassScripts;
+using BeansBrewsBaristas.Content.scripts;
 using BeansBrewsBaristas.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeansBrewsBaristas
+namespace BeansBrewsBaristas.ComponentScripts
 {
     public class MenuComponent : DrawableGameComponent
     {
@@ -19,8 +20,9 @@ namespace BeansBrewsBaristas
         private SpriteFont regularFont = Global.GameManager.Content.Load<SpriteFont>("fonts/Font");
         private SpriteFont highlightFont;
         private static List<string> menuItems;
-        
-        public static int SelectedIndex {
+
+        public static int SelectedIndex
+        {
             get => selectedIndex;
             set
             {
@@ -32,9 +34,9 @@ namespace BeansBrewsBaristas
             }
         }
         private static int selectedIndex = 0;
-        
-        public MenuComponent(Game game, string[] menuArray , Vector2 position)
-            : base (game)
+
+        public MenuComponent(Game game, string[] menuArray, Vector2 position)
+            : base(game)
         {
             this.position = position;
             menuItems = menuArray.ToList();
@@ -71,7 +73,7 @@ namespace BeansBrewsBaristas
 
         public static void Select()
         {
-            switch(SelectedIndex)
+            switch (SelectedIndex)
             {
                 case 0: // Play
                     SceneManager.LoadScene("Level1");

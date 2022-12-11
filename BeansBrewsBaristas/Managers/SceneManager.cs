@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using BeansBrewsBaristas.BaseClassScripts;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -36,7 +37,7 @@ namespace BeansBrewsBaristas.Managers
                     {
                         new Sprite(Vector2.Zero, menu, Color.White),
                         new TextElement("Beans Brews Baristas", new Vector2(350, 125), Color.White),
-                        new MenuComponent(Global.GameManager, new string[] {
+                        new ComponentScripts.MenuComponent(Global.GameManager, new string[] {
                             "Play", "Help", "Credits","Options", "Quit"
                         }, new Vector2(350, 200))
                     }
