@@ -23,7 +23,7 @@ namespace BeansBrewsBaristas.Managers
         public Point mousePosition;
         private GraphicsDeviceManager _graphics;
         public static string volume = "25%";
-        public static List<Keys> modificationKeys;
+        public static Dictionary<Keys, object> modificationKeys;
 
         SpriteFont Font;
         Texture2D Instructions;
@@ -41,10 +41,36 @@ namespace BeansBrewsBaristas.Managers
 
         protected override void Initialize()
         {
-            // List of mofication keys - compared when pressed in InputManager
-            modificationKeys = new List<Keys>();
+            Dictionary<Keys, object> modificationKeys = new Dictionary<Keys, object>();
+
             foreach (var key in Enum.GetValues(typeof(ModificationManager.AddinControls)))
-                modificationKeys.Add((Keys)key);
+            {
+                modificationKeys.Add((Keys)key, key);
+            }
+            foreach (var key in Enum.GetValues(typeof(ModificationManager.BaseControls)))
+            {
+                modificationKeys.Add((Keys)key, key);
+            }
+
+            foreach (var key in Enum.GetValues(typeof(ModificationManager.CupControls)))
+            {
+                modificationKeys.Add((Keys)key, key);
+            }
+            foreach (var key in Enum.GetValues(typeof(ModificationManager.TakeoutControls)))
+            {
+                modificationKeys.Add((Keys)key, key);
+            }
+
+            // List of mofication keys - compared when pressed in InputManager
+            //modificationKeys = new List<Keys>();
+            //foreach (var key in Enum.GetValues(typeof(ModificationManager.AddinControls)))
+            //    modificationKeys.Add((Keys)key);
+            //foreach (var key in Enum.GetValues(typeof(ModificationManager.BaseControls)))
+            //    modificationKeys.Add((Keys)key);
+            //foreach (var key in Enum.GetValues(typeof(ModificationManager.CupControls)))
+            //    modificationKeys.Add((Keys)key);
+            //foreach (var key in Enum.GetValues(typeof(ModificationManager.TakeoutControls)))
+            //    modificationKeys.Add((Keys)key);
 
             foreach (var key in modificationKeys)
                 Debug.WriteLine(key.ToString());

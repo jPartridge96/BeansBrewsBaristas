@@ -198,6 +198,14 @@ namespace BeansBrewsBaristas.Managers
             {
                 activeOrderKeys.Add((Keys)key.Control);
             }
+            foreach (var key in activeOrder.PreModKeys)
+            {
+                activeOrderKeys.Add((Keys)key);
+            }
+            foreach (var key in activeOrder.PostModKeys)
+            {
+                activeOrderKeys.Add((Keys)key);
+            }
 
             return activeOrder;
         }
