@@ -100,9 +100,8 @@ namespace BeansBrewsBaristas.Managers
                             {
                                 activeOrderKeys.Clear();
                             }
-                            
 
-
+                            CustomerManager.TakeNextOrder();
                             CustomerManager.dequeueCustomer();
                             Debug.WriteLine($"Your score is {Global.score}, Incorrect keys pressed {keysPressed.Count}, active order keys left {activeOrderKeys.Count}");
                         }
@@ -200,7 +199,7 @@ namespace BeansBrewsBaristas.Managers
             switch (OnRightMouseDown())
             {
                 case true:
-                    TakeNextOrder();
+                    //TakeNextOrder();
                     break;
                 case false:
                     break;

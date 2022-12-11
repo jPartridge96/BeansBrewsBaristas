@@ -7,6 +7,7 @@ using BeansBrewsBaristas.BaseClassScripts;
 using BeansBrewsBaristas.ComponentScripts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -69,7 +70,7 @@ namespace BeansBrewsBaristas.Managers
         public static void CreateCustomer()
         {
             // If line of customers is below line limit
-            if(Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
+            if (Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
             {
                 Customer cust = new Customer(
                     new Vector2(-50, Global.Stage.Y / 3),
@@ -110,6 +111,16 @@ namespace BeansBrewsBaristas.Managers
         }
         public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
+            if(OrderQueue.Count < 1)
+            {
+                CreateCustomer();
+                TakeNextOrder();
+
+
+            }
+            //if (OrderQueue.Count > 0 && PickupQueue.Count == 0)
+            //{
+            //}
             queue.Enqueue(cust);
 
             int calcPos = 0;
@@ -171,8 +182,11 @@ namespace BeansBrewsBaristas.Managers
 
                 TransferQueue(OrderQueue, PickupQueue, Global.Stage.X / 8 * 5, QueueDirection.RIGHT);
                 
-                Orders.Add(cust.Order);
+                
                 setActiveOrder(cust.Order);
+                Orders.Add(cust.Order);
+
+
             }
 
             // Update positon for all in OrderQueue

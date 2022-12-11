@@ -12,6 +12,7 @@ namespace BeansBrewsBaristas.ComponentScripts
 {
     public class Modification
     {
+        public Order activeOrder { get; set; }
         public Modification()
         {
             // Grabs all values of type ModificationControls

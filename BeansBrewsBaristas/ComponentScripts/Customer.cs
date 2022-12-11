@@ -103,7 +103,7 @@ namespace BeansBrewsBaristas.ComponentScripts
             return $"Item 1 of 1\n" +
                 $"Items in order: 1\n" +
                 $"*{Name}*\n" +
-                $"{Order}";
+                $"{CustomerManager.activeOrder}";
         }
     }
 }
