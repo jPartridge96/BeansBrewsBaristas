@@ -13,12 +13,29 @@ namespace BeansBrewsBaristas
     {
         public const int MAX_MODIFIERS = 5;
         public CustomerManager.DrinkType DrinkType { get; set; }
+
+        public string DrinkName
+        {
+            get => drinkName;
+            set
+            {
+                // Remove text after underscore
+                int index = value.IndexOf("_");
+                if (index > 0)
+                    value = value.Remove(0, index + 1);
+
+                drinkName = value;
+            }
+        }
+        private string drinkName = "";
+
+        public List<Modification> Modifications = new List<Modification>();
+
         public Order()
         {
             GenerateDrinkType();
         }
 
-        public List<Modification> Modifications = new List<Modification>();
 
         private void GenerateDrinkType()
         {
@@ -31,11 +48,12 @@ namespace BeansBrewsBaristas
 
             // Sets Control as random value
             DrinkType = (CustomerManager.DrinkType)values.GetValue(enumIndex);
-
+            DrinkName = DrinkType.ToString();
 
             // Unable to add modifications to espressos
-            if(DrinkType != CustomerManager.DrinkType.ESPRESSO)
+            if (DrinkType != CustomerManager.DrinkType.ESPRESSO)
                 GenerateModifications();
+
             // TODO: ADD OPTIONAL DUSTING FOR COFFEE OR LATTE
         }
 
@@ -48,10 +66,25 @@ namespace BeansBrewsBaristas
 
         public override string ToString()
         {
-            string str = $"{DrinkType}\n---\n";
+            Dictionary<string, int> modifications = new Dictionary<string, int>();
 
             foreach (Modification mod in Modifications)
-                str += $"{mod.Name}\n";
+                if (modifications.ContainsKey(mod.Name))
+                    modifications[mod.Name]++;
+                else modifications.Add(mod.Name, 1);
+
+            string str = $"\n{DrinkName}\n";
+            foreach(KeyValuePair<string,int> kvp in modifications)
+                if(kvp.Value > 1)
+                    str += $"{kvp.Value} pumps {kvp.Key}\n";
+                else
+                    str += $"{kvp.Value} pump {kvp.Key}\n";
+
+            str += $"\n{DateTime.Now.ToString("d-MMM-yyyy  h:mm tt")}\n";
+            if (DrinkType.ToString().Contains("TAKEOUT"))
+                str += ">TAKEOUT<";
+            else
+                str += ">DINE-IN<";
 
             return str;
         }

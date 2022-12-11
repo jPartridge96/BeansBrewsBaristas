@@ -100,7 +100,10 @@ namespace BeansBrewsBaristas
         public override string ToString()
         {
 
-            return $"{Name} {Order}";
+            return $"Item 1 of 1\n" +
+                $"Items in order: 1\n" +
+                $"*{Name}*\n" +
+                $"{Order}";
         }
     }
 }

@@ -25,7 +25,19 @@ namespace BeansBrewsBaristas
             Name = Control.ToString();
         }
 
-        public string Name { get; }
+        public string Name
+        {
+            get => name;
+            set
+            {
+                // Convert first letter to uppercase
+                value = value.ToLower();
+                value = value.Replace(value[0], char.Parse(value[0].ToString().ToUpper()));
+
+                name = value;
+            }
+        }
+        private string name;
         public ModificationControls Control { get; }
     }
 }

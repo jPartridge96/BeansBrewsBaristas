@@ -24,6 +24,7 @@ namespace BeansBrewsBaristas
 
 
         SpriteFont Font;
+        Texture2D Instructions;
 
         public GameManager()
         {
@@ -41,7 +42,8 @@ namespace BeansBrewsBaristas
 
         protected override void LoadContent()
         {
-            Font = Content.Load<SpriteFont>("fonts/TextFont");
+            Font = Content.Load<SpriteFont>("Fonts/TextFont");
+            Instructions = Content.Load<Texture2D>("Images/Controls");
 
             // Define globals
             Global.Stage = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
@@ -155,7 +157,7 @@ namespace BeansBrewsBaristas
             {
                 Customer cust = CustomerManager.PickupQueue.ToList()[0];
 
-                // ORDER
+                // Order
                 Global.SpriteBatch.DrawString(
                     Font, cust.ToString(),
                     new Vector2(
@@ -165,33 +167,8 @@ namespace BeansBrewsBaristas
                     Color.Black
                 );
 
-                // INSTRUCTIONS
-                string instructions = "Syrup Controls:\n" +
-                    "C - Caramel\n" +
-                    "T - Toffee\n" +
-                    "H - Hazelnut\n" +
-                    "V - Vanilla\n\n";
-
-                // IF TAKEOUT
-                instructions += "Cup Controls:\n" +
-                    "G - Cup\n";
-
-                if(cust.Order.DrinkType == CustomerManager.DrinkType.TAKEOUT_COFFEE ||
-                    cust.Order.DrinkType == CustomerManager.DrinkType.TAKEOUT_LATTE)
-                {
-                    instructions += "L - Lid\n" +
-                        "S - Sleeve";
-                }
-                instructions += "\n\n\nSPACE - Serve";
-
-                Global.SpriteBatch.DrawString(
-                    Font, instructions,
-                    new Vector2(
-                        Global.Stage.X / 20 * 16,
-                        Global.Stage.Y / 8
-                    ),
-                    Color.Black
-                );
+                // Controls
+                Global.SpriteBatch.Draw(Instructions, Vector2.Zero, Color.White);
             }
                 
             Global.SpriteBatch.End();
