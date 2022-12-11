@@ -96,11 +96,12 @@ namespace BeansBrewsBaristas.Managers
 
                         if (activeOrder != null)
                         {
-                            currentScore = activeOrder.Modifications.Count;
+                            currentScore = Global.score;
+                            currentScore += activeOrder.Modifications.Count;
                             currentScore = currentScore - keysPressed.Count;
-                            currentScore -= activeOrderKeys.Count;
+                            currentScore -= activeOrderKeys.Count * 2;
                             Debug.WriteLine(currentScore.ToString());
-                            Global.score += currentScore;
+                            Global.score = currentScore;
                             currentScore = 0;
                             SceneManager.sceneScore.Text = $"Score: {Global.score}";
 
