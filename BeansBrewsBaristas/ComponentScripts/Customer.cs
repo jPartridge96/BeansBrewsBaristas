@@ -123,6 +123,7 @@ namespace BeansBrewsBaristas.ComponentScripts
             {
                 Random rand = new Random();
                 await Task.Delay(rand.Next(3000, 5000));
+                if(CustomerManager.PickupQueue.Count <= CustomerManager.QUEUE_LIMIT)
                 CustomerManager.TakeNextOrder();
             }
         }

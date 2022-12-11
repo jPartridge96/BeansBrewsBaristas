@@ -9,6 +9,7 @@ using static BeansBrewsBaristas.Managers.ModificationManager;
 using static BeansBrewsBaristas.Managers.CustomerManager;
 using Microsoft.Xna.Framework.Graphics;
 using BeansBrewsBaristas.BaseClassScripts;
+using Microsoft.Xna.Framework;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
@@ -44,6 +45,7 @@ namespace BeansBrewsBaristas.ComponentScripts
         {
             GenerateDrinkType();
             GetDrinkControls();
+            GetDrinkAssets();
         }
 
         private void GenerateDrinkType()
@@ -64,7 +66,6 @@ namespace BeansBrewsBaristas.ComponentScripts
             {
                 GenerateModifications();
 
-                Debug.WriteLine("A");
                 // Randomly generate if drink has creamer and/or cinn. powder
                 if (DrinkName.Contains("COFFEE"))
                     HasCreamer = RandTrueFalse();
@@ -123,7 +124,36 @@ namespace BeansBrewsBaristas.ComponentScripts
 
         private void GetDrinkAssets()
         {
-
+            switch (DrinkType)
+            {
+                case DrinkType.COFFEE:
+                    DrinkAssets = new Texture2D[]
+                    {
+                        Global.GameManager.Content.Load<Texture2D>("Images/Coffee 171_152")
+                    };
+                    break;
+                case DrinkType.LATTE:
+                    DrinkAssets = new Texture2D[]
+                    {
+                        Global.GameManager.Content.Load<Texture2D>("Images/Latte 213_132")
+                    };
+                    break;
+                case DrinkType.ESPRESSO:
+                    DrinkAssets = new Texture2D[]
+                    {
+                        Global.GameManager.Content.Load<Texture2D>("Images/Espresso 102_79")
+                    };
+                    break;
+                case DrinkType.TAKEOUT_COFFEE:
+                case DrinkType.TAKEOUT_LATTE:
+                    DrinkAssets = new Texture2D[]
+                    {
+                        Global.GameManager.Content.Load<Texture2D>("Images/Takeout 132_176"),
+                        Global.GameManager.Content.Load<Texture2D>("Images/Lid 142_60"),
+                        Global.GameManager.Content.Load<Texture2D>("Images/Sleeve 130_92")
+                    };
+                    break;
+            }
         }
 
         /// <summary>

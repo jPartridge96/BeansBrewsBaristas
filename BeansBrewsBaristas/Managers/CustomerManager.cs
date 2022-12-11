@@ -46,6 +46,7 @@ namespace BeansBrewsBaristas.Managers
 
         public CustomerManager()
         {
+            // TODO: Convert List to dictionary, so dog type can be detected?
             CustomerAssets = new List<Texture2D>()
             {
                 Global.GameManager.Content.Load<Texture2D>("Images/customer1"),
@@ -54,6 +55,7 @@ namespace BeansBrewsBaristas.Managers
                 Global.GameManager.Content.Load<Texture2D>("Images/customer4"),
                 Global.GameManager.Content.Load<Texture2D>("Images/customer5"),
                 Global.GameManager.Content.Load<Texture2D>("Images/customer6"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer7"),
             };
         }
 
@@ -189,8 +191,7 @@ namespace BeansBrewsBaristas.Managers
 
         public static void TakeNextOrder()
         {
-
-            if (OrderQueue.Count != 0)
+            if (OrderQueue.Count != 0 && PickupQueue.Count < QUEUE_LIMIT)
             {
                 Customer cust = OrderQueue.ToList()[0];
 
@@ -200,15 +201,15 @@ namespace BeansBrewsBaristas.Managers
                 Orders.Add(cust.Order);
                 setActiveOrder(PickupQueue.ToList()[0].Order);
 
-            }
-            // Update positon for all in OrderQueue
-            foreach (Customer cust in OrderQueue)
-            {
-                Vector2 newPos = new Vector2(
-                    (Global.Stage.X / 8 * 3) - GetQueueIndex(cust, OrderQueue) * 50 - cust.Texture.Width,
-                    Global.Stage.Y / 2);
+                // Update positon for all in OrderQueue
+                foreach (Customer customer in OrderQueue)
+                {
+                    Vector2 newPos = new Vector2(
+                        (Global.Stage.X / 8 * 3) - GetQueueIndex(customer, OrderQueue) * 50 - cust.Texture.Width,
+                        Global.Stage.Y / 2);
 
-                cust.TravelToPos(newPos);
+                    customer.TravelToPos(newPos);
+                }
             }
         }
 
