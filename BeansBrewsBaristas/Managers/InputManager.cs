@@ -194,7 +194,7 @@ namespace BeansBrewsBaristas.Managers
             switch(OnLeftMouseDown())
             {
                 case true:
-                     CreateCustomer();
+                     // CreateCustomer();
                     break;
 
                 case false:

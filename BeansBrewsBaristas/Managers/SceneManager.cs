@@ -175,6 +175,7 @@ namespace BeansBrewsBaristas.Managers
                         ActiveScene = sceneName;
                         break;
                 }
+                CustomerManager.CreateCustomer();
             }
             else
             {

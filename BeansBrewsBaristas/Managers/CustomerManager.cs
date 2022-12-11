@@ -18,6 +18,9 @@ namespace BeansBrewsBaristas.Managers
         public const int CUST_LIMIT = 10;
         public static Order activeOrder;
         public static List<Keys> activeOrderKeys;
+
+        private static Random rand = new Random();
+
         public enum QueueDirection
         {
             LEFT,
@@ -57,6 +60,8 @@ namespace BeansBrewsBaristas.Managers
                 Global.GameManager.Content.Load<Texture2D>("Images/customer6"),
                 Global.GameManager.Content.Load<Texture2D>("Images/customer7"),
             };
+
+            CreateCustomer();
         }
 
         private static CustomerManager _instance;
@@ -69,23 +74,31 @@ namespace BeansBrewsBaristas.Managers
 
         public static Texture2D GetRandomCustomerAsset()
         {
-            Random rand = new Random();
+            
             return CustomerAssets[rand.Next(CustomerAssets.Count)];
         }
 
-        public static void CreateCustomer()
+        public static async Task CreateCustomer()
         {
-            // If line of customers is below line limit
-            if (Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
+            // While a level is loaded
+            if (SceneManager.ActiveScene != null)
             {
-                Customer cust = new Customer(
-                    new Vector2(-125, Global.Stage.Y / 3),
-                    GetRandomCustomerAsset(), Color.White,
-                    750, 300
-                );
+                while (SceneManager.ActiveScene.Contains("Level"))
+                {
+                    // If line of customers is below line limit
+                    if (Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
+                    {
+                        Customer cust = new Customer(
+                            new Vector2(-150, Global.Stage.Y / 3),
+                            GetRandomCustomerAsset(), Color.White,
+                            750, 300
+                        );
 
-                Customers.Add(cust);
-                EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.LEFT);
+                        Customers.Add(cust);
+                        EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.LEFT);
+                        await Task.Delay(rand.Next(3000, 10000));
+                    }
+                }
             }
         }
 
