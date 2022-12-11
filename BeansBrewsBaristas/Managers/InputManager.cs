@@ -113,7 +113,7 @@ namespace BeansBrewsBaristas.Managers
                             {
                                 activeOrderKeys.Clear();
                             }
-
+                            activeOrder = null;
                             TakeNextOrder();
                             dequeueCustomer();
                             Debug.WriteLine($"Your score is {Global.score}, Incorrect keys pressed {keysPressed.Count}, active order keys left {activeOrderKeys.Count}");
