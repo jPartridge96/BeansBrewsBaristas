@@ -51,6 +51,9 @@ namespace BeansBrewsBaristas.Managers
                 Global.GameManager.Content.Load<Texture2D>("Images/customer1"),
                 Global.GameManager.Content.Load<Texture2D>("Images/customer2"),
                 Global.GameManager.Content.Load<Texture2D>("Images/customer3"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer4"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer5"),
+                Global.GameManager.Content.Load<Texture2D>("Images/customer6"),
             };
         }
 

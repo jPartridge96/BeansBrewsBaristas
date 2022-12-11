@@ -69,9 +69,6 @@ namespace BeansBrewsBaristas.ComponentScripts
                 if (DrinkName.Contains("COFFEE"))
                     HasCreamer = RandTrueFalse();
                 HasPowder = RandTrueFalse();
-
-                Debug.WriteLine(HasCreamer.ToString());
-                Debug.WriteLine(HasPowder.ToString());
             }
         }
 
