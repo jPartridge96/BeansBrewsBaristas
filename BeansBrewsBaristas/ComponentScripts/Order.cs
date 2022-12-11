@@ -82,7 +82,6 @@ namespace BeansBrewsBaristas.ComponentScripts
 
         private void GetDrinkControls()
         {
-            // CupControls
             // All takeout drinks get the same cup
             if (Enum.GetName(DrinkType).Contains("TAKEOUT"))
             {

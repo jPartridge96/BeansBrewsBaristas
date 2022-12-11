@@ -3,6 +3,7 @@ using BeansBrewsBaristas.ComponentScripts;
 using Microsoft.Win32;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct2D1.Effects;
 using SharpDX.Direct3D11;
 using SharpDX.Direct3D9;
 using System;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using static BeansBrewsBaristas.Managers.CustomerManager;
+using static BeansBrewsBaristas.Managers.ModificationManager;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -37,11 +39,9 @@ namespace BeansBrewsBaristas.Managers
             // Keyboard Input
             foreach (Keys keyPressed in _kbState.GetPressedKeys())
             {
-
                 if (OnKeyDown(keyPressed))
                 {
-
-                    if (GameManager.modificationKeys.Contains(keyPressed))
+                    if (GameManager.modificationKeys.TryGetValue(keyPressed, out object enumType))
                     {
                         if(activeOrder != null)
                         {
@@ -49,6 +49,38 @@ namespace BeansBrewsBaristas.Managers
 
                             if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
                             {
+                                int drawnIndex = -1;
+                                switch (activeOrder.DrinkType)
+                                {
+                                    case DrinkType.COFFEE:
+                                        switch (enumType)
+                                        {
+                                            case CupControls:
+                                                if (drawnIndex == -1)
+                                                    drawnIndex = 0;
+                                                break;
+                                            case BaseControls:
+                                                if (drawnIndex == 0)
+                                                    drawnIndex = 1;
+                                                break;
+                                        }
+                                        break;
+                                    case DrinkType.LATTE:
+                                        break;
+                                    case DrinkType.ESPRESSO:
+                                        break;
+
+                                    case DrinkType.TAKEOUT_COFFEE:
+                                    case DrinkType.TAKEOUT_LATTE:
+                                        break;
+                                }
+
+                                // Get Cup
+                                if (modificationKeys.TryGetValue(keyPressed, out var enumType ))
+                                {
+                                    
+                                }
+
                                 keysPressed.Remove(keyPressed);
                                 Debug.WriteLine("-------Active Keys list--------");
 
