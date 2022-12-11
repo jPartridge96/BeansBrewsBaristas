@@ -12,6 +12,7 @@ using SharpDX.MediaFoundation;
 using Microsoft.Xna.Framework.Media;
 using BeansBrewsBaristas.ComponentScripts;
 using BeansBrewsBaristas.BaseClassScripts;
+using System.Threading;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -22,10 +23,12 @@ namespace BeansBrewsBaristas.Managers
         public Point mousePosition;
         private GraphicsDeviceManager _graphics;
         public static string volume = "25%";
+        public static List<Keys> modificationKeys;
 
 
         SpriteFont Font;
         Texture2D Instructions;
+        Texture2D ReceiptBackground;
 
         public GameManager()
         {
@@ -38,13 +41,23 @@ namespace BeansBrewsBaristas.Managers
 
         protected override void Initialize()
         {
+            // List of mofication keys - compared when pressed in InputManager
+            modificationKeys = new List<Keys>();
+            foreach (var key in Enum.GetValues(typeof(ModificationManager.ModificationControls)))
+                modificationKeys.Add((Keys)key);
+
+            foreach (var key in modificationKeys)
+                Debug.WriteLine(key.ToString());
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             Font = Content.Load<SpriteFont>("Fonts/TextFont");
+
             Instructions = Content.Load<Texture2D>("Images/Controls");
+            ReceiptBackground = Content.Load<Texture2D>("Images/Receipt");
 
             // Define globals
             Global.Stage = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
@@ -160,17 +173,91 @@ namespace BeansBrewsBaristas.Managers
                 Customer cust = CustomerManager.PickupQueue.ToList()[0];
 
                 // Order
+                Global.SpriteBatch.Draw(ReceiptBackground, new Vector2(-10, Global.Stage.Y / 2), Color.White);
                 Global.SpriteBatch.DrawString(
                     Font, cust.ToString(),
                     new Vector2(
-                        Global.Stage.X / 40,
-                        Global.Stage.Y / 8
+                        10,
+                        Global.Stage.Y / 2 + 15
                     ),
                     Color.Black
                 );
 
+                
+
+
+                string cupControls = "" +
+                    "Cup:\n" +
+                    "1 - Coffee\n" +
+                    "2 - Lattee\n" +
+                    "3 - Espresso\n" +
+                    "4 - Takeout\n";
+
+                string baseControls = "" +
+                    "Base:\n" +
+                    "C - Coffee\n" +
+                    "E - Espresso\n" +
+                    "M - Steamed Milk\n" +
+                    "B - Creamer";
+
+                string addInControls = "" +
+                    "Add-ins:\n" +
+                    "R - Caramel\n" +
+                    "H - Hazelnut\n" +
+                    "T - Toffee\n" +
+                    "V - Vanilla\n" +
+                    "A - Cinn. Powder";
+
+                string takeoutControls = "" +
+                    "Takeout:\n" +
+                    "S - Sleeve\n" +
+                    "L - Lid";
+
                 // Controls
-                Global.SpriteBatch.Draw(Instructions, Vector2.Zero, Color.White);
+                Global.SpriteBatch.Draw(Instructions, new Vector2(
+                        Global.Stage.X / 10 * 6 - Font.MeasureString(cupControls).X - 45,
+                        Global.Stage.Y - Font.MeasureString(addInControls).Y - 30
+                    ),
+                    Color.White
+                );
+
+                Global.SpriteBatch.DrawString(
+                    Font, cupControls,
+                    new Vector2(
+                        Global.Stage.X / 10 * 6 - Font.MeasureString(cupControls).X - 35,
+                        Global.Stage.Y - Font.MeasureString(addInControls).Y - 20
+                    ),
+                    Color.Black
+                );
+
+                Global.SpriteBatch.DrawString(
+                    Font, baseControls,
+                    new Vector2(
+                        Global.Stage.X / 10 * 7 - Font.MeasureString(baseControls).X,
+                        Global.Stage.Y - Font.MeasureString(addInControls).Y - 20
+                    ),
+                    Color.Black
+                );
+
+                Global.SpriteBatch.DrawString(
+                    Font, addInControls,
+                    new Vector2(
+                        Global.Stage.X / 10 * 8 - Font.MeasureString(addInControls).X + 25,
+                        Global.Stage.Y - Font.MeasureString(addInControls).Y - 20
+                    ),
+                    Color.Black
+                );
+
+                Global.SpriteBatch.DrawString(
+                    Font, takeoutControls,
+                    new Vector2(
+                        Global.Stage.X / 10 * 9 - Font.MeasureString(takeoutControls).X + 25,
+                        Global.Stage.Y - Font.MeasureString(addInControls).Y - 20
+                    ),
+                    Color.Black
+                );
+
+                
             }
 
             Global.SpriteBatch.End();
