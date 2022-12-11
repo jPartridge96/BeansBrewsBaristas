@@ -25,7 +25,6 @@ namespace BeansBrewsBaristas.Managers
         public static string volume = "25%";
         public static List<Keys> modificationKeys;
 
-
         SpriteFont Font;
         Texture2D Instructions;
         Texture2D ReceiptBackground;
@@ -35,6 +34,7 @@ namespace BeansBrewsBaristas.Managers
             Window.Title = $"{GAME_TITLE} | v{GAME_VER}";
 
             _graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -43,7 +43,7 @@ namespace BeansBrewsBaristas.Managers
         {
             // List of mofication keys - compared when pressed in InputManager
             modificationKeys = new List<Keys>();
-            foreach (var key in Enum.GetValues(typeof(ModificationManager.ModificationControls)))
+            foreach (var key in Enum.GetValues(typeof(ModificationManager.AddinControls)))
                 modificationKeys.Add((Keys)key);
 
             foreach (var key in modificationKeys)

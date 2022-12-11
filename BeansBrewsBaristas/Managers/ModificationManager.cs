@@ -10,15 +10,34 @@ namespace BeansBrewsBaristas.Managers
 {
     public static class ModificationManager
     {
+        public enum CupControls
+        {
+            COFFEE = Keys.D1,
+            LATTE = Keys.D2,
+            ESPRESSO = Keys.D3,
+            TAKEOUT = Keys.D4
+        }
 
-        public enum ModificationControls
+        public enum BaseControls
+        {
+            COFFEE = Keys.C,
+            ESPRESSO = Keys.E,
+            STEAMED_MILK = Keys.M,
+            CREAMER = Keys.B,
+            CINN_POWDER = Keys.A
+        }
+        public enum AddinControls
         {
             VANILLA = Keys.V,
-            CARAMEL = Keys.C,
+            CARAMEL = Keys.R,
             TOFFEE = Keys.T,
             HAZELNUT = Keys.H
         }
 
-
+        public enum TakeoutControls
+        {
+            SLEEVE = Keys.S,
+            LID = Keys.L
+        }
     }
 }

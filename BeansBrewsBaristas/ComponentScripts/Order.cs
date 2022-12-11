@@ -6,13 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static BeansBrewsBaristas.Managers.ModificationManager;
+using static BeansBrewsBaristas.Managers.CustomerManager;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
     public class Order
     {
         public const int MAX_MODIFIERS = 5;
-        public CustomerManager.DrinkType DrinkType { get; set; }
+        public DrinkType DrinkType { get; set; }
+        public Texture2D[] DrinkAssets;
+
+        public bool HasCreamer;
+        public bool HasPowder;
 
         public string DrinkName
         {
@@ -29,17 +35,19 @@ namespace BeansBrewsBaristas.ComponentScripts
         }
         private string drinkName = "";
 
+        public List<Keys> PreModKeys = new List<Keys>();
         public List<Modification> Modifications = new List<Modification>();
+        public List<Keys> PostModKeys = new List<Keys>();
 
         public Order()
         {
             GenerateDrinkType();
+            GetDrinkControls();
         }
-
 
         private void GenerateDrinkType()
         {
-            // Grabs all values of type ModificationControls
+            // Grabs all values of type AddinControls
             var values = Enum.GetValues(typeof(CustomerManager.DrinkType));
 
             // Creates random number between 0 and length of all enum values
@@ -47,14 +55,22 @@ namespace BeansBrewsBaristas.ComponentScripts
             int enumIndex = rand.Next(values.Length);
 
             // Sets Control as random value
-            DrinkType = (CustomerManager.DrinkType)values.GetValue(enumIndex);
+            DrinkType = (DrinkType)values.GetValue(enumIndex);
             DrinkName = DrinkType.ToString();
 
             // Unable to add modifications to espressos
-            if (DrinkType != CustomerManager.DrinkType.ESPRESSO)
+            if (DrinkType != DrinkType.ESPRESSO)
                 GenerateModifications();
+            else
+            {
+                // Randomly generate if drink has creamer and/or cinn. powder
+                if(Enum.GetName(DrinkType).Contains("COFFEE"))
+                    bool.TryParse(rand.Next(0, 1).ToString(), out HasCreamer);
+                bool.TryParse(rand.Next(0, 1).ToString(), out HasPowder);
+                    // does it have creamer?
+                // does it have cinn. powder?
+            }
 
-            // TODO: ADD OPTIONAL DUSTING FOR COFFEE OR LATTE
         }
 
         private void GenerateModifications()
@@ -62,6 +78,57 @@ namespace BeansBrewsBaristas.ComponentScripts
             Random rand = new Random();
             for (int i = rand.Next(0, MAX_MODIFIERS); i < MAX_MODIFIERS; i++)
                 Modifications.Add(new Modification());
+        }
+
+        private void GetDrinkControls()
+        {
+            // CupControls
+            // All takeout drinks get the same cup
+            if (Enum.GetName(DrinkType).Contains("TAKEOUT"))
+            {
+                PreModKeys.Add((Keys)CupControls.TAKEOUT);
+
+                PostModKeys.Add((Keys)TakeoutControls.SLEEVE);
+                PostModKeys.Add((Keys)TakeoutControls.LID);
+            }    
+            else
+                switch (DrinkName)
+                {
+                    case "Coffee":
+                        PreModKeys.Add((Keys)CupControls.COFFEE);
+
+                        PreModKeys.Add((Keys)BaseControls.COFFEE);
+
+                        if(HasCreamer)
+                            PreModKeys.Add((Keys)BaseControls.CREAMER);
+
+                        if (HasPowder)
+                            PreModKeys.Add((Keys)BaseControls.CINN_POWDER);
+                        break;
+                    case "Latte":
+                        PreModKeys.Add((Keys)CupControls.LATTE);
+
+                        PreModKeys.Add((Keys)BaseControls.ESPRESSO);
+                        PreModKeys.Add((Keys)BaseControls.STEAMED_MILK);
+
+                        if (HasPowder)
+                            PreModKeys.Add((Keys)BaseControls.CINN_POWDER);
+                        break;
+                    case "Espresso":
+                        PreModKeys.Add((Keys)CupControls.ESPRESSO);
+
+                        PreModKeys.Add((Keys)BaseControls.ESPRESSO);
+                        break;
+                }
+            
+            // base
+
+                //takeout?
+        }
+
+        private void GetDrinkAssets()
+        {
+
         }
 
         public override string ToString()
@@ -88,6 +155,5 @@ namespace BeansBrewsBaristas.ComponentScripts
 
             return str;
         }
-
     }
 }

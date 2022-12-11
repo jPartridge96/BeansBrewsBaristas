@@ -2,6 +2,7 @@
 using BeansBrewsBaristas.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.MediaFoundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,17 +91,28 @@ namespace BeansBrewsBaristas.ComponentScripts
         /// <returns>Completed Async Task</returns>
         public async Task TravelToPos(Vector2 orderPos)
         {
-            Vector2 tmpPos = Position;
-
-            // Repeat until reached position
-            while (Position.X <= orderPos.X)
+            // Move left or right?
+            if (Position.X > orderPos.X)
             {
-                Position = new Vector2(Position.X + 1, Position.Y);
-                await Task.Delay(1);
+                // Repeat until reached position
+                while (Position.X >= orderPos.X)
+                {
+                    Position = new Vector2(Position.X - 1, Position.Y);
+                    await Task.Delay(1);
+                }
             }
-
-            // Once reached position
-            if(Position.X >= orderPos.X)
+            else
+            {
+                // Repeat until reached position
+                while (Position.X <= orderPos.X)
+                {
+                    Position = new Vector2(Position.X + 1, Position.Y);
+                    await Task.Delay(1);
+                }
+            }
+            
+            // Once reached position, check for action
+            if (Position.X >= orderPos.X)
                 CheckForAction();
         }
 

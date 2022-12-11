@@ -8,6 +8,7 @@ using BeansBrewsBaristas.ComponentScripts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -91,7 +92,18 @@ namespace BeansBrewsBaristas.Managers
                 Orders.Remove(customer.Order);
                 DestroyCustomer(customer);
 
-                setActiveOrder(Orders[0]);
+                if(Orders.Count > 0)
+                    setActiveOrder(Orders[0]);
+
+                // Update positon for all in PickupQueue
+                foreach (Customer cust in PickupQueue)
+                {
+                    Vector2 newPos = new Vector2(
+                        (Global.Stage.X / 8 * 5) + GetQueueIndex(cust, PickupQueue) * 50,
+                        Global.Stage.Y / 2);
+
+                    cust.TravelToPos(newPos);
+                }
             }
 
         }
@@ -102,10 +114,11 @@ namespace BeansBrewsBaristas.Managers
         /// <param name="cust">The customer to be destroyed</param>
         /// <returns>True if customer successfully destroyed</returns>
         /// <exception cref="Exception">Thrown if Customers was not added to List</exception>
-        public static bool DestroyCustomer(Customer cust)
+        public static async Task<bool> DestroyCustomer(Customer cust)
         {
             if (Customers.IndexOf(cust) != -1)
             {
+                await cust.TravelToPos(new Vector2(Global.Stage.X, cust.Position.Y));
                 Customers.Remove(cust);
                 return true;
             }
@@ -114,16 +127,6 @@ namespace BeansBrewsBaristas.Managers
 
         public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
-            //if(OrderQueue.Count < 1)
-            //{
-            //    CreateCustomer();
-            //    TakeNextOrder();
-
-
-            //}
-            //if (OrderQueue.Count > 0 && PickupQueue.Count == 0)
-            //{
-            //}
             queue.Enqueue(cust);
 
             int calcPos = 0;

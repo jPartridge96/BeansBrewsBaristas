@@ -15,15 +15,15 @@ namespace BeansBrewsBaristas.ComponentScripts
         public Order activeOrder { get; set; }
         public Modification()
         {
-            // Grabs all values of type ModificationControls
-            var values = Enum.GetValues(typeof(ModificationControls));
+            // Grabs all values of type AddinControls
+            var values = Enum.GetValues(typeof(AddinControls));
 
             // Creates random number between 0 and length of all enum values
             Random rand = new Random();
             int enumIndex = rand.Next(values.Length);
 
             // Sets Control as random value
-            Control = (ModificationControls)values.GetValue(enumIndex);
+            Control = (AddinControls)values.GetValue(enumIndex);
             Name = Control.ToString();
         }
 
@@ -40,7 +40,7 @@ namespace BeansBrewsBaristas.ComponentScripts
             }
         }
         private string name;
-        public ModificationControls Control { get; }
+        public AddinControls Control { get; }
 
     }
 }
