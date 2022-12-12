@@ -10,12 +10,22 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
+    /// <summary>
+    /// Element to add text and display on game window
+    /// </summary>
     public class TextElement : UIElement
     {
         public string Text { get; set; }
         SpriteFont Font = Global.GameManager.Content.Load<SpriteFont>("Fonts/Font");
 
         #region CONSTRUCTORS
+        /// <summary>
+        /// Creates text at location with colour
+        /// </summary>
+        /// <param name="text">Text to display</param>
+        /// <param name="position">Position of text</param>
+        /// <param name="color">Colour of text</param>
+        /// <param name="texture">Texture to display</param>
         public TextElement(
             string text,
             Vector2 position,
@@ -27,6 +37,13 @@ namespace BeansBrewsBaristas.Content.scripts
             SpriteColor = color;
         }
 
+        /// <summary>
+        /// Creates text at location with colour
+        /// </summary>
+        /// <param name="text">Text to display</param>
+        /// <param name="origin">Position of text</param>
+        /// <param name="color">Colour of text</param>
+        /// <param name="texture">Texture to display</param>
         public TextElement(
             string text,
             Global.Vertex origin,

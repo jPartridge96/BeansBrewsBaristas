@@ -10,11 +10,17 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.BaseClassScripts
 {
-
+    /// <summary>
+    /// Collection of Methods used for Debugging purposes
+    /// </summary>
     public class Debug : DrawableGameComponent
     {
         public static SpriteFont Font = Global.GameManager.Content.Load<SpriteFont>("fonts/DebugFont");
 
+        /// <summary>
+        /// Instansiates a debug message to appear at the top left of the screen.
+        /// </summary>
+        /// <param name="game">Game instance</param>
         public Debug(Game game) : base(game)
         {
             // Used by Debug.Output();
@@ -78,6 +84,10 @@ namespace BeansBrewsBaristas.BaseClassScripts
         }
         static TextElement _debugMessage;
 
+        /// <summary>
+        /// Redirecs to System.Diagnostics as this Debug class creates ambiguity
+        /// </summary>
+        /// <param name="text">Message to print to console</param>
         public static void WriteLine(string text)
         {
             System.Diagnostics.Debug.WriteLine(text);

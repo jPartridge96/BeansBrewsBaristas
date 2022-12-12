@@ -21,6 +21,9 @@ using static BeansBrewsBaristas.Managers.ModificationManager;
 
 namespace BeansBrewsBaristas.Managers
 {
+    /// <summary>
+    /// Holds all input in the game
+    /// </summary>
     public class InputManager : GameComponent
     {
         public int currentScore = 0;
@@ -339,87 +342,20 @@ namespace BeansBrewsBaristas.Managers
                 }
             }
 
-            // Left click Input
-            switch(OnLeftMouseDown())
-            {
-                case true:
-                     // CreateCustomer();
-                    break;
-
-                case false:
-                    break;
-            }
-
-            switch (OnLeftMouseUp())
-            {
-                case true:
-                    break;
-                case false:
-                    break;
-            }
-
-            // Right click Input
-            switch (OnRightMouseDown())
-            {
-                case true:
-                    TakeNextOrder();
-                    break;
-                case false:
-                    break;
-            }
-
-            switch (OnRightMouseUp())
-            {
-                case true:
-                    break;
-                case false:
-                    break;
-            }
-
             _prevKbState = _kbState;
             _prevMsState = _msState;
 
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Returns Keypress for one keyboard state
+        /// </summary>
+        /// <param name="key">Key Queried</param>
+        /// <returns>True if key was pressed</returns>
         public bool OnKeyDown(Keys key)
         {
             if (_kbState.IsKeyDown(key) && _prevKbState.IsKeyUp(key))
-                return true;
-            else return false;
-        }
-
-        public static bool OnKeyUp(Keys key)
-        {
-            if (_kbState.IsKeyUp(key) && _prevKbState.IsKeyDown(key))
-                return true;
-            else return false;
-        }
-
-        public static bool OnLeftMouseDown()
-        {
-            if (_msState.LeftButton == ButtonState.Pressed && _prevMsState.LeftButton == ButtonState.Released)
-                return true;
-            else return false;
-        }
-
-        public static bool OnLeftMouseUp()
-        {
-            if (_msState.LeftButton == ButtonState.Released && _prevMsState.LeftButton == ButtonState.Pressed)
-                return true;
-            else return false;
-        }
-
-        public static bool OnRightMouseDown()
-        {
-            if (_msState.RightButton == ButtonState.Pressed && _prevMsState.RightButton == ButtonState.Released)
-                return true;
-            else return false;
-        }
-
-        private static bool OnRightMouseUp()
-        {
-            if (_msState.RightButton == ButtonState.Released && _prevMsState.RightButton == ButtonState.Pressed)
                 return true;
             else return false;
         }

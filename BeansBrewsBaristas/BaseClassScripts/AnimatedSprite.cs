@@ -8,7 +8,9 @@ using System.Collections.Generic;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
-    
+   /// <summary>
+   /// Framework for a Sprite that iterates through frames
+   /// </summary>
     public class AnimatedSprite : Sprite
     {
         const int ROWS = 4;
@@ -16,6 +18,13 @@ namespace BeansBrewsBaristas.Content.scripts
 
         public Vector2 Dimension { get; set; } // 48*48
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position">Position of AnimatedSprite</param>
+        /// <param name="texture">Placeholder texture when animation is paused</param>
+        /// <param name="color">Color of sprites</param>
+        /// <param name="delay">Delay between frames</param>
         public AnimatedSprite(Vector2 position,
             Texture2D texture,
             Color? color,
@@ -28,19 +37,28 @@ namespace BeansBrewsBaristas.Content.scripts
             // Hide();
             CreateFrames();
         }
-
+        
+        /// <summary>
+        /// Hides and disables the AnimatedSprite
+        /// </summary>
         private void Hide()
         {
             this.Enabled = false;
             this.Visible = false;
         }
 
+        /// <summary>
+        /// Shows and enables the AnimatedSprite
+        /// </summary>
         private void Show()
         {
             this.Enabled = true;
             this.Visible = true;
         }
 
+        /// <summary>
+        /// Restarts and enables the animation of the AnimatedSprite
+        /// </summary>
         public void Restart()
         {
             _frameIndex = 0;
@@ -48,6 +66,9 @@ namespace BeansBrewsBaristas.Content.scripts
             Show();
         }
 
+        /// <summary>
+        /// Creates rectangles of the spritesheet of the AnimatedSprite
+        /// </summary>
         private void CreateFrames()
         {
             _frames = new List<Rectangle>();

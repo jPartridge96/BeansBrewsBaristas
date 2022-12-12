@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.Managers
 {
+    /// <summary>
+    /// Handles all of the customer spawning and manipulation
+    /// </summary>
     public class CustomerManager
     {
         public const int QUEUE_LIMIT = 5;
@@ -47,6 +50,9 @@ namespace BeansBrewsBaristas.Managers
             TAKEOUT_LATTE
         }
 
+        /// <summary>
+        /// Instansiates an array of customer skins
+        /// </summary>
         public CustomerManager()
         {
             // TODO: Convert List to dictionary, so dog type can be detected?
@@ -60,24 +66,33 @@ namespace BeansBrewsBaristas.Managers
                 Global.GameManager.Content.Load<Texture2D>("Images/customer6"),
                 Global.GameManager.Content.Load<Texture2D>("Images/customer7"),
             };
-
-            // CreateCustomer();
         }
 
-        private static CustomerManager _instance;
+        /// <summary>
+        /// Creates Singleton instance of CustomerManager
+        /// </summary>
+        /// <returns>Singleton Instance</returns>
         public static CustomerManager GetInstance()
         {
             if (_instance == null)
                 _instance = new CustomerManager();
             return _instance;
         }
+        private static CustomerManager _instance;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Random Customer Image from Array</returns>
         public static Texture2D GetRandomCustomerAsset()
-        {
-            
+        {    
             return CustomerAssets[rand.Next(CustomerAssets.Count)];
         }
 
+        /// <summary>
+        /// Task that generates a customer every 3-10 seconds with 
+        /// </summary>
+        /// <returns>Completed Task</returns>
         public static async Task CreateCustomer()
         {
             // While a level is loaded
@@ -106,6 +121,9 @@ namespace BeansBrewsBaristas.Managers
             }
         }
 
+        /// <summary>
+        /// Removes customer from queue, deletes them, and shifts all customers up to new positions
+        /// </summary>
         public static void dequeueCustomer()
         {
             if(PickupQueue.Count > 0)
@@ -173,6 +191,13 @@ namespace BeansBrewsBaristas.Managers
             cust.TravelToPos(queuePos);
         }
 
+        /// <summary>
+        /// Moves
+        /// </summary>
+        /// <param name="oldQueue">queue to remove from</param>
+        /// <param name="newQueue">New queue to transfer to</param>
+        /// <param name="xPos">new position</param>
+        /// <param name="direction">Line up direction</param>
         public static void TransferQueue(Queue<Customer> oldQueue, Queue<Customer> newQueue, float xPos, QueueDirection direction)
         {
             if (newQueue.Count >= QUEUE_LIMIT)
@@ -181,19 +206,32 @@ namespace BeansBrewsBaristas.Managers
             EnterQueue(oldQueue.Dequeue(), newQueue, (int)xPos, direction);
         }
 
+        /// <summary>
+        /// Gets the index of the customer in the queue
+        /// </summary>
+        /// <param name="cust">Customer queried</param>
+        /// <param name="queue">Queue to query</param>
+        /// <returns>Index of customer in queue</returns>
         public static int GetQueueIndex(Customer cust, Queue<Customer> queue)
         {
             return queue.ToList().IndexOf(cust);
         }
 
+        /// <summary>
+        /// Generates a random customer name from stored array
+        /// </summary>
+        /// <returns>Customer name</returns>
         public static string GetCustomerName()
         {
             Random rand = new Random();
             return CustomerNames[rand.Next(0, CustomerNames.Length)];
         }
 
-        //sets the current customer order in the order queue as the active order.
-        //ui reflects the matching stuff
+        /// <summary>
+        /// sets the current customer order in the order queue as the active order. Used for UI
+        /// </summary>
+        /// <param name="nextOrder">The order to be updated to</param>
+        /// <returns>The updated order</returns>
         public static Order setActiveOrder(Order nextOrder)
         {
             activeOrder = nextOrder;
@@ -222,6 +260,10 @@ namespace BeansBrewsBaristas.Managers
             return activeOrder;
         }
 
+
+        /// <summary>
+        /// Takes the Customer from the orderQueue and moves to pickupQueue 
+        /// </summary>
         public static void TakeNextOrder()
         {
             if (OrderQueue.Count != 0 && PickupQueue.Count < QUEUE_LIMIT)
