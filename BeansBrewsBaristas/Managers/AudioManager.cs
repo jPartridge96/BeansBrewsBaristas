@@ -7,8 +7,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace BeansBrewsBaristas.Managers
 {
+    /// <summary>
+    /// A singleton for handling all sounds and songs
+    /// </summary>
     public sealed class AudioManager
     {
+        /// <summary>
+        /// Loads all songs and soundeffects into their respective libraries
+        /// </summary>
         private AudioManager()
         {
             // AudioManager loads SoundEffects from GameManager
@@ -37,15 +43,18 @@ namespace BeansBrewsBaristas.Managers
             MediaPlayer.Volume = .25f;
             SoundEffect.MasterVolume = .50f;
         }
-        
 
-        private static AudioManager _instance;
+        /// <summary>
+        /// Creates Singleton instance of AudioManager
+        /// </summary>
+        /// <returns>Singleton Instance</returns>
         public static AudioManager GetInstance()
         {
             if (_instance == null)
                 _instance = new AudioManager();
             return _instance;
         }
+        private static AudioManager _instance; 
 
         /// <summary>
         /// Loads SoundEffect from file path into ContentManager

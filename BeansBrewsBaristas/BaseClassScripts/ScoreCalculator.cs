@@ -2,6 +2,9 @@
 
 namespace BeansBrewsBaristas.BaseClassScripts
 {
+    /// <summary>
+    /// Calculaes the score/tips of the player
+    /// </summary>
     public class ScoreCalculator
     {
         private const int MAX_COMBO = 10;
@@ -22,6 +25,12 @@ namespace BeansBrewsBaristas.BaseClassScripts
         public decimal ComboMultiplier { get => Fibonacci(Combo) * 100; }
         public decimal Multiplier { get => DifficultyMultiplier + ComboMultiplier; }
 
+        /// <summary>
+        /// Calculates fibonacci sequence used for scoring
+        /// </summary>
+        /// <param name="n">nth number</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Positive integers only (until 10)</exception>
         public long Fibonacci(int n)
         {
             if (n < 0) throw new Exception("Integer must be positive");

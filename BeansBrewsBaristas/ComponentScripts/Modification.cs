@@ -10,9 +10,16 @@ using static BeansBrewsBaristas.Managers.ModificationManager;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
+    /// <summary>
+    /// A customization for Order
+    /// </summary>
     public class Modification
     {
         public Order activeOrder { get; set; }
+
+        /// <summary>
+        /// Generates a random drink modification based on available Enums
+        /// </summary>
         public Modification()
         {
             // Grabs all values of type AddinControls

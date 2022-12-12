@@ -168,6 +168,13 @@ namespace BeansBrewsBaristas.Managers
             throw new Exception("Customer was not part of Customers list.");
         }
 
+        /// <summary>
+        /// Enters the queried queue and travels in the direction of it
+        /// </summary>
+        /// <param name="cust">Customer entering</param>
+        /// <param name="queue">What queue to enter</param>
+        /// <param name="xPos">position to stand</param>
+        /// <param name="direction">Direction to line up in</param>
         public static void EnterQueue(Customer cust, Queue<Customer> queue, float xPos, QueueDirection direction)
         {
             queue.Enqueue(cust);
@@ -192,7 +199,7 @@ namespace BeansBrewsBaristas.Managers
         }
 
         /// <summary>
-        /// Moves
+        /// Moves from one queue to another
         /// </summary>
         /// <param name="oldQueue">queue to remove from</param>
         /// <param name="newQueue">New queue to transfer to</param>
