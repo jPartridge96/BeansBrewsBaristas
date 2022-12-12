@@ -220,16 +220,18 @@ namespace BeansBrewsBaristas.Managers
 
                     // Drink
                     Texture2D tex = CustomerManager.activeOrder.DrinkAssets[0];
+                    
+
                     if (DrinkDrawnIndex[0] != -1)
                     {
-                    Global.SpriteBatch.Draw(tex,
-                        new Vector2(
-                            Global.Stage.X / 2 - (Frames[DrinkDrawnIndex[0]].Width) / 2,
-                            Global.Stage.Y / 2 - (Frames[DrinkDrawnIndex[0]].Height) / 2
-                        ), Frames[DrinkDrawnIndex[0]]
-                        , Color.White
+                        Vector2 position = new Vector2(
+                        Global.Stage.X / 2 - (Frames[DrinkDrawnIndex[0]].Width) / 2,
+                        Global.Stage.Y / 2 - (Frames[DrinkDrawnIndex[0]].Height) / 2
                     );
+
+                        Global.SpriteBatch.Draw(tex, position, Frames[DrinkDrawnIndex[0]], Color.White);
                     }
+                        
                     //spriteBatch.Draw(tex, position, frames[frameIndex], Color.White);
 
 

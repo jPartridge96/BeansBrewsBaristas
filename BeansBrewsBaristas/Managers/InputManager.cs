@@ -82,19 +82,89 @@ namespace BeansBrewsBaristas.Managers
 
                                     #region LATTE
                                     case DrinkType.LATTE:
-                                        switch ((Enum)keyPressed)
+                                        switch (keyPressed)
                                         {
-                                            case CupControls:
+                                            // Place latte cup
+                                            case (Keys)CupControls.LATTE:
+                                                if (drawnIndex[0] == -1)
+                                                    drawnIndex[0] = 0;
+                                                break;
+
+                                            // If cup placed, add espresso
+                                            case (Keys)BaseControls.ESPRESSO:
+                                                if (drawnIndex[0] == 0)
+                                                    drawnIndex[0] = 0;
+                                                break;
+
+                                            // If espresso added, add steamed milk
+                                            case (Keys)BaseControls.STEAMED_MILK:
+                                                if (drawnIndex[0] == 0)
+                                                    drawnIndex[0] = 1;
+                                                break;
+
+                                            // If espresso added, add cinnamon powder
+                                            case (Keys)BaseControls.CINN_POWDER:
+                                                if (drawnIndex[0] == 1)
+                                                    drawnIndex[0] = 2;
+                                                break;
+                                        }
+                                        break;
+                                    #endregion
+
+                                    #region ESPRESSO
+                                    case DrinkType.ESPRESSO:
+                                        switch (keyPressed)
+                                        {
+                                            // Place espresso cup
+                                            case (Keys)CupControls.ESPRESSO:
+                                                if (drawnIndex[0] == -1)
+                                                    drawnIndex[0] = 0;
+                                                break;
+
+                                            // If cup placed, add espresso
+                                            case (Keys)BaseControls.ESPRESSO:
+                                                if (drawnIndex[0] == 0)
+                                                    drawnIndex[0] = 1;
+                                                break;
+                                        }
+                                        break;
+                                    #endregion
+
+                                    #region TAKEOUT
+                                    // If it's takeout
+                                    case DrinkType.TAKEOUT_COFFEE:
+                                    case DrinkType.TAKEOUT_LATTE:
+
+                                        switch (keyPressed)
+                                        {
+                                            // Place takeout cup
+                                            case (Keys)CupControls.TAKEOUT:
+                                                if (drawnIndex[0] == -1)
+                                                    drawnIndex[0] = 0;
+                                                break;
+                                        }
+
+                                        switch (activeOrder.DrinkType)
+                                        {
+                                            // If it's coffee
+                                            case DrinkType.TAKEOUT_COFFEE:
                                                 switch (keyPressed)
                                                 {
-                                                    // Place latte cup
-                                                    case (Keys)CupControls.LATTE:
-                                                        if (drawnIndex[0] == -1)
-                                                            drawnIndex[0] = 0;
+                                                    // If cup placed, add coffee
+                                                    case (Keys)BaseControls.COFFEE:
+                                                        if (drawnIndex[0] == 0)
+                                                            drawnIndex[0] = 1;
+                                                        break;
+
+                                                    case (Keys)BaseControls.CREAMER:
+                                                        if (drawnIndex[0] == 1)
+                                                            drawnIndex[0] = 2;
                                                         break;
                                                 }
                                                 break;
-                                            case BaseControls:
+
+                                            // If it's latte
+                                            case DrinkType.TAKEOUT_LATTE:
                                                 switch (keyPressed)
                                                 {
                                                     // If cup placed, add espresso
@@ -106,107 +176,13 @@ namespace BeansBrewsBaristas.Managers
                                                     // If espresso added, add steamed milk
                                                     case (Keys)BaseControls.STEAMED_MILK:
                                                         if (drawnIndex[0] == 0)
-                                                            drawnIndex[0] = 1;
+                                                            drawnIndex[0] = 3;
                                                         break;
 
                                                     // If espresso added, add cinnamon powder
                                                     case (Keys)BaseControls.CINN_POWDER:
-                                                        if (drawnIndex[0] == 1)
-                                                            drawnIndex[0] = 2;
-                                                        break;
-                                                }
-                                                break;
-                                        }
-                                        break;
-                                    #endregion
-
-                                    #region ESPRESSO
-                                    case DrinkType.ESPRESSO:
-                                        switch ((Enum)keyPressed)
-                                        {
-                                            case CupControls:
-                                                switch (keyPressed)
-                                                {
-                                                    // Place espresso cup
-                                                    case (Keys)CupControls.ESPRESSO:
-                                                        if (drawnIndex[0] == -1)
-                                                            drawnIndex[0] = 0;
-                                                        break;
-                                                }
-                                                break;
-                                            case BaseControls:
-                                                switch (keyPressed)
-                                                {
-                                                    // If cup placed, add espresso
-                                                    case (Keys)BaseControls.ESPRESSO:
-                                                        if (drawnIndex[0] == 0)
-                                                            drawnIndex[0] = 1;
-                                                        break;
-                                                }
-                                                break;
-                                        }
-                                        break;
-                                    #endregion
-
-                                    #region TAKEOUT
-                                    // If it's takeout
-                                    case DrinkType.TAKEOUT_COFFEE:
-                                    case DrinkType.TAKEOUT_LATTE:
-                                        switch ((Enum)keyPressed)
-                                        {
-                                            case CupControls:
-                                                switch (keyPressed)
-                                                {
-                                                    // Place takeout cup
-                                                    case (Keys)CupControls.TAKEOUT:
-                                                        if (drawnIndex[0] == -1)
-                                                            drawnIndex[0] = 0;
-                                                        break;
-                                                }
-                                                break;
-
-                                            case BaseControls:
-                                                switch(activeOrder.DrinkType)
-                                                {
-                                                    // If it's coffee
-                                                    case DrinkType.TAKEOUT_COFFEE:
-                                                        switch(keyPressed)
-                                                        {
-                                                            // If cup placed, add coffee
-                                                            case (Keys)BaseControls.COFFEE:
-                                                                if (drawnIndex[0] == 0)
-                                                                    drawnIndex[0] = 1;
-                                                                break;
-
-                                                            case (Keys)BaseControls.CREAMER:
-                                                                if (drawnIndex[0] == 1)
-                                                                    drawnIndex[0] = 2;
-                                                                break;
-                                                        }
-                                                        break;
-
-                                                    // If it's latte
-                                                    case DrinkType.TAKEOUT_LATTE:
-                                                        switch (keyPressed)
-                                                        {
-                                                            // If cup placed, add espresso
-                                                            case (Keys)BaseControls.ESPRESSO:
-                                                                if (drawnIndex[0] == 0)
-                                                                    drawnIndex[0] = 0;
-                                                                break;
-
-                                                            // If espresso added, add steamed milk
-                                                            case (Keys)BaseControls.STEAMED_MILK:
-                                                                if (drawnIndex[0] == 0)
-                                                                    drawnIndex[0] = 3;
-                                                                break;
-
-                                                            // If espresso added, add cinnamon powder
-                                                            case (Keys)BaseControls.CINN_POWDER:
-                                                                if (drawnIndex[0] == 3)
-                                                                    drawnIndex[0] = 4;
-                                                                break;
-                                                        }
+                                                        if (drawnIndex[0] == 3)
+                                                            drawnIndex[0] = 4;
                                                         break;
                                                 }
                                                 break;
