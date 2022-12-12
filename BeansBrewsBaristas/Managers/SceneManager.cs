@@ -147,7 +147,7 @@ namespace BeansBrewsBaristas.Managers
             //reset the score on loadscene
             Global.score = 0;
             //set the message for the scoreboard
-            SceneManager.sceneScore.Text = $"Score: {Global.score}";
+            SceneManager.sceneScore.Text = $"Tips: ${Global.score}";
             if (!Atlas.TryGetValue(sceneName, out var playableMap))
                 throw new Exception($"No scene found with name '{sceneName}'.");
 
