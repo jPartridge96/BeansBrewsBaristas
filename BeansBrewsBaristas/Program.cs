@@ -36,9 +36,7 @@
  *                       -             : Controls are displayed - Order is user friendly
  *           Thomas Heal - Dec 10, 2022: Updated Hierarchy to new folder structure
  *                       -             : Cafe3 Background and bar added
- *           
- *           
- *           
+ *       Jordan & Thomas - Dec 11, 2022: Finalization and documentation of project     
  *
  */
 
