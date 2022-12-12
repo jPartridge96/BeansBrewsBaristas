@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.DirectoryServices;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -29,7 +30,6 @@ namespace BeansBrewsBaristas.Managers
 
         public string CurrentScene { get; set; } = "Menu";
 
-
         public override void Update(GameTime gameTime)
         {
 
@@ -41,19 +41,20 @@ namespace BeansBrewsBaristas.Managers
             {
                 if (OnKeyDown(keyPressed))
                 {
-                    if (GameManager.modificationKeys.TryGetValue(keyPressed, out object enumType))
+                    if (GameManager.modificationKeys.ContainsKey(keyPressed) && GameManager.modificationKeys != null)
                     {
+                        Debug.WriteLine(GameManager.modificationKeys.GetValueOrDefault(keyPressed).GetType().ToString());
                         if(activeOrder != null)
                         {
-                            keysPressed.Add(keyPressed);
 
                             if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
                             {
+
                                 int drawnIndex = -1;
                                 switch (activeOrder.DrinkType)
                                 {
                                     case DrinkType.COFFEE:
-                                        switch (enumType)
+                                        switch ((Enum)keyPressed)
                                         {
                                             case CupControls:
                                                 if (drawnIndex == -1)
@@ -76,10 +77,10 @@ namespace BeansBrewsBaristas.Managers
                                 }
 
                                 // Get Cup
-                                if (modificationKeys.TryGetValue(keyPressed, out var enumType ))
-                                {
-                                    
-                                }
+                                //if (modificationKeys.TryGetValue(keyPressed, out var enumType ))
+                                //{
+
+                                //}
 
                                 keysPressed.Remove(keyPressed);
                                 Debug.WriteLine("-------Active Keys list--------");
@@ -92,8 +93,13 @@ namespace BeansBrewsBaristas.Managers
                             }
                         }
                     }
+                    else
+                    {
+                        Debug.WriteLine("key not in list");
+                    }
+
                     //keys pressed that are in the modificaitons key tab
-                    if(keyPressed == Keys.K)
+                    if (keyPressed == Keys.K)
                     {
                         Debug.WriteLine("-------Incorrect Keys Pressed List--------");
 

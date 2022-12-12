@@ -41,7 +41,7 @@ namespace BeansBrewsBaristas.Managers
 
         protected override void Initialize()
         {
-            Dictionary<Keys, object> modificationKeys = new Dictionary<Keys, object>();
+            modificationKeys = new Dictionary<Keys, object>();
 
             foreach (var key in Enum.GetValues(typeof(ModificationManager.AddinControls)))
             {
