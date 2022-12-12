@@ -214,8 +214,11 @@ namespace BeansBrewsBaristas.Managers
             foreach (Keys key in activeOrderKeys)
                 Debug.WriteLine(key.ToString());
 
-            GameManager.DrinkDrawnIndex = new int[activeOrder.DrinkAssets.Length];
-            GameManager.DrinkDrawnIndex[0] = -1;
+            nextOrder.DrinkDrawnIndex = new int[activeOrder.DrinkAssets.Length];
+            nextOrder.DrinkDrawnIndex[0] = -1;
+
+            GameManager.Frames = nextOrder.DrinkFrames;
+
             return activeOrder;
         }
 

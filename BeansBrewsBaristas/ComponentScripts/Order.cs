@@ -19,6 +19,9 @@ namespace BeansBrewsBaristas.ComponentScripts
         public const int MAX_MODIFIERS = 5;
         public DrinkType DrinkType { get; set; }
         public Texture2D[] DrinkAssets;
+        public List<Rectangle> DrinkFrames = new List<Rectangle>();
+        public int[] DrinkDrawnIndex;
+
 
         public Vector2 DrinkDimensions;
         public int ROWS = 1;
@@ -93,6 +96,25 @@ namespace BeansBrewsBaristas.ComponentScripts
             if (Enum.GetName(DrinkType).Contains("TAKEOUT"))
             {
                 PreModKeys.Add((Keys)CupControls.TAKEOUT);
+                switch (DrinkType)
+                {
+                    case DrinkType.TAKEOUT_COFFEE:
+                        PreModKeys.Add((Keys)BaseControls.COFFEE);
+
+                        if (HasCreamer)
+                            PreModKeys.Add((Keys)BaseControls.CREAMER);
+
+                        if (HasPowder)
+                            PreModKeys.Add((Keys)BaseControls.CINN_POWDER);
+                        break;
+                    case DrinkType.TAKEOUT_LATTE:
+                        PreModKeys.Add((Keys)BaseControls.ESPRESSO);
+                        PreModKeys.Add((Keys)BaseControls.STEAMED_MILK);
+
+                        if (HasPowder)
+                            PreModKeys.Add((Keys)BaseControls.CINN_POWDER);
+                        break;
+                }
 
                 PostModKeys.Add((Keys)TakeoutControls.SLEEVE);
                 PostModKeys.Add((Keys)TakeoutControls.LID);
@@ -168,6 +190,10 @@ namespace BeansBrewsBaristas.ComponentScripts
                     COLS = 5;
                     break;
             }
+            GameManager.DrinkPos = new Vector2(
+                        Global.Stage.X / 2 - DrinkDimensions.X / 2,
+                        Global.Stage.Y / 2 - DrinkDimensions.Y / 2
+                    );
         }
 
         /// <summary>
@@ -188,7 +214,7 @@ namespace BeansBrewsBaristas.ComponentScripts
 
         private void CreateFrames()
         {
-            GameManager.Frames = new List<Rectangle>();
+            DrinkFrames = new List<Rectangle>();
             for (int i = 0; i < ROWS; i++)
             {
                 for (int j = 0; j < COLS; j++)
@@ -197,7 +223,7 @@ namespace BeansBrewsBaristas.ComponentScripts
                     int y = i * (int)DrinkDimensions.Y;
 
                     Rectangle r = new Rectangle(x, y, (int)DrinkDimensions.X, (int)DrinkDimensions.Y);
-                    GameManager.Frames.Add(r);
+                    DrinkFrames.Add(r);
                 }
             }
         }

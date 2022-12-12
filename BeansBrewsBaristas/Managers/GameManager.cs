@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Media;
 using BeansBrewsBaristas.ComponentScripts;
 using BeansBrewsBaristas.BaseClassScripts;
 using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BeansBrewsBaristas.Managers
 {
@@ -27,6 +28,9 @@ namespace BeansBrewsBaristas.Managers
         public static Dictionary<Keys, Enum> modificationKeys;
         public static int[] DrinkDrawnIndex;
         public static List<Rectangle> Frames = new List<Rectangle>();
+
+        public static Texture2D DrinkTex;
+        public static Vector2 DrinkPos = new Vector2();
 
         SpriteFont Font;
         Texture2D Instructions;
@@ -181,6 +185,10 @@ namespace BeansBrewsBaristas.Managers
             }
 
             base.Update(gameTime);
+
+            if(CustomerManager.activeOrder != null)
+                if (CustomerManager.activeOrder.DrinkDrawnIndex[0] != -1)
+                    DrinkTex = CustomerManager.activeOrder.DrinkAssets[0];
         }
 
         protected override void Draw(GameTime gameTime)
@@ -219,17 +227,14 @@ namespace BeansBrewsBaristas.Managers
 
 
                     // Drink
-                    Texture2D tex = CustomerManager.activeOrder.DrinkAssets[0];
-                    
-
-                    if (DrinkDrawnIndex[0] != -1)
+                    if (CustomerManager.activeOrder != null)
                     {
-                        Vector2 position = new Vector2(
-                        Global.Stage.X / 2 - (Frames[DrinkDrawnIndex[0]].Width) / 2,
-                        Global.Stage.Y / 2 - (Frames[DrinkDrawnIndex[0]].Height) / 2
-                    );
-
-                        Global.SpriteBatch.Draw(tex, position, Frames[DrinkDrawnIndex[0]], Color.White);
+                        if (CustomerManager.activeOrder.DrinkDrawnIndex[0] != -1)
+                        {
+                            Global.SpriteBatch.Draw(DrinkTex, DrinkPos, CustomerManager.activeOrder.DrinkFrames[CustomerManager.activeOrder.DrinkDrawnIndex[0]], Color.White);
+                            Debug.WriteLine($"Pos: {DrinkPos}\n" +
+                                $"Frames: {Frames}\n---");
+                        }
                     }
                         
                     //spriteBatch.Draw(tex, position, frames[frameIndex], Color.White);
@@ -241,7 +246,7 @@ namespace BeansBrewsBaristas.Managers
                 string cupControls = "" +
                     "Cup:\n" +
                     "1 - Coffee\n" +
-                    "2 - Lattee\n" +
+                    "2 - Latte\n" +
                     "3 - Espresso\n" +
                     "4 - Takeout\n";
 

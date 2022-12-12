@@ -50,7 +50,7 @@ namespace BeansBrewsBaristas.Managers
                             if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
                             {
                                 Debug.WriteLine("Ok");
-                                int[] drawnIndex = GameManager.DrinkDrawnIndex;
+                                int[] drawnIndex = activeOrder.DrinkDrawnIndex;
 
                                 switch (activeOrder.DrinkType)
                                 {
@@ -134,22 +134,18 @@ namespace BeansBrewsBaristas.Managers
                                     // If it's takeout
                                     case DrinkType.TAKEOUT_COFFEE:
                                     case DrinkType.TAKEOUT_LATTE:
-
-                                        switch (keyPressed)
-                                        {
-                                            // Place takeout cup
-                                            case (Keys)CupControls.TAKEOUT:
-                                                if (drawnIndex[0] == -1)
-                                                    drawnIndex[0] = 0;
-                                                break;
-                                        }
-
                                         switch (activeOrder.DrinkType)
                                         {
                                             // If it's coffee
                                             case DrinkType.TAKEOUT_COFFEE:
                                                 switch (keyPressed)
                                                 {
+                                                    // Place takeout cup
+                                                    case (Keys)CupControls.TAKEOUT:
+                                                        if (drawnIndex[0] == -1)
+                                                            drawnIndex[0] = 0;
+                                                        break;
+
                                                     // If cup placed, add coffee
                                                     case (Keys)BaseControls.COFFEE:
                                                         if (drawnIndex[0] == 0)
@@ -167,6 +163,12 @@ namespace BeansBrewsBaristas.Managers
                                             case DrinkType.TAKEOUT_LATTE:
                                                 switch (keyPressed)
                                                 {
+                                                    // Place takeout cup
+                                                    case (Keys)CupControls.TAKEOUT:
+                                                        if (drawnIndex[0] == -1)
+                                                            drawnIndex[0] = 0;
+                                                        break;
+
                                                     // If cup placed, add espresso
                                                     case (Keys)BaseControls.ESPRESSO:
                                                         if (drawnIndex[0] == 0)
