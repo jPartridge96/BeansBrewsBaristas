@@ -167,6 +167,10 @@ namespace BeansBrewsBaristas.Managers
                         {
                             AudioManager.PlaySong("Level2Song");
                         }
+                        if(sceneName == "Level3")
+                        {
+                            AudioManager.PlaySong("Level3Song");
+                        }
                         if(sceneName == "Menu")
                         {
                             AudioManager.PlaySong("MenuTheme");

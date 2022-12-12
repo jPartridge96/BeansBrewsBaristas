@@ -346,6 +346,12 @@
 /processorParam:Quality=Best
 /build:Songs/BackGroundTheme2.mp3
 
+#begin Songs/BackGroundTheme3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/BackGroundTheme3.mp3
+
 #begin Songs/MenuTheme1.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

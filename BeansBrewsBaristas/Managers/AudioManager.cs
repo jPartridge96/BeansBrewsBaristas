@@ -20,7 +20,8 @@ namespace BeansBrewsBaristas.Managers
                 {"CatMeow", LoadSound("customerSound") },
                 {"SyrupSquirt", LoadSound("squirt") },
                 {"Ding", LoadSound("orderDing") },
-                {"Liquid", LoadSound("coffeePour") }
+                {"Liquid", LoadSound("coffeePour") },
+                
             };
 
             // AudioManager loads Songs from GameManager
@@ -28,7 +29,8 @@ namespace BeansBrewsBaristas.Managers
             {
                 {"MenuTheme", LoadSong("MenuTheme1") },
                 {"Level1Song", LoadSong("BackGroundTheme1") },
-                {"Level2Song", LoadSong("BackGroundTheme2") }
+                {"Level2Song", LoadSong("BackGroundTheme2") },
+                {"Level3Song", LoadSong("BackGroundTheme3") }
             }; // SongCollection, MediaLibrary exist - useful?
 
             MediaPlayer.IsRepeating = true;
