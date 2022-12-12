@@ -10,6 +10,7 @@ using static BeansBrewsBaristas.Managers.CustomerManager;
 using Microsoft.Xna.Framework.Graphics;
 using BeansBrewsBaristas.BaseClassScripts;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct3D9;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
@@ -18,6 +19,10 @@ namespace BeansBrewsBaristas.ComponentScripts
         public const int MAX_MODIFIERS = 5;
         public DrinkType DrinkType { get; set; }
         public Texture2D[] DrinkAssets;
+
+        public Vector2 DrinkDimensions;
+        public int ROWS = 1;
+        public int COLS;
 
         public bool HasCreamer;
         public bool HasPowder;
@@ -46,6 +51,8 @@ namespace BeansBrewsBaristas.ComponentScripts
             GenerateDrinkType();
             GetDrinkControls();
             GetDrinkAssets();
+
+            CreateFrames();
         }
 
         private void GenerateDrinkType()
@@ -93,7 +100,7 @@ namespace BeansBrewsBaristas.ComponentScripts
             else
                 switch (DrinkName)
                 {
-                    case "Coffee":
+                    case "COFFEE":
                         PreModKeys.Add((Keys)CupControls.COFFEE);
 
                         PreModKeys.Add((Keys)BaseControls.COFFEE);
@@ -104,7 +111,7 @@ namespace BeansBrewsBaristas.ComponentScripts
                         if (HasPowder)
                             PreModKeys.Add((Keys)BaseControls.CINN_POWDER);
                         break;
-                    case "Latte":
+                    case "LATTE":
                         PreModKeys.Add((Keys)CupControls.LATTE);
 
                         PreModKeys.Add((Keys)BaseControls.ESPRESSO);
@@ -113,7 +120,7 @@ namespace BeansBrewsBaristas.ComponentScripts
                         if (HasPowder)
                             PreModKeys.Add((Keys)BaseControls.CINN_POWDER);
                         break;
-                    case "Espresso":
+                    case "ESPRESSO":
                         PreModKeys.Add((Keys)CupControls.ESPRESSO);
 
                         PreModKeys.Add((Keys)BaseControls.ESPRESSO);
@@ -130,18 +137,24 @@ namespace BeansBrewsBaristas.ComponentScripts
                     {
                         Global.GameManager.Content.Load<Texture2D>("Images/Coffee 171_152")
                     };
+                    DrinkDimensions = new Vector2(171, 152);
+                    COLS = 3;
                     break;
                 case DrinkType.LATTE:
                     DrinkAssets = new Texture2D[]
                     {
                         Global.GameManager.Content.Load<Texture2D>("Images/Latte 213_132")
                     };
+                    DrinkDimensions = new Vector2(213, 132);
+                    COLS = 3;
                     break;
                 case DrinkType.ESPRESSO:
                     DrinkAssets = new Texture2D[]
                     {
                         Global.GameManager.Content.Load<Texture2D>("Images/Espresso 102_79")
                     };
+                    DrinkDimensions = new Vector2(102, 79);
+                    COLS = 2;
                     break;
                 case DrinkType.TAKEOUT_COFFEE:
                 case DrinkType.TAKEOUT_LATTE:
@@ -151,6 +164,8 @@ namespace BeansBrewsBaristas.ComponentScripts
                         Global.GameManager.Content.Load<Texture2D>("Images/Lid 142_60"),
                         Global.GameManager.Content.Load<Texture2D>("Images/Sleeve 130_92")
                     };
+                    DrinkDimensions = new Vector2(132, 176);
+                    COLS = 5;
                     break;
             }
         }
@@ -168,6 +183,22 @@ namespace BeansBrewsBaristas.ComponentScripts
                     return true;
                 default:
                     return false;
+            }
+        }
+
+        private void CreateFrames()
+        {
+            GameManager.Frames = new List<Rectangle>();
+            for (int i = 0; i < ROWS; i++)
+            {
+                for (int j = 0; j < COLS; j++)
+                {
+                    int x = j * (int)DrinkDimensions.X;
+                    int y = i * (int)DrinkDimensions.Y;
+
+                    Rectangle r = new Rectangle(x, y, (int)DrinkDimensions.X, (int)DrinkDimensions.Y);
+                    GameManager.Frames.Add(r);
+                }
             }
         }
 
