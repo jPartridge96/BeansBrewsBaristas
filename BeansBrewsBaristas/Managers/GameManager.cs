@@ -17,6 +17,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace BeansBrewsBaristas.Managers
 {
+    /// <summary>
+    /// The heart of BeansBrewsBaristas
+    /// </summary>
     public class GameManager : Game
     {
         private const string GAME_TITLE = "Brews, Beans, Baristas!";
@@ -36,6 +39,9 @@ namespace BeansBrewsBaristas.Managers
         Texture2D Instructions;
         Texture2D ReceiptBackground;
 
+        /// <summary>
+        /// Sets the Window Title and Graphics manager
+        /// </summary>
         public GameManager()
         {
             Window.Title = $"{GAME_TITLE} | v{GAME_VER}";

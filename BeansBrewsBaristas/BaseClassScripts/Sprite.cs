@@ -5,6 +5,9 @@ using System;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
+    /// <summary>
+    /// An Image object that handles its own drawing
+    /// </summary>
     public class Sprite : DrawableGameComponent
     {
         public SpriteBatch SpriteBatch { get => Global.SpriteBatch; }
@@ -23,10 +26,6 @@ namespace BeansBrewsBaristas.Content.scripts
         }
         #endregion
 
-        /// <summary>
-        /// Draws the Sprite to the Game Window
-        /// </summary>
-        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             if (Texture != null)
@@ -48,6 +47,12 @@ namespace BeansBrewsBaristas.Content.scripts
             return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
         }
 
+        /// <summary>
+        /// Returns a Vector2 based on passed Vertex enum
+        /// </summary>
+        /// <param name="origin">Selected Vertex</param>
+        /// <returns>Vector2 position</returns>
+        /// <exception cref="Exception">No vertex selected</exception>
         public static Vector2 GetPosFromVertex(Global.Vertex origin)
         {
             switch (origin)

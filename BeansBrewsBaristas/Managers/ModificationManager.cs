@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BeansBrewsBaristas.Managers
 {
+    /// <summary>
+    /// A collection of all the drink modifications
+    /// </summary>
     public static class ModificationManager
     {
         public enum CupControls

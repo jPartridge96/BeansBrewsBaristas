@@ -9,12 +9,21 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.Content.scripts
 {
+    /// <summary>
+    /// An element to display on the Game Screen
+    /// </summary>
     public class UIElement : Sprite
     {
         public Vector2 Origin; // Relative to Local Pos
         public Vector2 Anchor; // Relative to Screen Pos
 
         #region CONSTRUCTORS
+        /// <summary>
+        /// Generates UI element with parameters passed
+        /// </summary>
+        /// <param name="position">Position of Element</param>
+        /// <param name="color">Color of UI</param>
+        /// <param name="texture">Optional texture</param>
         public UIElement(
             Vector2 position,
             Color? color,
@@ -22,6 +31,12 @@ namespace BeansBrewsBaristas.Content.scripts
             base(position, texture, color)
         { }
 
+        /// <summary>
+        /// Generates UI element with parameters passed
+        /// </summary>
+        /// <param name="origin">Position of Element</param>
+        /// <param name="color">Color of UI</param>
+        /// <param name="texture">Optional texture</param>
         public UIElement(
             Global.Vertex origin,
             Color? color,

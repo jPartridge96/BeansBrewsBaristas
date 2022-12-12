@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
+    /// <summary>
+    /// The main menu of the game
+    /// </summary>
     public class MenuComponent : DrawableGameComponent
     {
         private Vector2 position;
@@ -35,16 +38,17 @@ namespace BeansBrewsBaristas.ComponentScripts
         }
         private static int selectedIndex = 0;
 
+        /// <summary>
+        /// Generates a menu with the string given at the location provided
+        /// </summary>
+        /// <param name="game">Current game object</param>
+        /// <param name="menuArray">Array of menu items</param>
+        /// <param name="position">Location of the menu</param>
         public MenuComponent(Game game, string[] menuArray, Vector2 position)
             : base(game)
         {
             this.position = position;
             menuItems = menuArray.ToList();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -71,6 +75,9 @@ namespace BeansBrewsBaristas.ComponentScripts
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Selects a loaded scene based on selectedIndex
+        /// </summary>
         public static void Select()
         {
             switch (SelectedIndex)

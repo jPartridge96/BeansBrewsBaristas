@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
+    /// <summary>
+    /// Carries a drink and will be served when becoming active
+    /// </summary>
     public class Customer : Sprite
     {
         public string Name { get; }
@@ -21,6 +24,14 @@ namespace BeansBrewsBaristas.ComponentScripts
         private Vector2 PosToTravelTo;
 
         #region CONSTRUCTORS
+        /// <summary>
+        /// Creates a customer and generates a name and order for them
+        /// </summary>
+        /// <param name="position">Position on screen</param>
+        /// <param name="texture">Skin of customer</param>
+        /// <param name="color">Color of customer</param>
+        /// <param name="patienceTimer">How much patience they have</param>
+        /// <param name="waitTimer">How long theyve waited</param>
         public Customer(Vector2 position,
             Texture2D texture,
             Color color,
@@ -89,7 +100,7 @@ namespace BeansBrewsBaristas.ComponentScripts
         /// <summary>
         /// Customer travels async towards a specified coordinate
         /// </summary>
-        /// <param name="orderPos">Position for Customer to travel towards</param>
+        /// <param name="travelPos">Position for Customer to travel towards</param>
         /// <returns>Completed Async Task</returns>
         public async Task TravelToPos(Vector2 travelPos)
         {
@@ -119,6 +130,9 @@ namespace BeansBrewsBaristas.ComponentScripts
                 CheckForAction();
         }
 
+        /// <summary>
+        /// Customer checks if it is available to complete a task
+        /// </summary>
         public async void CheckForAction()
         {
             // If Customer is next in line to order, wait 5 seconds and take the order
@@ -131,6 +145,10 @@ namespace BeansBrewsBaristas.ComponentScripts
             }
         }
 
+        /// <summary>
+        /// Overridden string used when the customer is active
+        /// </summary>
+        /// <returns>Formated string including order</returns>
         public override string ToString()
         {
             return $"Item 1 of 1\n" +

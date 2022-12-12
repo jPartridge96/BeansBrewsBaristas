@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BeansBrewsBaristas.Managers
 {
+    /// <summary>
+    /// Controls all the loading and transitioning of the scenes used
+    /// </summary>
     public class SceneManager
     {
         //currently active scene
@@ -41,6 +44,9 @@ namespace BeansBrewsBaristas.Managers
         static Sprite scoreBackground = new Sprite(new Vector2(Global.Stage.X - scoreBackgroundTex.Width, 0), scoreBackgroundTex, Color.White);
         public static TextElement sceneScore = new TextElement($"", new Vector2(scoreBackground.Position.X + 3, scoreBackground.Position.Y), Color.Black);
 
+        /// <summary>
+        /// Instansiates the Atlas used for scene swapping
+        /// </summary>
         private SceneManager()
         {
             Atlas = new Dictionary<string, List<DrawableGameComponent>>()
@@ -135,6 +141,10 @@ namespace BeansBrewsBaristas.Managers
             };
         }
 
+        /// <summary>
+        /// Creates Singleton instance of SceneManager
+        /// </summary>
+        /// <returns>Singleton Instance</returns>
         public static SceneManager GetInstance()
         {
             if (_instance == null)
@@ -142,6 +152,11 @@ namespace BeansBrewsBaristas.Managers
             return _instance;
         }
 
+        /// <summary>
+        /// Loads a scene into the game
+        /// </summary>
+        /// <param name="sceneName">Name of the scene</param>
+        /// <exception cref="Exception">Nno scene was found</exception>
         public static void LoadScene(string sceneName)
         {
             //reset the score on loadscene
@@ -196,6 +211,10 @@ namespace BeansBrewsBaristas.Managers
             }
         }
 
+        /// <summary>
+        /// Unloads a scene from the game
+        /// </summary>
+        /// <param name="scene">Name of the scene</param>
         public static void UnloadScene(object scene)
         {
             CustomerManager.Customers.Clear();

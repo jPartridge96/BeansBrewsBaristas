@@ -14,6 +14,9 @@ using SharpDX.Direct3D9;
 
 namespace BeansBrewsBaristas.ComponentScripts
 {
+    /// <summary>
+    /// The drink to be made when presented to the user
+    /// </summary>
     public class Order
     {
         public const int MAX_MODIFIERS = 5;
@@ -49,6 +52,9 @@ namespace BeansBrewsBaristas.ComponentScripts
         public List<Modification> Modifications = new List<Modification>();
         public List<Keys> PostModKeys = new List<Keys>();
 
+        /// <summary>
+        /// Creates a completed Order and isolates the sprites frames
+        /// </summary>
         public Order()
         {
             GenerateDrinkType();
@@ -58,6 +64,9 @@ namespace BeansBrewsBaristas.ComponentScripts
             CreateFrames();
         }
 
+        /// <summary>
+        /// Randomly generates a drink with modifications
+        /// </summary>
         private void GenerateDrinkType()
         {
             // Grabs all values of type AddinControls
@@ -83,6 +92,9 @@ namespace BeansBrewsBaristas.ComponentScripts
             }
         }
 
+        /// <summary>
+        /// Randomly generates modifications for the drink
+        /// </summary>
         private void GenerateModifications()
         {
             Random rand = new Random();
@@ -90,6 +102,9 @@ namespace BeansBrewsBaristas.ComponentScripts
                 Modifications.Add(new Modification());
         }
 
+        /// <summary>
+        /// Loads needed controls based on DrinkType and Modifications
+        /// </summary>
         private void GetDrinkControls()
         {
             // All takeout drinks get the same cup
@@ -150,6 +165,9 @@ namespace BeansBrewsBaristas.ComponentScripts
                 }
         }
 
+        /// <summary>
+        /// Loads assets based on DrinkType enum
+        /// </summary>
         private void GetDrinkAssets()
         {
             switch (DrinkType)
@@ -212,6 +230,9 @@ namespace BeansBrewsBaristas.ComponentScripts
             }
         }
 
+        /// <summary>
+        /// Creates rectangles of the spritesheet of the AnimatedSprite
+        /// </summary>
         private void CreateFrames()
         {
             DrinkFrames = new List<Rectangle>();
@@ -228,6 +249,10 @@ namespace BeansBrewsBaristas.ComponentScripts
             }
         }
 
+        /// <summary>
+        /// Overridden string that includes all modifications and datetime
+        /// </summary>
+        /// <returns>Formatted string</returns>
         public override string ToString()
         {
             Dictionary<string, int> modifications = new Dictionary<string, int>();
