@@ -23,7 +23,9 @@ namespace BeansBrewsBaristas.Managers
         public Point mousePosition;
         private GraphicsDeviceManager _graphics;
         public static string volume = "25%";
+
         public static Dictionary<Keys, object> modificationKeys;
+        public static int[] DrinkDrawnIndex;
 
         SpriteFont Font;
         Texture2D Instructions;
@@ -213,6 +215,18 @@ namespace BeansBrewsBaristas.Managers
                             Global.Stage.Y / 2 + 15
                         ), Color.Black
                     );
+
+                    // Drink
+                    Texture2D tex = CustomerManager.activeOrder.DrinkAssets[0];
+                    Global.SpriteBatch.Draw(tex,
+                        new Vector2(
+                            Global.Stage.X / 2 - tex.Width / 2,
+                            Global.Stage.Y / 2 - tex.Height / 2
+                        )
+                        , Color.White
+                    );
+
+
                 }
 
                 #region CONTROLS_UI

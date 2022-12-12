@@ -61,7 +61,7 @@ namespace BeansBrewsBaristas.Managers
                 Global.GameManager.Content.Load<Texture2D>("Images/customer7"),
             };
 
-            CreateCustomer();
+            // CreateCustomer();
         }
 
         private static CustomerManager _instance;
@@ -83,6 +83,7 @@ namespace BeansBrewsBaristas.Managers
             // While a level is loaded
             if (SceneManager.ActiveScene != null)
             {
+
                 while (SceneManager.ActiveScene.Contains("Level"))
                 {
                     // If line of customers is below line limit
@@ -93,7 +94,6 @@ namespace BeansBrewsBaristas.Managers
                             GetRandomCustomerAsset(), Color.White,
                             750, 300
                         );
-
                         Customers.Add(cust);
                         EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.LEFT);
                         await Task.Delay(rand.Next(3000, 10000));
@@ -207,6 +207,7 @@ namespace BeansBrewsBaristas.Managers
                 activeOrderKeys.Add((Keys)key);
             }
 
+            GameManager.DrinkDrawnIndex = new int[activeOrder.DrinkAssets.Length];
             return activeOrder;
         }
 
