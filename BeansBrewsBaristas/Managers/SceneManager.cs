@@ -63,10 +63,12 @@ namespace BeansBrewsBaristas.Managers
                         new Sprite(Vector2.Zero, menu, Color.White),
                         new TextElement("Help", new Vector2(350, 125), Color.Black),
                         new TextElement(
-                            "Prepare guests' drinks by\n" +
-                            "pressing the prompted keys.\n\n" +
-                            "Be careful to not assemble\n" +
-                            "their order incorrectly!",
+                            "Prepare guests' drinks: \n" +
+                            "Step 1) Select a Cup\n" +
+                            "Step 2) Add your mods\n" +
+                            "Step 3) Serve Order\n" +
+                            "Becareful not to add\n" +
+                            "the wrong modifications!",
                             new Vector2(350, 160), Color.White),
                     }
                 },
