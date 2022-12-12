@@ -24,8 +24,9 @@ namespace BeansBrewsBaristas.Managers
         private GraphicsDeviceManager _graphics;
         public static string volume = "25%";
 
-        public static Dictionary<Keys, object> modificationKeys;
+        public static Dictionary<Keys, Enum> modificationKeys;
         public static int[] DrinkDrawnIndex;
+        public static List<Rectangle> Frames = new List<Rectangle>();
 
         SpriteFont Font;
         Texture2D Instructions;
@@ -43,24 +44,24 @@ namespace BeansBrewsBaristas.Managers
 
         protected override void Initialize()
         {
-            modificationKeys = new Dictionary<Keys, object>();
+            modificationKeys = new Dictionary<Keys, Enum>();
 
             foreach (var key in Enum.GetValues(typeof(ModificationManager.AddinControls)))
             {
-                modificationKeys.Add((Keys)key, key);
+                modificationKeys.Add((Keys)key, (Enum)key);
             }
             foreach (var key in Enum.GetValues(typeof(ModificationManager.BaseControls)))
             {
-                modificationKeys.Add((Keys)key, key);
+                modificationKeys.Add((Keys)key, (Enum)key);
             }
 
             foreach (var key in Enum.GetValues(typeof(ModificationManager.CupControls)))
             {
-                modificationKeys.Add((Keys)key, key);
+                modificationKeys.Add((Keys)key, (Enum)key);
             }
             foreach (var key in Enum.GetValues(typeof(ModificationManager.TakeoutControls)))
             {
-                modificationKeys.Add((Keys)key, key);
+                modificationKeys.Add((Keys)key, (Enum)key);
             }
 
             // List of mofication keys - compared when pressed in InputManager
@@ -216,15 +217,20 @@ namespace BeansBrewsBaristas.Managers
                         ), Color.Black
                     );
 
+
                     // Drink
                     Texture2D tex = CustomerManager.activeOrder.DrinkAssets[0];
+                    if (DrinkDrawnIndex[0] != -1)
+                    {
                     Global.SpriteBatch.Draw(tex,
                         new Vector2(
-                            Global.Stage.X / 2 - tex.Width / 2,
-                            Global.Stage.Y / 2 - tex.Height / 2
-                        )
+                            Global.Stage.X / 2 - (Frames[DrinkDrawnIndex[0]].Width) / 2,
+                            Global.Stage.Y / 2 - (Frames[DrinkDrawnIndex[0]].Height) / 2
+                        ), Frames[DrinkDrawnIndex[0]]
                         , Color.White
                     );
+                    }
+                    //spriteBatch.Draw(tex, position, frames[frameIndex], Color.White);
 
 
                 }

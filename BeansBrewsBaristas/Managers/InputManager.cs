@@ -43,46 +43,38 @@ namespace BeansBrewsBaristas.Managers
                 {
                     if (GameManager.modificationKeys.ContainsKey(keyPressed) && GameManager.modificationKeys != null)
                     {
-                        Debug.WriteLine(GameManager.modificationKeys.GetValueOrDefault(keyPressed).GetType().ToString());
+                        // Debug.WriteLine(GameManager.modificationKeys.GetValueOrDefault(keyPressed).GetType().ToString());
                         if(activeOrder != null)
                         {
-
+                            Debug.WriteLine("Not Ok");
                             if (activeOrder.Modifications != null && activeOrderKeys.Contains(keyPressed))
                             {
+                                Debug.WriteLine("Ok");
                                 int[] drawnIndex = GameManager.DrinkDrawnIndex;
 
                                 switch (activeOrder.DrinkType)
                                 {
                                     #region COFFEE
                                     case DrinkType.COFFEE:
-                                        switch ((Enum)keyPressed)
+                                        switch (keyPressed)
                                         {
-                                            case CupControls:
-                                                switch(keyPressed)
-                                                {
-                                                    // Place coffee cup
-                                                    case (Keys)CupControls.COFFEE:
-                                                        if (drawnIndex[0] == -1)
-                                                            drawnIndex[0] = 0;
-                                                        break;
-                                                }
+                                            // Place coffee cup
+                                            case (Keys)CupControls.COFFEE:
+                                                Debug.WriteLine("Coffee");
+                                                if (drawnIndex[0] == -1)
+                                                    drawnIndex[0] = 0;
                                                 break;
 
-                                            case BaseControls:
-                                                switch(keyPressed)
-                                                {
-                                                    // If cup placed, add coffee
-                                                    case (Keys)BaseControls.COFFEE:
-                                                        if (drawnIndex[0] == 0)
-                                                            drawnIndex[0] = 1;
-                                                        break;
+                                            // If cup placed, add coffee
+                                            case (Keys)BaseControls.COFFEE:
+                                                if (drawnIndex[0] == 0)
+                                                    drawnIndex[0] = 1;
+                                                break;
 
-                                                    // If coffee added, add creamer
-                                                    case (Keys)BaseControls.CREAMER:
-                                                        if (drawnIndex[0] == 1)
-                                                            drawnIndex[0] = 2;
-                                                        break;
-                                                }
+                                            // If coffee added, add creamer
+                                            case (Keys)BaseControls.CREAMER:
+                                                if (drawnIndex[0] == 1)
+                                                    drawnIndex[0] = 2;
                                                 break;
                                         }
                                         break;

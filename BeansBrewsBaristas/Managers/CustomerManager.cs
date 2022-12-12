@@ -61,7 +61,7 @@ namespace BeansBrewsBaristas.Managers
                 Global.GameManager.Content.Load<Texture2D>("Images/customer7"),
             };
 
-            CreateCustomer();
+            // CreateCustomer();
         }
 
         private static CustomerManager _instance;
@@ -83,7 +83,7 @@ namespace BeansBrewsBaristas.Managers
             // While a level is loaded
             if (SceneManager.ActiveScene != null)
             {
-                while (SceneManager.ActiveScene.Contains("Level"))
+                if (SceneManager.ActiveScene.Contains("Level"))
                 {
                     // If line of customers is below line limit
                     if (Customers.Count < CUST_LIMIT && OrderQueue.Count < QUEUE_LIMIT)
@@ -99,7 +99,9 @@ namespace BeansBrewsBaristas.Managers
                         EnterQueue(cust, OrderQueue, Global.Stage.X / 8 * 3, QueueDirection.LEFT);
                         AudioManager.PlaySound("CatMeow");
                         await Task.Delay(rand.Next(3000, 10000));
+                        CreateCustomer();
                     }
+                    
                 }
             }
         }
@@ -209,6 +211,11 @@ namespace BeansBrewsBaristas.Managers
                 activeOrderKeys.Add((Keys)key);
             }
 
+            foreach (Keys key in activeOrderKeys)
+                Debug.WriteLine(key.ToString());
+
+            GameManager.DrinkDrawnIndex = new int[activeOrder.DrinkAssets.Length];
+            GameManager.DrinkDrawnIndex[0] = -1;
             return activeOrder;
         }
 
@@ -222,8 +229,12 @@ namespace BeansBrewsBaristas.Managers
 
 
                 Orders.Add(cust.Order);
-                setActiveOrder(PickupQueue.ToList()[0].Order);
-                AudioManager.PlaySound("Ding");
+                if(activeOrder == null)
+                {
+                    setActiveOrder(PickupQueue.ToList()[0].Order);
+                    AudioManager.PlaySound("Ding");
+                }
+                
 
                 // Update positon for all in OrderQueue
                 foreach (Customer customer in OrderQueue)
@@ -236,12 +247,6 @@ namespace BeansBrewsBaristas.Managers
                 }
             }
         }
-
-        // Use to determine what modifications are able to go on what drinks?
-        //public static Order GetCustomerOrder()
-        //{
-        //    return new Order();
-        //}
 
         public static List<Customer> Customers = new List<Customer>();
         public static List<Order> Orders = new List<Order>();
