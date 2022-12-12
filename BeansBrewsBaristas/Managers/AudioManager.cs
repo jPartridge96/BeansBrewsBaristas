@@ -12,10 +12,15 @@ namespace BeansBrewsBaristas.Managers
         private AudioManager()
         {
             // AudioManager loads SoundEffects from GameManager
+
             _soundLibrary = new Dictionary<string, SoundEffect>()
             {
                 {"MenuScrollSound", LoadSound("scrollSound") },
-                {"MenuSelectSound", LoadSound("menuSelect") }
+                {"MenuSelectSound", LoadSound("menuSelect") },
+                {"CatMeow", LoadSound("customerSound") },
+                {"SyrupSquirt", LoadSound("squirt") },
+                {"Ding", LoadSound("orderDing") },
+                {"Liquid", LoadSound("coffeePour") }
             };
 
             // AudioManager loads Songs from GameManager
@@ -28,7 +33,7 @@ namespace BeansBrewsBaristas.Managers
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = .25f;
-            SoundEffect.MasterVolume = .25f;
+            SoundEffect.MasterVolume = .50f;
         }
         
 
